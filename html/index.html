@@ -1,73 +1,77 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Almacén</title>
-
-    <link rel="stylesheet" href="estilo.css" />
-
-    <!--Usar style background-color como color de fondo-->
-  
-    <h1 style="color: rgb(10, 20, 158);">SISTEMA ALMÁCEN</h1>
-
-    <!--<h1 style="color: rgb(197, 59, 156);">agrega color al texto con style,color->H1</h1>
-    <a href="file:///d%3A/SENA/Sistema_Almacen/Almac%C3%A9n/html/index.html">INICIO</a>
-    <a href="https://www.w3schools.com">MODULOS</a>
-    <a href="https://www.w3schools.com">CONTACTO</a>
-    <a href="https://www.w3schools.com">SOBRE NOSOTROS</a>-->
-
-    <button style="position: fixed;" a href="file:///d%3A/SENA/Sistema_Almacen/Almac%C3%A9n/html/index.html">INICIO</button>
-    <button>MODULOS</button>
-    <button>CONTACTO</button>
-    <button>SOBRE SOMOS</button>
-    <a href="file:///d%3A/SENA/Sistema_Almacen/Almac%C3%A9n/html/index.html" target="_blank">abrir en otra pestaña o ventana</a>
-    <img src="img/descarga.jpg" alt="No se ha podido mostrar la imagen" style="float:right ; width: 100px; height: 250px; ">
-    
-    <img src="D:\SENA\Sistema_Almacen\Almacén\img\descarga (8).jpg" width="500" height="400">
-    
-<!--<h1 style="background-color: brown;">Texto1</h1>
-<h2 style="background-color: rgb(92, 67, 67);">Texto2</h2>
-<h3 style="background-color: aqua;">Texto3</h3>
-<h4 style="background-color: blue;">Texto4</h4>
-<h5 style="background-color: blueviolet;">Texto5</h5>
-<h6 style="background-color: rgb(16, 226, 86);">Texto6</h6>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema De Almacén</title>
+  <link rel="stylesheet" href="C:\Practica\PAgiNA\css\estilo.css">
 </head>
-para usar el text align centrar o colocar derecha izquierda,color color al texto,background-color 
-fondo del texto,font size tamaño texto,font family estilo letra.se debe utilizar el style-->
-
-<body style="background-color:rgb(255, 255, 255);"> <!--fondo pagina-->
+<body>
+  <div class="container">
+    <h1 style="font-size: 20px;">Bienvenido a almacen</h1>
     
-</body>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accesorios Raider 125</title>
+    <div id="login-section">
+      <h2 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;" style="color: rgb(158, 44, 252);">Iniciar Sesión</h2>
+      <form id="loginForm">
+        <label for="role">Selecciona Rol:</label>
+        <select id="role" required>
+          <option value="">--Selecciona--</option>
+          <option value="admin">Administrador</option>
+          <option value="almacenista">Almacenista</option>
+          <option value="instructor">Instructor</option>
+        </select>
+        <br><br>
+      
+      </form>
+    </div>
+    <!--
+    <form action="/procesar-login" method="POST">
+    <label for="username" style="font-family: 'Times New Roman', Times, serif;">Nombre de usuario:</label>
+    <input type="text" id="username" name="username" required><br><br>
 
-    <link rel="stylesheet" href="estiloo.css" />
+    <label for="password" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Contraseña:</label>
+    <input type="password" id="password" name="password" required><br><br>-->
 
-    <!--Usar style background-color como color de fondo-->
-  
-    <h1 style="background-color: blueviolet;">Encuentra lo que buscas</h1>
 
-    <h1 style="color: rgb(197, 59, 156);"><!--agrega color al texto con style,color-->H1</h1>
-    <a href="https://www.w3schools.com">Esto es un link</a>
+    <form action="/procesar-login" method="POST">
+      <label for="username" style="font-family: 'Times New Roman', Times, serif;">Nombre de usuario:</label>
+      <input type="text" id="username" name="username" required style="border: 2px solid black; border-radius: 20px;"><br><br>
     
-    <img src="d:\SENA\CREANDO PAGINA\Practico\IMG\paisaje.jpg" width="500" height="400">
-
-<h1 style="background-color: brown;">Texto1</h1>
-<h2 style="background-color: rgb(92, 67, 67);">Texto2</h2>
-<h3 style="background-color: aqua;">Texto3</h3>
-<h4 style="background-color: blue;">Texto4</h4>
-<h5 style="background-color: blueviolet;">Texto5</h5>
-<h6 style="background-color: rgb(16, 226, 86);">Texto6</h6>
-</head>
-<!--para usar el text align centrar o colocar derecha izquierda,color color al texto,background-color 
-fondo del texto,font size tamaño texto,font family estilo letra.se debe utilizar el style-->
-
-<body style="background-color:rgb(110, 9, 9);"> <!--fondo pagina-->
+      <label for="password" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Contraseña:</label>
+      <input type="password" id="password" name="password" required style="border: 2px solid black; border-radius: 20px" ><br><br>
     
+      <button type="submit">Iniciar sesión</button>
+    </form>
+    
+
+
+    <!--<button type="submit">Iniciar sesión</button>-->
+    
+    <div id="admin-dashboard" class="hidden">
+      <h2 style="font-family: 'Times New Roman', Times, serif;">Opciones de Administrador</h2>
+      <button onclick="viewLoans()">Ver Préstamos</button>
+      <button onclick="manageUsers()">Gestionar Usuarios</button>
+      <button onclick="viewInventory()">Generar Paz y Salvos</button>
+      <button onclick="logout()">Reportar un problema</button> 
+    </div>
+    
+    <div id="almacenista-dashboard" class="hidden">
+      <h2 style="font-family: 'Times New Roman', Times, serif;">Opciones de Almacenista</h2>
+      <button onclick="manageInventory()">Gestionar Inventario</button>
+      <button onclick="manageInventory()">Devolutivos Disponibles</button>
+      <button onclick="manageInventory()">No Devolutivos Disponibes</button>
+      <button onclick="manageInventory()">Redactar Novedad</button>   
+      <button onclick="logout()">Generar Reporte al desarrollador</button>
+    </div>
+    
+    <div id="instructor-dashboard" class="hidden">
+      <h2 style="font-family: 'Times New Roman', Times, serif;">Opciones de Instructor</h2>
+      <button onclick="requestLoan()">Solicitar Préstamo</button>
+      <button onclick="viewLoans()">Consultar Equipos Disponibles</button>
+      <button onclick="logout()">Descargar Mi Paz Y Salvos</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
