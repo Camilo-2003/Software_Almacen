@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Almacén - Sistema de Gestión</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">Almacén</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto" id="menu">
+                    <!-- Menú dinámico basado en el rol -->
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido Principal -->
+    <div class="container mt-5">
+        <h2 id="welcomeMessage" class="text-center">Bienvenido</h2>
+        <div class="row mt-4" id="dashboard">
+            <!-- Opciones según el rol -->
+        </div>
+    </div>
+
+    <script>
+        // Simulación de autenticación
+        const usuario = {
+            nombre: "Juan Pérez",
+            rol: "Administrador" // Cambia a "Almacenista" o "Instructor" para probar
+        };
+
+        document.getElementById("welcomeMessage").innerText = `Bienvenido, ${usuario.nombre}`;
+
+        const menu = document.getElementById("menu");
+        const dashboard = document.getElementById("dashboard");
+
+        // Opciones según rol
+        const opciones = {
+            "Administrador": [
+                { titulo: "Usuarios", icono: "👤", enlace: "#usuarios" },
+                { titulo: "Reportes", icono: "📊", enlace: "#reportes" },
+                { titulo: "Configuración", icono: "⚙️", enlace: "#configuracion" }
+            ],
+            "Almacenista": [
+                { titulo: "Inventario", icono: "📦", enlace: "#inventario" },
+                { titulo: "Entradas", icono: "📥", enlace: "#entradas" },
+                { titulo: "Salidas", icono: "📤", enlace: "#salidas" }
+            ],
+            "Instructor": [
+                { titulo: "Solicitudes", icono: "📝", enlace: "#solicitudes" },
+                { titulo: "Historial", icono: "📜", enlace: "#historial" }
+            ]
+        };
+
+        // Renderizar menú y opciones
+        if (opciones[usuario.rol]) {
+            opciones[usuario.rol].forEach(op => {
+                menu.innerHTML += `<li class="nav-item"><a class="nav-link" href="${op.enlace}">${op.titulo}</a></li>`;
+                dashboard.innerHTML += `
+                    <div class="col-md-4">
+                        <div class="card text-center p-3 shadow-sm">
+                            <h5>${op.icono}</h5>
+                            <h6>${op.titulo}</h6>
+                            <a href="${op.enlace}" class="btn btn-primary mt-2">Ir</a>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
