@@ -1,106 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Configuración</title>
-    <link rel="stylesheet" href="D:\SENA\Sistema_Almacen\Software_Almacen\Css\conf.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="D:\SENA\Sistema_Almacen\Software_Almacen\Css\conf.css">
+    <title>Configuración | Almacén</title>
+    <link rel="stylesheet" href="D:/SENA/Sistema_Almacen/Software_Almacen/Css/conf.css">
 </head>
-<body>
+<body style="background-color: rgb(89, 212, 96);">
+    <header>
+        <h1>Configuración del Sistema</h1>
+        <nav>
+            <a href="#">Cuenta</a>
+            <a href="#">Dispositivo</a>
+            <a href="#">Sobre nosotros</a>
+            <a href="#">Más</a>
+        </nav>
+    </header>
 
-   <!-- <div class="container mt-5">
-        <h2 id="welcomeMessage" class="text-center">Bienvenido</h2>
-        <div class="row mt-4" id="dashboard">
-             Opciones según el rol 
-        </div>
-    </div>
--->
-
-
-
-
-
- <!-- Navbar -->
- <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container">
-        <a class="navbar-brand" href="#">Almacén</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto" id="menu">
-                <!-- Menú dinámico basado en el rol -->
+    <main class="config-container">
+        <section class="config-option">
+            <h2>🔐 Configuración de Cuenta</h2>
+            <ul>
+                <li><a href="#">Cambiar Contraseña</a></li>
+                <li><a href="#">Actualizar Perfil</a></li>
+                <li><a href="#">Gestión de Usuarios</a></li>
             </ul>
-        </div>
-    </div>
-</nav>
+        </section>
 
-<!-- Contenido Principal -->
-<div class="container mt-5">
-    <h2 id="welcomeMessage" class="text-center">Bienvenido</h2>
-    <div class="row mt-4" id="dashboard">
-        <!-- Opciones según el rol -->
-    </div>
-</div>
+        <section class="config-option">
+            <h2>📦 Configuración de Inventarios</h2>
+            <ul>
+                <li><a href="#">Categorías de Productos</a></li>
+                <li><a href="#">Alertas de Stock</a></li>
+                <li><a href="#">Métodos de Entrada y Salida</a></li>
+            </ul>
+        </section>
 
-<script>
-    // Simulación de autenticación
-    const usuario = {
-        nombre: "",
-        rol: "Administrador" // Cambia a "Almacenista" o "Instructor" para probar
-    };
+        <section class="config-option">
+            <h2>📋 Configuración de Préstamos</h2>
+            <ul>
+                <li><a href="#">Definir Plazos</a></li>
+                <li><a href="#">Control de Stock</a></li>
+                <li><a href="#">Historial de Préstamos</a></li>
+            </ul>
+        </section>
 
-    document.getElementById("welcomeMessage").innerText = `Bienvenid@ ${usuario.nombre}`;
-
-    const menu = document.getElementById("menu");
-    const dashboard = document.getElementById("dashboard");
-
-    // Opciones según rol
-    const opciones = {
-        "Administrador": [
-            { titulo: "Usuarios", icono: "👤", enlace: "#usuarios" },
-            { titulo: "Reportes", icono: "📊", enlace: "#reportes" },
-            { titulo: "Configuración", icono: "⚙️", enlace: "#configuracion" }
-        ],
-        "Almacenista": [
-            { titulo: "Inventario", icono: "📦", enlace: "#inventario" },
-            { titulo: "Entradas", icono: "📥", enlace: "#entradas" },
-            { titulo: "Salidas", icono: "📤", enlace: "#salidas" }
-        ],
-        "Instructor": [
-            { titulo: "Solicitudes", icono: "📝", enlace: "#solicitudes" },
-            { titulo: "Historial", icono: "📜", enlace: "#historial" }
-        ]
-    };
-
-    // Renderizar menú y opciones
-    if (opciones[usuario.rol]) {
-        opciones[usuario.rol].forEach(op => {
-            menu.innerHTML += `<li class="nav-item"><a class="nav-link" href="${op.enlace}">${op.titulo}</a></li>`;
-            dashboard.innerHTML += `
-                <div class="col-md-4">
-                    <div class="card text-center p-3 shadow-sm">
-                        <h5>${op.icono}</h5>
-                        <h6>${op.titulo}</h6>
-                        <a href="${op.enlace}" class="btn btn-primary mt-2">Ir</a>
-                    </div>
-                </div>
-            `;
-        });
-    }
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
-
-
-
-
-
-
-
-
+        <section class="config-option">
+            <h2>🔔 Configuración de Notificaciones</h2>
+            <ul>
+                <li><a href="#">Alertas por Email</a></li>
+                <li><a href="#">Recordatorios de Devolución</a></li>
+                <li><a href="#">Novedades y Actualizaciones</a></li>
+            </ul>
+        </section>
+    </main>
 </body>
 </html>
