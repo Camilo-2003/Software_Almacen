@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido-Almacenista</title>
+    <style>
+        body {
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            background-color: #000000;
+            font-size: 1em;
+            color: rgb(17, 179, 57);
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            animation: slideDown 1s ease-in-out;
+        }
+
+        h1 {
+        font-size: 40px;
+        font-family: Stencil;
+        }
+
+        .logo {
+            height: 80px;
+            margin-right: 20px;
+        }
+        @keyframes slideDown {
+            from { transform: translateY(-100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .container {
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 20px;
+            background: rgb(0, 0, 0);
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .option {
+            display: block;
+            padding: 15px;
+            font-size: 1.2em;
+            background: #0a7906;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .option:hover {
+            background: #04310e;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="D:\SENA\Sistema_Almacen\Software_Almacen\Img\logo_sena.png" alt="Logo Sena" class="logo">
+        <h1>📦 Sistema de Almacén</h1>
+    </header>
+    <main class="container">
+        <h3>¿Qué deseas hacer hoy?</h3>
+        <div class="options">
+            <a href="préstamos.html" class="option">📤 Registrar Préstamos</a>
+            <a href="Inventario.html" class="option">📋 Gestionar Inventario</a>
+            <a href="#" class="option">🔄 Confirmar Devoluciones</a>
+            <a href="#" class="option">🛠️ Reportar Novedades</a>
+            <a href="GestionUsuarios.html" class="option">👥 Gestionar Usuarios</a>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventario de Almacén</title>
+    <style>
+        body {
+            overflow-x: hidden;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        header {
+            width: 100%; /* Ocupa todo el ancho de la pantalla */
+            height: 150px; /* Ajusta la altura según sea necesario */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            background-color: #000000;
+            font-size: 1em;
+            color: rgb(17, 179, 57);
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            animation: slideDown 1s ease-in-out;
+            margin: 0; /* Elimina márgenes */
+        }
+
+        h1 {
+        font-size: 40px;
+        font-family: Stencil;
+        }
+
+        .logo {
+            height: 80px;
+            margin-right: 20px;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            margin-top: 30px; /* Ajuste para evitar que quede pegado al header */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .status {
+            font-weight: bold;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        .available {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .unavailable {
+            background-color: #dc3545;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="D:\SENA\Sistema_Almacen\Software_Almacen\Img\logo_sena.png" alt="Logo Sena" class="logo">
+        <h1>📋 Gestiona tu inventario</h1>
+    </header>
+
+    <div class="container">
+        <h2>Inventario</h2>
+        
+        <label>Nombre del Material:</label>
+        <input type="text" id="material" placeholder="Ej. Laptop, Papel">
+        <label>Cantidad:</label>
+        <input type="number" id="cantidad" min="1" value="1">
+        <button onclick="agregarInventario()">Agregar</button>
+        
+        <h3>Inventario Disponible</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Material</th>
+                    <th>Cantidad</th>
+                    <th>Estado</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody id="inventario"></tbody>
+        </table>
+        
+        <h3>Historial de Movimientos</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Material</th>
+                    <th>Cantidad</th>
+                    <th>Fecha</th>
+                    <th>Hora</th>
+                    <th>Tipo</th>
+                </tr>
+            </thead>
+            <tbody id="historial"></tbody>
+        </table>
+    </div>
+
+    <script>
+        let inventario = {};
+        
+        function actualizarTabla() {
+            let tbody = document.getElementById("inventario");
+            tbody.innerHTML = "";
+            
+            for (let material in inventario) {
+                let cantidad = inventario[material];
+                let estado = cantidad > 0 ? "Disponible" : "No disponible";
+                let estadoClase = cantidad > 0 ? "available" : "unavailable";
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${material}</td>
+                        <td>${cantidad}</td>
+                        <td class="status ${estadoClase}">${estado}</td>
+                        <td><button onclick="prestar('${material}')">Prestar</button></td>
+                    </tr>`;
+            }
+        }
+        
+        function agregarInventario() {
+            let material = document.getElementById("material").value;
+            let cantidad = parseInt(document.getElementById("cantidad").value);
+            if (!material || cantidad <= 0) return alert("Ingrese datos válidos");
+            
+            inventario[material] = (inventario[material] || 0) + cantidad;
+            registrarHistorial(material, cantidad, "Entrada");
+            actualizarTabla();
+            document.getElementById("material").value = "";
+        }
+        
+        function prestar(material) {
+            if (inventario[material] > 0) {
+                inventario[material]--;
+                registrarHistorial(material, 1, "Salida");
+                actualizarTabla();
+            } else {
+                alert("No hay suficiente stock");
+            }
+        }
+        
+        function registrarHistorial(material, cantidad, tipo) {
+            let fecha = new Date();
+            let fechaStr = fecha.toLocaleDateString();
+            let horaStr = fecha.toLocaleTimeString();
+            
+            document.getElementById("historial").innerHTML += `
+                <tr>
+                    <td>${material}</td>
+                    <td>${cantidad}</td>
+                    <td>${fechaStr}</td>
+                    <td>${horaStr}</td>
+                    <td>${tipo}</td>
+                </tr>`;
+        }
+    </script>
+</body>
+</html>
