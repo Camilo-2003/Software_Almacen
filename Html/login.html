@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="Img/logo_sena.png" type="image/x-icon">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar Sesión</title>
+  <link rel="stylesheet" href="Css/login.css">
+</head>
+<body>
+  <header>
+    <img src="Img/logo_sena.png" alt="Logo Sena" class="logo">
+    <h1>📦 Sistema de Almacén</h1>
+  </header>
+
+  
+  <div class="container">
+    <h3>Iniciar Sesión <img src="Img/programming.gif"></a></h3>
+    <form id="loginForm">
+      <input type="text" id="username" name="username" placeholder="Nombre de usuario" required>
+      <input type="password" id="password" name="password" placeholder="Contraseña" required>
+      <button type="submit">Ingresar</button>
+    </form>
+  </div>
+  
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      window.location.href = "almacenista.html";
+    });
+  </script>
+</body>
+</html>

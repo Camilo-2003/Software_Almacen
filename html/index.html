@@ -2,69 +2,38 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>📦Almacén</title>
-  <link rel="stylesheet" href="D:/SENA/Sistema_Almacen/Software_Almacen/Css/index.css">
+  <link rel="icon" href="Img/logo_sena.png" type="image/x-icon">
+  <title>Almacén</title>
+  <link rel="stylesheet" href="Css/index.css">
 </head>
 <body>
-
-  <!-- Header con Logo e Imagen -->
   <header>
-    <div class="image-container">
-      <img src="../img/sena.png" alt="Logo Sena">
-      
-    </div>
-    <h1>ALMACÉN</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="configuración.html">Configuración</a>
-    </nav>
+    <img src="Img\logo_sena.png" alt="Logo Sena" class="logo">
+    <h1>📦 Sistema Almacén</h1>
   </header>
-  
-</body>
-<h2>Bienvenido</h2>
-  <!-- Contenedor del Login -->
-  <div class="container">
-   
-    <h3>Iniciar Sesión</h3>
 
-    <form id="loginForm">
-      <label for="role">Selecciona Rol:</label>
-      <select id="role" required>
-        <option value="">Selecciona</option>
-        <option value="administrador">Administrador</option>
-        <option value="almacenista">Almacenista</option>
-        <option value="instructor">Instructor</option>
-      </select>
-
-      <label for="username">Nombre de usuario:</label>
-      <input type="text" id="username" name="username" required>
-
-      <label for="password">Contraseña:</label>
-      <input type="password" id="password" name="password" required>
-
-      <button type="submit">Ingresar</button>
-    </form>
+  <div class="button-container">
+    <a href="login.html" class="access-button">Acceder al Sistema</a>
+    <a href="index.html" class="access-button">Home</a>
+    <a href="Contacto.html" class="access-button">Contacto</a>
+    <a href="SobreNosotros.html" class="access-button">Sobre Nosotros</a>
   </div>
-
-  <script>
-    document.getElementById("loginForm").addEventListener("submit", function(event) {
-      event.preventDefault(); // Evita el envío del formulario
-
-      const role = document.getElementById("role").value;
-
-      // Redirigir según el rol seleccionado
-      if (role === "administrador") {
-        window.location.href = "administrador.html";
-      } else if (role === "almacenista") {
-        window.location.href = "almacenista.html";
-      } else if (role === "instructor") {
-        window.location.href = "instructor.html";
-      } else {
-        alert("Por favor, selecciona un rol válido.");
-      }
-    });
-  </script>
-
+  
+  <div class="container">
+    <h2>Bienvenido Al Sistema De Almacén</h2>
+    <p class="info">
+      Este sistema permite gestionar el inventario de equipos y materiales del almacén, realizar préstamos 
+      de equipos, y materiales que se clasifican entre consumibles y no consumibles, y registrar novedades.
+      Para acceder a todas las funciones, <span style="color: #1a4a7c;">inicie sesión.</span>
+    </p>
+    
+    <div class="carousel">
+      <img src="Img/img1.webp" class="active" alt="Inventario del almacén" style="height: 25em; width: 50em;">
+      <img src="Img/img2.webp" alt="Gestión de préstamos" style="height: 25em; width: 50em;">
+      <img src="Img/img3.webp" alt="Administración del sistema" style="height: 25em; width: 50em;">
+    </div>
+  </div>
+  
+  <script src="D:\SENA\Sistema_Almacen\Software_Almacen\Js\index.js"></script>
 </body>
 </html>

@@ -1,0 +1,79 @@
+body {
+    overflow-x: hidden;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    width: 100%; /* Ocupa todo el ancho de la pantalla */
+    height: 150px; /* Ajusta la altura según sea necesario */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    background-color: #000000;
+    font-size: 1em;
+    color: rgb(17, 179, 57);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    animation: slideDown 1s ease-in-out;
+    margin: 0; /* Elimina márgenes */
+}
+
+h1 {
+font-size: 40px;
+font-family: Stencil;
+animation:slideDown 2s ease-in-out;
+}
+
+.logo {
+    height: 100px;
+    margin-right: 20px;
+    animation:slideDown 2s ease-in-out;
+}
+
+@keyframes slideDown {
+    from { transform: translateY(-100px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin-top: 30px; /* Ajuste para evitar que quede pegado al header */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+.status {
+    font-weight: bold;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.available {
+    background-color: #28a745;
+    color: white;
+}
+
+.unavailable {
+    background-color: #dc3545;
+    color: white;
+}
