@@ -4,7 +4,8 @@ body {
     margin: 0;
     padding: 0;
     /*background: url(fondo.jpg);*/
-    background-color: #f4f4f4;
+    /*background: linear-gradient(to right, #4CAF50, #000000); posble2do fondo*/
+    background: radial-gradient(circle, #4CAF50, #000000);
     overflow: hidden;
   }
 

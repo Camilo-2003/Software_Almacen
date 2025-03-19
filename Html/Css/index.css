@@ -1,34 +1,33 @@
-body {
+    body {
       font-family: Arial, sans-serif;
       text-align: center;
       margin: 0;
       padding: 0;
-      background-color: #f4f4f4;
+      background: radial-gradient(circle, #4CAF50, #000000);
     }
-
     h1 {
         font-size: 40px;
         font-family: Stencil;
         animation:slideDown 2s ease-in-out;
     }
-
     header {
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
       padding: 3px;
       background-color: #000000;
       font-size: 1em;
       color: rgb(17, 179, 57);
       animation: slideDown 2s ease-in-out;
     }
-
     @keyframes slideDown {
       from { transform: translateY(-100px); opacity: 0; }
       to { transform: translateY(0); opacity: 1; }
     }
-
-
+    .left-section {
+      display: flex;
+      align-items: center; 
+    }
     .logo {
       height: 100px;
       margin-right: 20px;
@@ -38,22 +37,16 @@ body {
       margin: 50px auto;
       max-width: 900px;
     }
-
     .info {
       text-align: justify;
       font-size: 1.3em;
       margin-bottom: 30px;
     }
-
-    
     .button-container {
-      display: center;
+      display: flex;
       justify-content: flex-end; 
       margin: 10px 30px;
-      
     }
-
-
     .access-button {
       padding: 10px 20px;
       font-size: 1em;
@@ -63,10 +56,10 @@ body {
       border-radius: 5px;
       display: inline-block;
     }
+
     .access-button:hover {
       background: #4c4b52;
-  }
-
+    }
     .carousel {
       position: relative;
       max-width: 1000px;
@@ -81,4 +74,8 @@ body {
     }
     .carousel img.active {
       display: block;
+    }
+    .span {
+      color: blue;
+      text-decoration: none;
     }

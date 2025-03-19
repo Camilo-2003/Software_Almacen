@@ -22,7 +22,7 @@
         <label>Especialidad:</label>
         <input type="text" id="especialidad" placeholder="Área de Especialización">
         <br><br>
-        <button onclick="agregarInstructor()">Agregar Instructor</button>
+        <button onclick="agregarInstructor()" class="button1">Agregar Instructor</button>
     </div>
     
     <h2>Lista de Instructores</h2>
@@ -59,7 +59,7 @@
                         <td contenteditable="true" onblur="editarInstructor(${index}, 'correo', this.textContent)">${inst.correo}</td>
                         <td contenteditable="true" onblur="editarInstructor(${index}, 'telefono', this.textContent)">${inst.telefono}</td>
                         <td contenteditable="true" onblur="editarInstructor(${index}, 'especialidad', this.textContent)">${inst.especialidad}</td>
-                        <td><button onclick="eliminarInstructor(${index})">Eliminar</button></td>
+                        <td><button onclick="eliminarInstructor(${index})" class="button2">Eliminar</button></td>
                     </tr>`;
             });
         }

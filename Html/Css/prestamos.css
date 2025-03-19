@@ -1,7 +1,7 @@
 body {
     overflow-x: hidden;
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background: radial-gradient(circle, #4CAF50, #000000);
     text-align: center;
     margin: 0;
     padding: 0;
