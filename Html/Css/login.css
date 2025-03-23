@@ -80,3 +80,17 @@ body {
     background: #0056b3;
     transform: scale(1.05);
   }
+
+  a {
+    text-decoration: none; /* Quitamos el subrayado */
+    color: #000; /* Color negro */
+    font-weight: bold;
+    font-size: 17px;
+    transition: color 0.3s, border-bottom 0.3s;
+    border-bottom: 2px solid transparent; /* Para efecto en hover */
+  }
+
+   a:hover {
+    color: #007bff; 
+    border-bottom: 2px solid #007bff; 
+  }

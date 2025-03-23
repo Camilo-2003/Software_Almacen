@@ -27,7 +27,7 @@ th, td {
     text-align: center;
 }
 .button1 {
-    background: #0e1077;
+    background: #999999;
     color: white;
     border: none;
     padding: 5px 10px;
@@ -35,10 +35,10 @@ th, td {
     border-radius: 5px;
 }
 .button1:hover{
-    background: rgb(32, 158, 216);
+    background: blue;
 }
 .button2 {
-    background: red;
+    background: #999999;
     color: white;
     border: none;
     padding: 5px 10px;
@@ -46,5 +46,5 @@ th, td {
     border-radius: 5px;
 }
 button:hover {
-    background: rgb(197, 10, 50);
+    background: red;
 }

@@ -36,7 +36,7 @@ animation:slideDown 2s ease-in-out;
     max-width: 700px;
     margin: 50px auto;
     padding: 20px;
-    background: rgb(0, 0, 0);
+    background: rgb(255, 255, 255);
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
@@ -50,12 +50,12 @@ animation:slideDown 2s ease-in-out;
     display: block;
     padding: 15px;
     font-size: 1.2em;
-    background: #0a7906;
-    color: white;
+    background: #000000;
+    color: rgb(17, 179, 57);
     text-decoration: none;
     border-radius: 5px;
     transition: 0.3s;
 }
 .option:hover {
-    background: #04310e;
+    background: #6f7770;
 }
