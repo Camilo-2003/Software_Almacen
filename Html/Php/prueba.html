@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Préstamo</title>
+</head>
+<body>
+    <h2>Registrar Préstamo</h2>
+
+    <form method="POST" action="pppprueba.php">
+        <label>Tipo de Préstamo:</label>
+        <select name="tipo" id="tipo" onchange="cargarMateriales()">
+            <option value="">Seleccionar</option>
+            <option value="Consumible">Consumible</option>
+            <option value="No_Consumible">No Consumible</option>
+        </select>
+        <br><br>
+
+        <label>Material/Equipo:</label>
+        <select name="material" id="material">
+            <option value="">Seleccionar</option>
+        </select>
+        <br><br>
+
+        <label>Cantidad:</label>
+        <input type="number" name="cantidad" id="cantidad" min="1" value="1">
+        <br><br>
+
+        <label>Instructor:</label>
+        <input type="text" name="instructor" id="instructor" placeholder="Nombre del Instructor" required>
+        <br><br>
+
+        <button type="submit">Prestar</button>
+    </form>
+
+    <br><br>
+    <a href="historial.php" style="padding: 10px 20px; background-color: green; color: white; text-decoration: none; border-radius: 5px;">📄 Ver Historial de Préstamos</a>
+
+    <script>
+        const inventario = {
+            Consumible: ["Papel", "Tinta", "Marcadores"],
+            No_Consumible: ["Laptop", "Proyector", "Impresora"]
+        };
+
+        function cargarMateriales() {
+            let tipo = document.getElementById("tipo").value;
+            let materialSelect = document.getElementById("material");
+            materialSelect.innerHTML = "<option value=''>Seleccionar</option>";
+
+            if (tipo && inventario[tipo]) {
+                inventario[tipo].forEach(item => {
+                    let option = document.createElement("option");
+                    option.value = item;
+                    option.textContent = item;
+                    materialSelect.appendChild(option);
+                });
+            }
+        }
+    </script>
+</body>
+</html>

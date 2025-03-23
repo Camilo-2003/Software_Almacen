@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="Img/logo_sena.png" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventario de Almacén</title>
+    <link rel="stylesheet" href="Css/inventario.css">
+</head>
+<body>
+
+    <header>
+        <img src="Img/logo_sena.png" alt="Logo Sena" class="logo">
+        <h1>📋 Gestiona tu inventario</h1>
+    </header>
+
+    <div class="container">
+        <h2>Inventario</h2>
+        
+        <label>Nombre del Material:</label>
+        <input type="text" id="material" placeholder="Ej. Laptop, Papel">
+        <label>Cantidad:</label>
+        <input type="number" id="cantidad" min="1" value="1">
+        <button onclick="agregarInventario()">Agregar</button>
+        
+        <h3>Inventario Disponible</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Material</th>
+                    <th>Cantidad</th>
+                    <th>Estado</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody id="inventario"></tbody>
+        </table>
+        
+        <h3>Historial de Movimientos</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Material</th>
+                    <th>Cantidad</th>
+                    <th>Fecha</th>
+                    <th>Hora</th>
+                    <th>Tipo</th>
+                </tr>
+            </thead>
+            <tbody id="historial"></tbody>
+        </table>
+    </div>
+
+    <script>
+        let inventario = {};
+        
+        function actualizarTabla() {
+            let tbody = document.getElementById("inventario");
+            tbody.innerHTML = "";
+            
+            for (let material in inventario) {
+                let cantidad = inventario[material];
+                let estado = cantidad > 0 ? "Disponible" : "No disponible";
+                let estadoClase = cantidad > 0 ? "available" : "unavailable";
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${material}</td>
+                        <td>${cantidad}</td>
+                        <td class="status ${estadoClase}">${estado}</td>
+                        <td><button onclick="prestar('${material}')">Prestar</button></td>
+                    </tr>`;
+            }
+        }
+        
+        function agregarInventario() {
+            let material = document.getElementById("material").value;
+            let cantidad = parseInt(document.getElementById("cantidad").value);
+            if (!material || cantidad <= 0) return alert("Ingrese datos válidos");
+            
+            inventario[material] = (inventario[material] || 0) + cantidad;
+            registrarHistorial(material, cantidad, "Entrada");
+            actualizarTabla();
+            document.getElementById("material").value = "";
+        }
+        
+        function prestar(material) {
+            if (inventario[material] > 0) {
+                inventario[material]--;
+                registrarHistorial(material, 1, "Salida");
+                actualizarTabla();
+            } else {
+                alert("No hay suficiente stock");
+            }
+        }
+        
+        function registrarHistorial(material, cantidad, tipo) {
+            let fecha = new Date();
+            let fechaStr = fecha.toLocaleDateString();
+            let horaStr = fecha.toLocaleTimeString();
+            
+            document.getElementById("historial").innerHTML += `
+                <tr>
+                    <td>${material}</td>
+                    <td>${cantidad}</td>
+                    <td>${fechaStr}</td>
+                    <td>${horaStr}</td>
+                    <td>${tipo}</td>
+                </tr>`;
+        }
+    </script>
+</body>
+</html>

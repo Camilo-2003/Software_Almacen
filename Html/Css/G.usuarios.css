@@ -1,0 +1,50 @@
+body {
+    font-family: Arial, sans-serif;
+    background: radial-gradient(circle, #4CAF50, #000000);
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    background: #f4f4f4;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    max-width: 600px;
+    margin: 20px auto;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: #f4f4f4;
+}
+table, th, td {
+    border: 1px solid #ddd;
+}
+th, td {
+    padding: 10px;
+    text-align: center;
+}
+.button1 {
+    background: #999999;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.button1:hover{
+    background: blue;
+}
+.button2 {
+    background: #999999;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+button:hover {
+    background: red;
+}

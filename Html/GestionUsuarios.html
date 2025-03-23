@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="Img/logo_sena.png" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Usuarios</title>
+    <link rel="stylesheet" href="Css/G.usuarios.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Gestión de Instructores</h2>
+        <label>Nombre:</label>
+        <input type="text" id="nombre" placeholder="Nombre Completo">
+        <br><br>
+        <label>Correo:</label>
+        <input type="email" id="correo" placeholder="Correo Electrónico">
+        <br><br>
+        <label>Teléfono:</label>
+        <input type="tel" id="telefono" placeholder="Teléfono">
+        <br><br>
+        <label>Especialidad:</label>
+        <input type="text" id="especialidad" placeholder="Área de Especialización">
+        <br><br>
+        <button onclick="agregarInstructor()" class="button1">Agregar Instructor</button>
+    </div>
+    
+    <h2>Lista de Instructores</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Teléfono</th>
+                <th>Especialidad</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="listaInstructores"></tbody>
+    </table>
+    
+    <script>
+        function obtenerInstructores() {
+            return JSON.parse(localStorage.getItem("instructores")) || [];
+        }
+
+        function actualizarInstructores(instructores) {
+            localStorage.setItem("instructores", JSON.stringify(instructores));
+        }
+
+        function mostrarInstructores() {
+            let lista = document.getElementById("listaInstructores");
+            lista.innerHTML = "";
+            let instructores = obtenerInstructores();
+            instructores.forEach((inst, index) => {
+                lista.innerHTML += `
+                    <tr>
+                        <td contenteditable="true" onblur="editarInstructor(${index}, 'nombre', this.textContent)">${inst.nombre}</td>
+                        <td contenteditable="true" onblur="editarInstructor(${index}, 'correo', this.textContent)">${inst.correo}</td>
+                        <td contenteditable="true" onblur="editarInstructor(${index}, 'telefono', this.textContent)">${inst.telefono}</td>
+                        <td contenteditable="true" onblur="editarInstructor(${index}, 'especialidad', this.textContent)">${inst.especialidad}</td>
+                        <td><button onclick="eliminarInstructor(${index})" class="button2">Eliminar</button></td>
+                    </tr>`;
+            });
+        }
+
+        function agregarInstructor() {
+            let nombre = document.getElementById("nombre").value;
+            let correo = document.getElementById("correo").value;
+            let telefono = document.getElementById("telefono").value;
+            let especialidad = document.getElementById("especialidad").value;
+            
+            if (!nombre || !correo || !telefono || !especialidad) {
+                alert("Todos los campos son obligatorios");
+                return;
+            }
+            
+            let instructores = obtenerInstructores();
+            instructores.push({ nombre, correo, telefono, especialidad });
+            actualizarInstructores(instructores);
+            mostrarInstructores();
+        }
+
+        function editarInstructor(index, campo, valor) {
+            let instructores = obtenerInstructores();
+            instructores[index][campo] = valor;
+            actualizarInstructores(instructores);
+        }
+
+        function eliminarInstructor(index) {
+            let instructores = obtenerInstructores();
+            instructores.splice(index, 1);
+            actualizarInstructores(instructores);
+            mostrarInstructores();
+        }
+
+        document.addEventListener("DOMContentLoaded", mostrarInstructores);
+    </script>
+</body>
+</html>
