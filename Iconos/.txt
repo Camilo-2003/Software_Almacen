@@ -1,0 +1,41 @@
+📦 Almacén y Bodegas
+🏢📦 Almacén
+
+📦📁 Inventario
+
+🏬📊 Gestión
+
+🔄 Movimientos y Préstamos
+🔄↔️ Transferencias
+
+🤝📄 Préstamos
+
+🚛📦 Envíos
+
+📋 Registros y Reportes
+📋✅ Checklists
+
+📝📊 Reportes
+
+🏷️🔍 Seguimiento
+
+⚙️ Configuración y Administración
+⚙️🔧 Configuración
+
+👤🔑 Administrador
+
+🔒🔑 Seguridad
+
+⚠️ Alertas y Novedades
+⚠️🔔 Notificaciones
+
+🛑❗ Advertencias
+
+🔍⚠️  📑 🔎 🌿 🕵️‍♂️ 📦 🧪 ... 👤 ⚙️ 
+ 🌿 🔄/⤴️ 🚨 ⚠️ ... 🔔/📣 
+
+ 📑 🔎 ... 🕵️‍♂️ 📦 🧪 ... 👤 ⚙️ 
+
+ 🚨 ⚠️ ... 🔔/📣 
+
+ 🗑 🐞 ⚙️ 🔒/🔓 💬 💡 

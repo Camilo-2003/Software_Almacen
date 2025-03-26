@@ -5,6 +5,7 @@ body {
     padding: 0;
     text-align: center;
 }
+
 header {
     display: flex;
     align-items: center;
@@ -59,3 +60,17 @@ animation:slideDown 2s ease-in-out;
 .option:hover {
     background: #6f7770;
 }
+
+.access-button {
+    padding: 10px 20px;
+    font-size: 1em;
+    background:rgb(0, 0, 0);
+    color: rgb(17, 179, 57);
+    text-decoration: none;
+    border-radius: 5px;
+    display: inline-block;
+  }
+
+  .access-button:hover {
+    background: #6f7770;
+  }

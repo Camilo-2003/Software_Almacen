@@ -1,0 +1,36 @@
+# Archivos y carpetas innecesarias para el repositorio
+
+# Archivos temporales y de sistema
+*.log
+*.tmp
+*.bak
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini
+ehthumbs.db
+
+# Configuración local de VSCode u otros editores
+.vscode/
+*.code-workspace
+
+# Bases de datos locales (opcional)
+*.sql
+*.sqlite
+*.db
+
+# Cache y sesiones
+cache/
+session/
+
+# Carpeta para uploads temporales (ajusta si la usas)
+uploads/
+
+# Node.js (por si se usa)
+node_modules/
+
+# Carpeta de XAMPP innecesaria
+xampp/
+
+# Ignorar archivos README temporales o notas locales
+README-local.md

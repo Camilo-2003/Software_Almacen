@@ -11,7 +11,7 @@ $fechaNacimiento = $_POST['fechaNacimiento'];
 $password = $_POST['password'];
 
 // Hashear la contraseña antes de guardarla (buena práctica)
-$hash = password_hash($password, PASSWORD_DEFAULT);
+$hash = $password_hash($password, PASSWORD_DEFAULT);
 
 // Preparamos la consulta (evitamos SQL Injection)
 $stmt = $conexion->prepare("INSERT INTO usuarios (nombre, apellido, correo, telefono, fechaNacimiento, password) VALUES (?, ?, ?, ?, ?, ?)");
