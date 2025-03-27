@@ -33,3 +33,16 @@ body {
     margin-right: 20px;
     animation:slideDown 2s ease-in-out;
   }
+
+
+  h1, p {
+    text-align: center; 
+}
+ 
+p {
+  cursor: default;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  cursor: default;
+}
