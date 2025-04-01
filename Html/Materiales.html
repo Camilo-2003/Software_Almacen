@@ -4,20 +4,21 @@
     <meta charset="UTF-8">
     <link rel="icon" href="Img/logo_sena.png" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Equipos</title>
+    <title>Materiales</title>
     <link rel="stylesheet" href="Css/Equipos.css">
 </head>
 <body>
     <header>
         <img src="Img\logo_sena.png" alt="Logo Sena" class="logo">
-        <h1>Préstamo De Equipos</h1>
+        <h1>Préstamo De Materiales</h1>
     </header>
     <div class="container">
         <h2>Registrar Préstamo</h2>
         <label>Tipo de Préstamo:</label>
         <select id="tipo" onchange="cargarMateriales()">
             <option value="">Seleccionar</option>
-            <option value="No_Consumible">Devolutivo</option>
+            <option value="Consumible">Consumible</option>
+            <option value="No_Consumible">No Consumible</option>
         </select>
         <br><br>
         <label>Material/Equipo:</label>
@@ -47,6 +48,6 @@
         </thead>
         <tbody id="historial"></tbody>
     </table>
-  <script src="Js/Equipos.js"></script>
+  <script src="Js/prestamos.js"></script>
 </body>
 </html>
