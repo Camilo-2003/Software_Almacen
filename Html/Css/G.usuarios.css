@@ -5,8 +5,13 @@ body {
     margin: 0;
     padding: 0;
 }
+h2 {
+    color: #000000;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 .container {
-    background: #f4f4f4;
+    background: rgb(35, 122, 57);
+    color: rgb(255, 255, 255);
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -17,7 +22,8 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-    background: #f4f4f4;
+    background: rgb(35, 122, 57);
+    color: rgb(255, 255, 255);
 }
 table, th, td {
     border: 1px solid #ddd;
@@ -48,3 +54,17 @@ th, td {
 button:hover {
     background: red;
 }
+.option {
+    padding: 20px 30px;
+    font-size: 1em;
+    background:rgb(35, 122, 57);
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    border-radius: 5px;
+    float: right;
+
+  }
+
+  .option:hover {
+    background: green;
+  }

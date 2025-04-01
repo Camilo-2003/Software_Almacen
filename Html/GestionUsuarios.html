@@ -7,9 +7,14 @@
     <title>Gestión de Usuarios</title>
     <link rel="stylesheet" href="Css/G.usuarios.css">
 </head>
+<nav>              
+    <a href="instructores.html" class="option">📋 Ver Instructores Registrados</a>
+</nav>
 <body>
+  
+
     <div class="container">
-        <h2>Gestión de Instructores👇</h2>
+        <h2>Registrar Instructor👇</h2>
         <label>Nombre:</label>
         <input type="text" id="nombre" placeholder="Nombre Completo">
         <br><br>
@@ -24,7 +29,7 @@
         <br><br>
         <button onclick="agregarInstructor()" class="button1">Agregar Instructor</button>
     </div>
-    
+  
     <h2>Lista de Instructores</h2>
     <table>
         <thead>
@@ -38,6 +43,9 @@
         </thead>
         <tbody id="listaInstructores"></tbody>
     </table>
+
+  
+   
     
     <script>
         function obtenerInstructores() {

@@ -37,5 +37,62 @@
  📑 🔎 ... 🕵️‍♂️ 📦 🧪 ... 👤 ⚙️ 
 
  🚨 ⚠️ ... 🔔/📣 
-
+📞📧
  🗑 🐞 ⚙️ 🔒/🔓 💬 💡 
+
+ 
+    <main class="container">
+        <h3>¿Qué deseas hacer hoy?</h3>
+
+        <!-- Inventario -->
+        <section class="category">
+            <h2>📋 Gestión de Inventario</h2>
+            <div class="options">
+                <a href="inventario_materiales.html" class="option">📦 Materiales</a>
+                <a href="inventario_equipos.html" class="option">🔧 Equipos</a>
+            </div>
+        </section>
+
+        <!-- Préstamos -->
+        <section class="category">
+            <h2>📤 Préstamos</h2>
+            <div class="options">
+                <div class="sub-category">
+                    <h3>Materiales</h3>
+                    <a href="prestamo_materiales.html" class="option">📝 Registrar Préstamo</a>
+                    <a href="consultar_prestamos_materiales.html" class="option">🔍 Consultar Préstamos</a>
+                </div>
+                <div class="sub-category">
+                    <h3>Equipos</h3>
+                    <a href="prestamo_equipos.html" class="option">📝 Registrar Préstamo</a>
+                    <a href="consultar_prestamos_equipos.html" class="option">🔍 Consultar Préstamos</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Devoluciones -->
+        <section class="category">
+            <h2>🔄 Devoluciones</h2>
+            <div class="options">
+                <a href="devolucion_materiales.html" class="option">📦 Devolución de Materiales</a>
+                <a href="devolucion_equipos.html" class="option">🔧 Devolución de Equipos</a>
+            </div>
+        </section>
+
+        <!-- Instructores -->
+        <section class="category">
+            <h2>👨‍🏫 Gestión de Instructores</h2>
+            <div class="options">
+                <a href="registrar_instructor.html" class="option">➕ Registrar Instructor</a>
+                <a href="ver_instructores.html" class="option">📋 Ver Instructores</a>
+       
+
+<!--informacion sobre algunos elementos a eliminar y tendre aqui de reserva 
+
+<script>
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      window.location.href = "almacenista.html";
+    });
+  </script>    alt + shift + a comentar lo seleccionado
+ 
