@@ -37,7 +37,7 @@ animation:slideDown 2s ease-in-out;
     max-width: 700px;
     margin: 50px auto;
     padding: 20px;
-    background: rgb(255, 255, 255);
+    background: rgb(35, 122, 57);
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
@@ -52,25 +52,25 @@ animation:slideDown 2s ease-in-out;
     padding: 15px;
     font-size: 1.2em;
     background: #000000;
-    color: rgb(17, 179, 57);
+    color: rgb(255, 255, 255);
     text-decoration: none;
     border-radius: 5px;
     transition: 0.3s;
 }
 .option:hover {
-    background: #6f7770;
+    background: green;
 }
 
 .access-button {
     padding: 10px 20px;
     font-size: 1em;
     background:rgb(0, 0, 0);
-    color: rgb(17, 179, 57);
+    color: rgb(255, 255, 255);
     text-decoration: none;
     border-radius: 5px;
     display: inline-block;
   }
 
   .access-button:hover {
-    background: #6f7770;
+    background: green;
   }

@@ -12,14 +12,25 @@
     <img src="Img/logo_sena.png" alt="Logo Sena" class="logo">
     <h1>📦 Sistema Almacén</h1>
     </div>
-
-    <nav class="button-container">
-      <a href="login.html" class="access-button">Acceder al Sistema</a>
-      <a href="index.html" class="access-button">Home</a>
-      <a href="Contacto.html" class="access-button">Contacto</a>
-      <a href="SobreNosotros.html" class="access-button">Sobre Nosotros</a>
-    </nav>
  </header>
+ 
+ <div class="menu-container">
+  <!-- Botón de menú -->
+  <button class="menu-button" onclick="toggleMenu()">
+      <div class="menu-icon"></div> MENÚ
+  </button>
+</div>
+
+<!-- Fondo con efecto modal -->
+<div class="menu-overlay" id="menuOverlay">
+  <div class="menu-list">
+      <a href="login.html">👤 Acceder al Sistema</a>
+      <a href="index.html">🏡 Home</a>
+      <a href="contacto.html">📞 Contacto</a>
+      <a href="sobre-nosotros.html">🎯 Sobre Nosotros</a>
+  </div>
+</div>
+
 
   <div class="container">
     <h2>Bienvenido Al Sistema De Almacén</h2>
@@ -50,7 +61,7 @@
 
   <div class="carousel">
     <img src="Img/sena1.jpg" class="active" alt="Inventario del almacén">
-    <img src="Img/sena2.jpg" class="active" alt="Gestión de préstamos">
+    <img src="Img/ssena.avif" class="active" alt="Gestión de préstamos">
     <img src="Img/sena7.jpg" class="active" alt="Administración del sistema">
   </div>
 
@@ -67,6 +78,7 @@
 
 
   <script src="Js\index.js"></script>
+  
 </body>
 </html>
   

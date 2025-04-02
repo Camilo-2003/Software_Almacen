@@ -37,18 +37,19 @@ h1 {
 }
 
 .container {
-    background: white;
+    background: rgb(35, 122, 57);
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     max-width: 600px;
-    margin: 20px auto;
+    margin-left: 350px;
+    margin-top: 10px;
 }
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-    background: white;
+    background: rgb(35, 122, 57);
 }
 th, td {
     border: 1px solid #ddd;

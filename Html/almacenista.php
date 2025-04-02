@@ -1,3 +1,17 @@
+<?php
+
+require_once __DIR__ . '/conexion.php';
+
+session_start();
+
+// Verificar si el usuario está autenticado
+if (!isset($_SESSION["id_almacenista"])) {
+    header("Location: ../login.html");
+    exit();
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +24,7 @@
 <body>
     <header>
         <img src="Img\logo_sena.png" alt="Logo Sena" class="logo">
-        <h1>✅ Sistema de Almacén</h1>
+        <h1>✅OPCIONES GENERALES</h1>
     </header>
 
     <main class="container">
@@ -20,12 +34,13 @@
             <a href="Inventario.html" class="option">📋 Gestionar Inventario</a>
             <a href="Devoluciones.html" class="option">🔄 Confirmar Devoluciones</a>
             <a href="Novedades.html" class="option">🛠️ Novedades</a>
-            <a href="GestionUsuarios.html" class="option">👥 Gestionar Usuarios</a>
+            <a href="GestionUsuarios.html" class="option">👨‍🏫 Gestión de Instructores</a>
+               
         </div>
     </main>
    
    <nav>
-    <a href="Php/logout.html" class="access-button">Cerrar Sesión</a>
+    <a href="Php/logout.php" class="access-button">Cerrar Sesión</a>
   </nav>
 
 </body>

@@ -1,33 +1,45 @@
 <?php
-// Incluimos la conexión existente
-include 'conexion.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/Software_Almacen/Html/conexion.php';
 
-// Recibimos datos del formulario
-$nombre = $_POST['nombre'];
-$apellido = $_POST['apellido'];
-$correo = $_POST['correo'];
-$telefono = $_POST['telefono'];
-$fechaNacimiento = $_POST['fechaNacimiento'];
-$password = $_POST['password'];
 
-// Hashear la contraseña antes de guardarla (buena práctica)
-$hash = $password_hash($password, PASSWORD_DEFAULT);
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nombres = trim($_POST["nombre"]);
+    $apellidos = trim($_POST["apellido"]);
+    $correo = trim($_POST["correo"]);
+    $telefono = trim($_POST["telefono"]);
+    $password = trim($_POST["password"]);
+    $password_hashed = password_hash($password, PASSWORD_DEFAULT); // Hasheamos la contraseña
 
-// Preparamos la consulta (evitamos SQL Injection)
-$stmt = $conexion->prepare("INSERT INTO usuarios (nombre, apellido, correo, telefono, fechaNacimiento, password) VALUES (?, ?, ?, ?, ?, ?)");
+    // Verificar si el correo ya está registrado
+    $sql_check = "SELECT id_almacenista FROM almacenistas WHERE correo = ?";
+    $stmt_check = $conexion->prepare($sql_check);
+    $stmt_check->bind_param("s", $correo);
+    $stmt_check->execute();
+    $stmt_check->store_result();
 
-$stmt->bind_param("ssssss", $nombre, $apellido, $correo, $telefono, $fechaNacimiento, $hash);
+    if ($stmt_check->num_rows > 0) {
+        echo "<script>alert('El correo ya está registrado. Usa otro.'); window.location.href='../registrarse.html';</script>";
+        $stmt_check->close();
+        $conexion->close();
+        exit();
+    }
+    $stmt_check->close();
 
-// Ejecutamos la consulta
-if ($stmt->execute()) {
-    echo "¡Usuario registrado exitosamente!";
-    // Opcionalmente redireccionar a otra página:
-    // header("Location: login.html");
-} else {
-    echo "Error: " . $stmt->error;
+    // Insertar usuario en la BD
+    $sql = "INSERT INTO almacenistas (nombres, apellidos, correo, telefono, password) VALUES (?, ?, ?, ?, ?)";
+    $stmt = $conexion->prepare($sql);
+    $stmt->bind_param("sssss", $nombres, $apellidos, $correo, $telefono, $password_hashed);
+
+    if ($stmt->execute()) {
+        echo "<script>alert('Registro exitoso. Ahora puedes iniciar sesión.'); window.location.href='../login.html';</script>";
+    } else {
+        echo "<script>alert('Error al registrar. Inténtalo de nuevo.'); window.location.href='../registrarse.html';</script>";
+    }
+
+    $stmt->close();
+    $conexion->close();
+    exit();
 }
-
-// Cerramos la consulta y conexión
-$stmt->close();
-$conexion->close();
 ?>
+
+
