@@ -24,19 +24,14 @@ header {
 }
 
 h1 {
-font-size: 40px;
-font-family: Stencil;
-animation:slideDown 2s ease-in-out;
+    font-size: 40px;
+    font-family: Stencil;
+    animation: slideDown 2s ease-in-out;
 }
+
 h2, h3 {
     color: #000000;
     font-size: 23px;
-}
-
-.logo {
-    height: 100px;
-    margin-right: 20px;
-    animation:slideDown 2s ease-in-out;
 }
 
 @keyframes slideDown {
@@ -46,6 +41,8 @@ h2, h3 {
 
 .container {
     max-width: 800px;
+    height: 190px;
+    width: 500px;
     margin: auto;
     background: rgb(35, 122, 57);
     color: white;
@@ -55,30 +52,26 @@ h2, h3 {
     margin-top: 30px; /* Ajuste para evitar que quede pegado al header */
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+.agg {
+    background-color: #000000;
+    color: aliceblue;
 }
-
-th, td {
-    border: 1px solid #ddd; 
-    padding: 10px;
-    text-align: center;
+.agg:hover {
+    background-color: #4CAF50;
 }
-
-.status {
-    font-weight: bold;
-    padding: 5px;
-    border-radius: 5px;
+.historial {
+    margin-top: 15px;
+    font-size: 20px;
+    background-color: #000000;
+    color: aliceblue;
 }
-
-.available {
-    background-color: #28a745;
-    color: white;
+.historial:hover {
+    background-color: #4CAF50;
 }
-
-.unavailable {
-    background-color: #dc3545;
-    color: white;
+.description {
+    color: antiquewhite;
+}
+/*.imgg {
+    width: 130px;
+    height: 130px;
 }

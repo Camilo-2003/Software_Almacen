@@ -22,12 +22,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $row_count = $result_count->fetch_assoc();
 
     if ($row_count["total"] == 0) {
-        // Si no hay usuarios, redirigir a registrarse.html
+        // Si no hay usuarios, redirigir a registrarse.html de inmediato
         header("Location: ../registrarse.html");
         exit();
     }
 
-    // Verificar si el usuario ya está registrado
+    // Verificar si el usuario ya está registrado en la base de datos
     $sql = "SELECT * FROM almacenistas WHERE correo = ?";
     $stmt = $conexion->prepare($sql);
 

@@ -1,20 +1,49 @@
 <?php
+print_r($_POST);
+?>
 
-require_once __DIR__ . '/conexion.php';
+<?php
 
+require_once $_SERVER['DOCUMENT_ROOT'] . '/Software_Almacen/Html/conexion.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nombre = $_POST["nombre"];
-    $tipo = $_POST["tipo"];
-    $stock = $_POST["stock"];
+    $tipo_registro = $_POST["tipo_registro"];
 
-    $sql = "INSERT INTO materiales (nombre, tipo, stock) VALUES ('$nombre', '$tipo', '$stock')";
+    if ($tipo_registro == "Material") {
+        $nombre = $_POST["nombre_material"];
+        $tipo = $_POST["tipo_material"];
+        $stock = $_POST["stock_material"];
 
-    if ($conexion->query($sql) === TRUE) {
-        echo json_encode(["status" => "success", "message" => "Material agregado correctamente"]);
-    } else {
-        echo json_encode(["status" => "error", "message" => "Error: " . $conexion->error]);
+        if (empty($nombre) || empty($tipo) || empty($stock)) {
+            echo "Todos los campos son obligatorios";
+            exit();
+        }
+
+        $sql = "INSERT INTO materiales (nombre, tipo, stock) VALUES ('$nombre', '$tipo', '$stock')";
+        $conexion->query($sql);
+
+        $sqlHistorial = "INSERT INTO historial (nombre, cantidad, fecha, hora, tipo) 
+                         VALUES ('$nombre', '$stock', NOW(), NOW(), 'Entrada')";
+        $conexion->query($sqlHistorial);
+    } 
+    elseif ($tipo_registro == "Equipo") {
+        $marca = $_POST["marca"];
+        $serial = $_POST["serial"];
+        $estado = $_POST["estado"];
+
+        if (empty($marca) || empty($serial) || empty($estado)) {
+            echo "Todos los campos son obligatorios";
+            exit();
+        }
+
+        $sql = "INSERT INTO equipos (marca, serial, estado) VALUES ('$marca', '$serial', '$estado')";
+        $conexion->query($sql);
+
+        $sqlHistorial = "INSERT INTO historial (nombre, cantidad, fecha, hora, tipo) 
+                         VALUES ('$serial', '1', NOW(), NOW(), 'Entrada')";
+        $conexion->query($sqlHistorial);
     }
-}
 
-$conexion->close();
+    header("Location: ../inventario.html");
+    exit();
+}
 ?>
