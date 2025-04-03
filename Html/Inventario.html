@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" href="Img/logo_sena.png" type="image/x-icon">
     <title>Inventario de Almacén</title>
     <link rel="stylesheet" href="Css/inventario.css">
 </head>
@@ -14,34 +15,67 @@
     <div class="container">
         <h2>Inventario</h2>
         
-        <label>Nombre del Material:</label>
-        <input type="text" id="nombre" placeholder="Ej. Laptop, Papel">
-        <br>
-        <label>Tipo de Material:</label>
-        <select id="tipo">
-            <option value="Consumible">Consumible</option>
-            <option value="No Consumible">No Consumible</option>
-        </select>
-        <br>
-        <label>Cantidad:</label>
-        <input type="number" id="stock" min="1" value="1">
+        <form action="Php/agregar_material.php" method="POST">
+            <label>Tipo de Registro:</label>
+            <select name="tipo_registro" id="tipo_registro" onchange="mostrarCampos()" required>
+                <option value="">Seleccione</option>
+                <option value="Material">Material</option>
+                <option value="Equipo">Equipo</option>
+            </select>
         
-        <button onclick="agregarInventario()">Agregar</button>
+            <div id="materialFields" style="display: none;">
+                <label>Nombre del Material:</label>
+                <input type="text" name="nombre_material" id="nombre_material" placeholder="Ej. Laptop, Papel">
+                <br>
+                <label>Tipo de Material:</label>
+                <select name="tipo_material" id="tipo_material">
+                    <option value="Consumible">Consumible</option>
+                    <option value="No Consumible">No Consumible</option>
+                </select>
+                <br>
+                <label>Cantidad (Stock):</label>
+                <input type="number" name="stock_material" id="stock_material" min="1">
+            </div>
+                 <br>
+            <div id="equipoFields" style="display: none;">
+                <label>Marca:</label>
+                <input type="text" name="marca" id="marca" placeholder="Ej. HP, Dell">
+                <br>
+                <label>Serial:</label>
+                <input type="text" name="serial" id="serial" placeholder="Número de serie">
+                <br>
+                <label>Estado:</label>
+                <select name="estado" id="estado">
+                    <option value="disponible">Disponible</option>
+                    <option value="prestado">Prestado</option>
+                    <option value="deteriorado">Deteriorado</option>
+                </select>
+            </div>
         
-        <h3>Inventario Disponible</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Material</th>
-                    <th>Tipo</th>
-                    <th>Cantidad</th>
-                </tr>
-            </thead>
-            <tbody id="inventario"></tbody>
-        </table>
+            <button type="submit" class="agg">Agregar</button>
+        </form>
+    </div> 
+
+            
+            <p class="description">Accede a esta opcion para ver<br> 
+            el historial mas detallado del inventario<br>
+            de los materiales del almacen y ve el paso a paso.</p>
+          <!--  <img src="Img/imgg.png" alt="Equipos" class="imgg">-->
+
+    <div>
+        <a href="Php/historial.php"><button class="historial">📋 Historial de Inventario</button></a>
     </div>
 
+    <script>
+    function mostrarCampos() {
+        let tipoRegistro = document.getElementById("tipo_registro").value;
+        document.getElementById("materialFields").style.display = (tipoRegistro === "Material") ? "block" : "none";
+        document.getElementById("equipoFields").style.display = (tipoRegistro === "Equipo") ? "block" : "none";
+    }
+    </script>
+    
     <script src="Js/inventario.js"></script>
 
 </body>
 </html>
+

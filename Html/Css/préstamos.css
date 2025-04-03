@@ -68,5 +68,8 @@ h1 {
 
 .description {
     font-size: 14px;
-    color: antiquewhite;
+    color: rgb(0, 0, 0);
+}
+.imgg {
+    border-radius: 50px;
 }

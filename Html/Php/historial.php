@@ -1,56 +1,93 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 $conexion = new mysqli("localhost", "root", "", "almacen");
 
 if ($conexion->connect_errno) {
     die("❌ Error de conexión: " . $conexion->connect_error);
 }
+?>
 
-// Mostrar historial de materiales
-$sqlM = "SELECT * FROM prestamo_materiales ORDER BY id_prestamo_material DESC";
-$resultM = $conexion->query($sqlM);
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="Img/logo_sena.png" type="image/x-icon">
+    <title>Historial de Inventario</title>
+    <link rel="stylesheet" href="../Css/historialphp.css">
+</head>
+<body>
 
-// 👇 Agrega esta verificación 👇
-if (!$resultM) {
-    die("❌ Error en la consulta de materiales: " . $conexion->error);
-}
+    <header>
+        <h1>📋 Historial de Inventario</h1>
+    </header>
 
-echo "<h2>Historial de Préstamos de Materiales</h2>";
-echo "<table border='1'>";
-echo "<tr><th>Tipo</th><th>Material</th><th>Cantidad</th><th>Instructor</th><th>Fecha</th><th>Hora</th><th>Estado</th></tr>";
-while ($row = $resultM->fetch_assoc()) {
-    echo "<tr>
-            <td>Consumible</td>
-            <td>{$row['material']}</td>
-            <td>{$row['cantidad']}</td>
-            <td>{$row['instructor']}</td>
-            <td>{$row['fecha']}</td>
-            <td>{$row['hora']}</td>
-            <td style='color:red;'>{$row['estado']}</td>
-          </tr>";
-}
-echo "</table>";
+    
 
-// Mostrar historial de equipos
-$sqlE = "SELECT * FROM prestamo_equipos ORDER BY id_prestamo_equipo DESC";
-$resultE = $conexion->query($sqlE);
+    <div class="container">
+        <h2>📦 Materiales</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Tipo</th>
+                    <th>Cantidad</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $sqlM = "SELECT * FROM materiales ORDER BY id_material DESC";
+                $resultM = $conexion->query($sqlM);
 
-if (!$resultE) {
-    die("❌ Error en la consulta de equipos: " . $conexion->error);
-}
+                if ($resultM->num_rows > 0) {
+                    while ($row = $resultM->fetch_assoc()) {
+                        echo "<tr>
+                                <td>{$row['nombre']}</td>
+                                <td>{$row['tipo']}</td>
+                                <td>{$row['stock']}</td>
+                              </tr>";
+                    }
+                } else {
+                    echo "<tr><td colspan='3'>No hay materiales registrados.</td></tr>";
+                }
+                ?>
+            </tbody>
+        </table>
 
-echo "<h2>Historial de Préstamos de Equipos</h2>";
-echo "<table border='1'>";
-echo "<tr><th>Tipo</th><th>Equipo</th><th>Cantidad</th><th>Instructor</th><th>Fecha</th><th>Hora</th><th>Estado</th></tr>";
-while ($row = $resultE->fetch_assoc()) {
-    echo "<tr>
-            <td>No Consumible</td>
-            <td>{$row['equipo']}</td>
-            <td>{$row['cantidad']}</td>
-            <td>{$row['instructor']}</td>
-            <td>{$row['fecha']}</td>
-            <td>{$row['hora']}</td>
-            <td style='color:red;'>{$row['estado']}</td>
-          </tr>";
-}
-echo "</table>";
+        <h2>💻 Equipos</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Marca</th>
+                    <th>Serial</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $sqlE = "SELECT * FROM equipos ORDER BY id_equipo DESC";
+                $resultE = $conexion->query($sqlE);
+
+                if ($resultE->num_rows > 0) {
+                    while ($row = $resultE->fetch_assoc()) {
+                        echo "<tr>
+                                <td>{$row['marca']}</td>
+                                <td>{$row['serial']}</td>
+                                <td>{$row['estado']}</td>
+                              </tr>";
+                    }
+                } else {
+                    echo "<tr><td colspan='3'>No hay equipos registrados.</td></tr>";
+                }
+                ?>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>
+
+<?php
+$conexion->close();
 ?>
