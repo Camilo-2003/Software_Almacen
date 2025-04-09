@@ -48,7 +48,7 @@ function registrarPrestamo() {
         <td>${instructor}</td>
         <td>${fechaStr}</td>
         <td>${horaStr}</td>
-        <td style="color: red;">Prestado</td>
+        <td style="color: black;background-color:red">Prestado</td>
         ${tipo === 'No_Consumible' ? '<td><button onclick="devolver(this)">Devolver</button></td>' : '<td>-</td>'}
     </tr>`;
     
@@ -70,6 +70,7 @@ function devolver(boton) {
     }
     
     fila.cells[6].textContent = "Devuelto";
-    fila.cells[6].style.color = "green";
+    fila.cells[6].style.color = "black";
+    fila.cells[6].style.backgroundColor = "green";
     boton.remove();
 }

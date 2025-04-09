@@ -8,9 +8,6 @@ function showNextImage() {
 }
 setInterval(showNextImage, 5000);
 
-
-
-
 function toggleMenu() {
   document.getElementById("menuOverlay").classList.toggle("show");
   document.querySelector(".menu-button").classList.toggle("menu-open");
@@ -22,5 +19,18 @@ document.addEventListener("click", (event) => {
       !document.querySelector(".menu-button").contains(event.target)) {
       document.getElementById("menuOverlay").classList.remove("show");
       document.querySelector(".menu-button").classList.remove("menu-open");
+  }
+});
+
+window.addEventListener('scroll', function() {
+  const footer = document.querySelector('footer');
+  const windowHeight = window.innerHeight;
+  const documentHeight = document.documentElement.scrollHeight;
+  const scrollPosition = window.scrollY;
+
+  if (scrollPosition + windowHeight >= documentHeight - 10) {
+    footer.style.bottom = '0';
+  } else {
+    footer.style.bottom = '-180px';
   }
 });

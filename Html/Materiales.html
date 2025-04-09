@@ -5,13 +5,16 @@
     <link rel="icon" href="Img/logo_sena.png" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Materiales</title>
-    <link rel="stylesheet" href="Css/Equipos.css">
+    <link rel="stylesheet" href="Css/Materiales.css">
 </head>
 <body>
     <header>
         <img src="Img\logo_sena.png" alt="Logo Sena" class="logo">
         <h1>Préstamo De Materiales</h1>
     </header>
+    <div>
+        <a href="Devoluciones.html" class="hist">Historial De Devolución</a>
+    </div>
     <div class="container">
         <h2>Registrar Préstamo</h2>
         <label>Tipo de Préstamo:</label>
@@ -35,7 +38,7 @@
     <h2>Historial de Préstamos</h2>
     <table>
         <thead>
-            <tr>
+            <tr class="encabezado">
                 <th>Tipo</th>
                 <th>Material</th>
                 <th>Cantidad</th>
@@ -48,6 +51,6 @@
         </thead>
         <tbody id="historial"></tbody>
     </table>
-  <script src="Js/prestamos.js"></script>
+  <script src="Js/Equiposymateriales.js"></script>
 </body>
 </html>

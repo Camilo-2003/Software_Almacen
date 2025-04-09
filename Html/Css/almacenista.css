@@ -5,7 +5,6 @@ body {
     padding: 0;
     text-align: center;
 }
-
 header {
     display: flex;
     align-items: center;
@@ -17,13 +16,11 @@ header {
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     animation: slideDown 1s ease-in-out;
 }
-
 h1 {
 font-size: 40px;
 font-family: Stencil;
 animation:slideDown 2s ease-in-out;
 }
-
 .logo {
     height: 100px;
     margin-right: 20px;
@@ -60,7 +57,6 @@ animation:slideDown 2s ease-in-out;
 .option:hover {
     background: green;
 }
-
 .access-button {
     padding: 10px 20px;
     font-size: 1em;
@@ -69,8 +65,7 @@ animation:slideDown 2s ease-in-out;
     text-decoration: none;
     border-radius: 5px;
     display: inline-block;
-  }
-
-  .access-button:hover {
+}
+.access-button:hover {
     background: green;
-  }
+}
