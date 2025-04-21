@@ -1,6 +1,6 @@
 const inventario = {
-    Consumible: { "Papel": 20, "Tinta": 10, "Marcadores": 15 },
-    No_Consumible: { "Laptop": 5, "Proyector": 2, "Impresora": 3 }
+    Consumible: { "Papel": 5, "Tinta": 5, "Marcadores": 5 },
+    No_Consumible: { "Laptop": 5, "Proyector": 5, "Impresora": 5 }
 };
 
 function cargarMateriales() {

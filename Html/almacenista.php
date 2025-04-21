@@ -10,7 +10,7 @@ if (!isset($_SESSION["id_almacenista"])) {
     exit();
 }
 
-?>
+?> 
 
 <!DOCTYPE html>
 <html lang="en">

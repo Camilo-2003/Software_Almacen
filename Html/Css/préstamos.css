@@ -64,12 +64,24 @@ h1 {
 
 .option:hover {
     background: green;
+    transform: scale(1.1);
+    transition: 0.3s;
 }
 
 .description {
+    background-color: rgb(255, 255, 255);
+    padding: 40px;
     font-size: 14px;
     color: rgb(0, 0, 0);
+    border-top: 4px solid red;
+    border-right: 4px solid yellow;
+    border-bottom: 4px solid blue;
+    border-left: 4px solid black;
+    border-radius: 20px;
 }
+.description:hover {
+    background-color:#4CAF50;
+} 
 .imgg {
     border-radius: 50px;
 }

@@ -57,7 +57,7 @@ th, td {
   text-align: center;
 }
 button {
-  background: #007bff;
+  background: green;
   color: white;
   border: none;
   padding: 8px 12px;
@@ -65,7 +65,9 @@ button {
   border-radius: 5px;
 }
 button:hover {
-  background: #0056b3;
+  background: #00b31e;
+  transform: scale(1.1);
+  transition: 0.3s;
 }
 .encabezadoo {
   background-color: rgb(35, 122, 57);
@@ -87,4 +89,6 @@ button:hover {
 }
 .hist:hover {
   background: green;
+  transform: scale(1.1);
+  transition: 0.3s;
 }
