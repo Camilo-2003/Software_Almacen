@@ -1,69 +1,94 @@
 body {
-    overflow-x: hidden;
-    font-family: Arial, sans-serif;
-    background: radial-gradient(circle, #4CAF50, #000000);
-    text-align: center;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  overflow-x: hidden;
+  font-family: Arial, sans-serif;
+  background: radial-gradient(circle, #4CAF50, #000000);
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 header {
-    width: 100%;
-    height: 150px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #000;
-    color: rgb(17, 179, 57);
-    font-size: 1em;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    animation: slideDown 1s ease-in-out;
+  width: 100%;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #000;
+  color: rgb(17, 179, 57);
+  font-size: 1em;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  animation: slideDown 1s ease-in-out;
 }
 @keyframes slideDown {
-    from { transform: translateY(-100px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+  from { transform: translateY(-100px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
 
 h1 {
-    font-size: 40px;
-    font-family: Stencil;
-    animation:slideDown 2s ease-in-out;
+  font-size: 40px;
+  font-family: Stencil;
+  animation:slideDown 2s ease-in-out;
 }
 
 .logo {
-    height: 100px;
-    margin-right: 20px;
-    animation:slideDown 2s ease-in-out;
+  height: 100px;
+  margin-right: 20px;
+  animation:slideDown 2s ease-in-out;
 }
 
 .container {
-    background: rgb(35, 122, 57);
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    max-width: 600px;
-    margin-left: 350px;
-    margin-top: 10px;
+  background: rgb(35, 122, 57);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  max-width: 600px;
+  margin-left: 350px;
+  margin-top: 10px;
 }
 table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    background: rgb(35, 122, 57);
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background: rgb(255, 255, 255);
 }
 th, td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: center;
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
 }
 button {
-    background: #007bff;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    cursor: pointer;
-    border-radius: 5px;
+  background: green;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 5px;
 }
 button:hover {
-    background: #0056b3;
+  background: #00b31e;
+  transform: scale(1.1);
+  transition: 0.3s;
+}
+.encabezadoo {
+  background-color: rgb(35, 122, 57);
+}
+.hist {
+  float: right;
+  display: inline;
+  margin: 20px;
+  padding: 15px;
+  font-size: 1.2em;
+  background: #000000;
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  border-radius: 5px;
+  transition: 0.3s;
+  margin-bottom: 10px;
+  justify-content: center;
+  justify-items: center;
+}
+.hist:hover {
+  background: green;
+  transform: scale(1.1);
+  transition: 0.3s;
 }

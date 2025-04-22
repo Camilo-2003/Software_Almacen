@@ -32,16 +32,16 @@ body {
   }
   .logo {
     height: 100px;
-    margin-right: 20px;
+    margin-right: 20px; 
     animation:slideDown 2s ease-in-out;
   }
   .container {
     background: white;
     padding: 40px;
     border-radius: 15px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 10px 10px 55px rgb(0, 0, 0);
     max-width: 400px;
-    margin: 80px auto;
+    margin: 40px auto;
     animation: fadeIn 1.5s ease-in-out;
   }
   @keyframes fadeIn {
@@ -53,7 +53,7 @@ body {
     font-size: 1.5em;
   }
   .container input {
-    width: 100%;
+    width: 93%;
     padding: 12px;
     margin: 12px 0;
     border: 1px solid #ccc;
@@ -64,11 +64,13 @@ body {
   .container input:focus {
     box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
     outline: none;
+    /*width: 100%;  si queremos que al hacer click la 
+    barra se vea mas grande, se debe modificar el width de arriba*/
   }
   .container button {
     width: 100%;
     padding: 12px;
-    background: #007bff;
+    background: rgb(8, 100, 31);
     color: white;
     border: none;
     border-radius: 8px;
@@ -77,7 +79,7 @@ body {
     transition: transform 0.2s ease-in-out;
   }
   .container button:hover {
-    background: #0056b3;
+    background: rgb(17, 179, 57); 
     transform: scale(1.05);
   }
 
@@ -86,11 +88,25 @@ body {
     color: #000; /* Color negro */
     font-weight: bold;
     font-size: 17px;
-    transition: color 0.3s, border-bottom 0.3s;
+    transition: color 0.3s ease;
     border-bottom: 2px solid transparent; /* Para efecto en hover */
+    position: relative;
   }
 
-   a:hover {
-    color: #007bff; 
-    border-bottom: 2px solid #007bff; 
+  a::after{
+    content: "";
+    width: 0;
+    height: 4px;
+    position: absolute;
+    background: blue;
+    left: 0;
+    bottom: -8px;
+    transition: width 0.5s ease;
   }
+  a:hover {
+    color: blue;  
+  }
+  a:hover::after {
+    width: 100%;
+  }
+

@@ -15,7 +15,7 @@
     <div class="container">
         <h2>Inventario</h2>
         
-        <form action="Php/agregar_material.php" method="POST">
+        <form action="Php/agregar_material.php" method="POST" class="lista">
             <label>Tipo de Registro:</label>
             <select name="tipo_registro" id="tipo_registro" onchange="mostrarCampos()" required>
                 <option value="">Seleccione</option>
@@ -23,7 +23,7 @@
                 <option value="Equipo">Equipo</option>
             </select>
         
-            <div id="materialFields" style="display: none;">
+            <div id="materialFields" style="display: none;" >
                 <label>Nombre del Material:</label>
                 <input type="text" name="nombre_material" id="nombre_material" placeholder="Ej. Laptop, Papel">
                 <br>

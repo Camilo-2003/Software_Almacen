@@ -13,7 +13,6 @@
     <h1>📦 Sistema de Almacén</h1>
   </header>
 
-  
   <div class="container">
     <h3>Iniciar Sesión <img src="Img/programming.gif" alt="Login"></h3>
     <form id="loginForm" method="POST" action="Php/login.php" autocomplete="off">
@@ -24,7 +23,16 @@
   <p>¿No tienes cuenta? <a href="Registrarse.html">Regístrate aquí</a></p>
   
   </div>
-  
+
+  <script>
+  // Obtener parámetros de la URL
+  const params = new URLSearchParams(window.location.search);
+
+  // Verificar si viene el mensaje de cierre
+  if (params.get("mensaje") === "cierre") {
+      alert("¡Has cerrado sesión correctamente!");
+  }
+  </script>
  
 
 </body>

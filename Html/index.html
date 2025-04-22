@@ -10,28 +10,26 @@
   <header>
     <div class="left-section">
     <img src="Img/logo_sena.png" alt="Logo Sena" class="logo">
-    <h1>📦 Sistema Almacén</h1>
+    <marquee direction="right" scrollamount="7"><h1>Sistema Almacén</h1></marquee><h1>📦</h1>
     </div>
- </header>
+
+    <div class="menu-container">
+      <!-- Botón de menú -->
+      <button class="menu-button" onclick="toggleMenu()">
+        <div class="menu-icon"></div>MENÚ
+      </button>
+    </div>
+    
+    <div class="menu-overlay" id="menuOverlay">
+      <div class="menu-list"><br><br><br>
+          <a href="login.html">👤 Acceder al Sistema</a>
+          <a href="index.html">🏡 Home</a>
+          <a href="contacto.html">📞 Contacto</a>
+          <a href="SobreNosotros.html">🎯 Sobre Nosotros</a>
+      </div>
+    </div>
+</header>
  
- <div class="menu-container">
-  <!-- Botón de menú -->
-  <button class="menu-button" onclick="toggleMenu()">
-      <div class="menu-icon"></div> MENÚ
-  </button>
-</div>
-
-<!-- Fondo con efecto modal -->
-<div class="menu-overlay" id="menuOverlay">
-  <div class="menu-list">
-      <a href="login.html">👤 Acceder al Sistema</a>
-      <a href="index.html">🏡 Home</a>
-      <a href="contacto.html">📞 Contacto</a>
-      <a href="SobreNosotros.html">🎯 Sobre Nosotros</a>
-  </div>
-</div>
-
-
   <div class="container">
     <h2>Bienvenido Al Sistema De Almacén</h2>
     <p class="info">
@@ -42,38 +40,40 @@
     
     <div class="features">
       <div class="feature">
-        <h3>🤝Controla los prestamos</h3>
-        <p>Hazle seguimiento a los prestamos que realices.</p>
+        <h3>Controla los prestamos 🤝</h3><br>
+        <p class="pp">Hazle seguimiento a los prestamos que realices.</p>
       </div>
         <div class="feature">
-        <h3>📊 Control de Inventario</h3>
-        <p>Consulta y actualiza el estado de los materiales fácilmente.</p>
+        <h3>Control de Inventario 📊</h3><br>
+        <p class="pp">Consulta y actualiza el estado de los materiales fácilmente.</p>
       </div>
       <div class="feature">
-        <h3>🔒 Seguridad</h3>
-        <p>Acceso restringido y controlado por roles de usuario.</p>
+        <h3>Seguridad 🔒</h3><br><br>
+        <p class="pp">Acceso restringido y controlado por roles de usuario.</p>
       </div>
       <div class="feature">
-        <h3>📝 Registro de Novedades</h3>
-        <p>Mantén un registro actualizado de las incidencias y novedades.</p>
+        <h3>Registro de Novedades 📝</h3><br>
+        <p class="pp">Mantén un registro actualizado de las incidencias y novedades.</p>
       </div>
     </div>
 
   <div class="carousel">
     <img src="Img/sena1.jpg" class="active" alt="Inventario del almacén">
     <img src="Img/ssena.avif" class="active" alt="Gestión de préstamos">
-    <img src="Img/sena7.jpg" class="active" alt="Administración del sistema">
+    <img src="Img/wallpaper-625623_1280.png" class="active" alt="Administración del sistema">
   </div>
-
-
+  <br><br>
+  
   <footer>
     <div class="footer-left">
-        <img src="Img/escudo.gif" alt="Logo Sena">
+        <img src="Img/escudo.gif" alt="Logo Sena" class="log">
         <p>&copy; 2025 Sistema Almacén | SENA</p>
     </div>
+
     <div class="footer-right">
         <p>Contacto: almacen@sena.edu.co</p>
     </div>
+    
 </footer>
 
 
