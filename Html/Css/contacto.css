@@ -27,13 +27,17 @@ header {
   to { transform: translateY(0); opacity: 1; }
 }
 
-
-.logo {
-  height: 100px;
-  margin-right: 20px;
-  animation:slideDown 2s ease-in-out;
-}
-h2 {
-  font-size: 20px;
-  font-family: stencil;
+  .logo {
+    height: 100px;
+    margin-right: 20px;
+    animation:slideDown 2s ease-in-out;
+  }
+  h2 {
+      font-size: 20px;
+      font-family: stencil;
+  }
+  label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
 }
