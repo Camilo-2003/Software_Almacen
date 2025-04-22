@@ -27,8 +27,6 @@ header {
   to { transform: translateY(0); opacity: 1; }
 }
 
-
-<<<<<<< HEAD
   .logo {
     height: 100px;
     margin-right: 20px;
@@ -43,14 +41,3 @@ header {
     margin: 10px 0 5px;
     font-weight: bold;
 }
-=======
-.logo {
-  height: 100px;
-  margin-right: 20px;
-  animation:slideDown 2s ease-in-out;
-}
-h2 {
-  font-size: 20px;
-  font-family: stencil;
-}
->>>>>>> f5e4f24f8c1c4617f0a1b249bedd88d02f219f08
