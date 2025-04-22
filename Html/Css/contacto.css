@@ -37,3 +37,8 @@ body {
       font-size: 20px;
       font-family: stencil;
   }
+  label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+}
