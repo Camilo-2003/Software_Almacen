@@ -31,12 +31,12 @@ function validarFormulario() {
 
     return true;
 }
-
 function cancelarFormulario() {
     if (confirm("¿Estás seguro de que deseas cancelar el registro?")) {
         window.location.href = "login.html";   
     }
 }
+
 
 // Prevenir que el espacio sea el primer carácter en nombre y apellido
 document.getElementById("nombre").addEventListener("input", function(e) {
