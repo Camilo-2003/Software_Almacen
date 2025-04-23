@@ -11,55 +11,65 @@
     <header>
         <h1>📋 Registro De Elementos</h1>
     </header>
+    <div class="container-rgs">
+        <a href="almacenista.php" class="rgs">Regresar</a>
+    </div>
 
     <div class="container">
         <h2>Nuevo Registro</h2>
         
         <form action="Php/agregar_material.php" method="POST" class="lista">
-            <label>Tipo de Registro:</label>
+            <label>Tipo de registro:</label><br>
             <select name="tipo_registro" id="tipo_registro" onchange="mostrarCampos()" required>
                 <option value="">Seleccione</option>
                 <option value="Material">Material</option>
                 <option value="Equipo">Equipo</option>
             </select>
-        
-            <div id="materialFields" style="display: none;" >
-                <label>Nombre del Material:</label>
-                <input type="text" name="nombre_material" id="nombre_material" placeholder="Ej. Laptop, Papel">
+            
+            <div id="materialFields" style="display: none;">
+                <label>Nombre del material:</label><br>
+                <input type="text" name="nombre_material" id="nombre_material" placeholder="Ej: HDMI, MARCADOR">                  
                 <br>
-                <label>Tipo de Material:</label>
+                <label>Tipo de material:</label><br>
                 <select name="tipo_material" id="tipo_material">
                     <option value="Consumible">Consumible</option>
                     <option value="No Consumible">No Consumible</option>
                 </select>
                 <br>
-                <label>Cantidad (Stock):</label>
+                <label>Cantidad a ingresar:</label><br>
                 <input type="number" name="stock_material" id="stock_material" min="1">
             </div>
                  <br>
             <div id="equipoFields" style="display: none;">
-                <label>Marca:</label>
-                <input type="text" name="marca" id="marca" placeholder="Ej. HP, Dell">
+                <label>Marca:</label><br>
+                <select name="marca" id="marca">
+                    <option value="">Seleccione</option>
+                    <option value="HP">HP</option>
+                    <option value="Dell">Dell</option>
+                    <option value="Lenovo">Lenovo</option>
+                    <option value="Acer">Acer</option>
+                    <option value="Asus">Asus</option>
+                </select>
                 <br>
-                <label>Serial:</label>
+                <label>Serial:</label><br>
                 <input type="text" name="serial" id="serial" placeholder="Número de serie">
                 <br>
-                <label>Estado:</label>
+                <label>Estado:</label><br>
                 <select name="estado" id="estado">
                     <option value="disponible">Disponible</option>
                     <option value="prestado">Prestado</option>
                     <option value="deteriorado">Deteriorado</option>
                 </select>
             </div>
-        
+            <br>
             <button type="submit" class="agg">Agregar</button>
         </form>
     </div> 
 
             
-            <p class="description">Accede a esta opcion para ver<br> 
-            el historial mas detallado del inventario<br>
-            de los materiales del almacen y ve el paso a paso.</p>
+            <p class="description">
+            Accede a esta opcion para ver el historial mas detallado<br>
+            del inventario de los materiales y equipos del almacén</p><p class="ic">⬇️</p> 
           <!--  <img src="Img/imgg.png" alt="Equipos" class="imgg">-->
 
     <div>

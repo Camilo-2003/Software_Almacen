@@ -66,3 +66,22 @@ button:hover {
 .option:hover {
   background: green;
 }
+.contain {
+  display:flex;
+  margin-top: 20px;
+  margin-left: 12px;
+}
+.rgs {
+  text-decoration: none;
+  border-radius: 10px;
+  background-color: black;
+  color: white;
+  width: auto;
+  padding: 5px;
+  font-size: 18px;
+}
+.rgs:hover {
+  background-color: green;
+  transform: scale(1.1);
+  transition: 0.3s;
+}

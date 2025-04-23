@@ -1,36 +1,71 @@
 body { 
-  font-family: Arial, sans-serif; text-align: center;
+  font-family: Arial, sans-serif; 
+  text-align: center;
   background: radial-gradient(circle, #4CAF50, #000000);
 }
-.container { 
+.container, .container2 { 
   width: 80%; 
   margin: auto; 
   background-color: rgb(35, 122, 57);
   color: white;
+  border-radius: 20px;
+  padding: 4px;
+  overflow: hidden;
 }
 table { 
   width: 100%; 
-  border-collapse: collapse; 
-  margin-top: 20px;
+  border-collapse: separate;
+  border-spacing: 0;          
+  margin-top: 0;
+  border-radius: 10px;
+  overflow: hidden;
 }
 th, td { 
-  border: 3px solid black; 
+  border: 2px solid black; 
   padding: 10px;
 }
 th { 
-  background-color: rgb(0, 0, 0); 
+  background-color: rgb(255, 255, 255); 
+  color: black;
 }
-tr:hover{
-  background-color: #4CAF50;
+table thead tr:first-child th:first-child {
+  border-top-left-radius: 10px;
 }
-h1  {
-  color: white;
+table thead tr:first-child th:last-child {
+  border-top-right-radius: 10px;
+}
+table tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 10px;
+}
+table tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 10px;
+}
+h1 {
+  color: rgb(0, 0, 0);
   background-color: rgb(35, 122, 57);
+  width: 80%;
+  padding: 8px;
+  text-align: center;
+  margin: auto;
+  border: 1px solid black;
 }
-h2 {
+h2, h3 {
   color: rgb(0, 0, 0);
   background-color: white;
+  border-radius: 8px;
+  margin: auto;
+  width: 50%;
+  padding: 5px;
 }
-h2:hover{
-  background-color: rgb(105, 107, 105);
+.btn-total {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  margin: 10px 0;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.btn-total:hover {
+  background-color: #60656a;
 }

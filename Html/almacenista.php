@@ -32,9 +32,8 @@ if (!isset($_SESSION["id_almacenista"])) {
         <div class="options">
             <a href="préstamos.html" class="option">📤 Registrar Préstamos</a>
             <a href="Inventario.html" class="option">📋 Gestionar Inventario</a>
-            <a href="Novedades.html" class="option">🛠️ Novedades</a>
             <a href="GestionUsuarios.html" class="option">👨‍🏫 Gestión de Instructores</a>
-               
+            <a href="Novedades.html" class="option">🛠️ Novedades</a>
         </div>
     </main>
    
