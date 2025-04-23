@@ -83,7 +83,7 @@ body {
     transform: scale(1.05);
   }
 
-  a {
+  .regist {
     text-decoration: none; /* Quitamos el subrayado */
     color: #000; /* Color negro */
     font-weight: bold;
@@ -93,7 +93,7 @@ body {
     position: relative;
   }
 
-  a::after{
+  .regist::after{
     content: "";
     width: 0;
     height: 4px;
@@ -103,10 +103,30 @@ body {
     bottom: -8px;
     transition: width 0.5s ease;
   }
-  a:hover {
+  .regist:hover {
     color: blue;  
   }
-  a:hover::after {
+  .regist:hover::after {
     width: 100%;
   }
+  .btn {
+    animation: fadeIn 1.5s ease-in-out;
+    display:flex;
+    margin-top: 20px;
+    margin-left: 12px;
+}
+.btnn {
+    text-decoration: none;
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+    width: auto;
+    padding: 5px;
+    font-size: 18px;
+}
+.btnn:hover {
+    background-color: green;
+    transform: scale(1.1);
+    transition: 0.3s;
+}
 

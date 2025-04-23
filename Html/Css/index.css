@@ -27,7 +27,7 @@ header {
   background-color: #000;
   color: rgb(17, 179, 57);
   animation: slideDown 2s ease-in-out;
-}
+} 
 @keyframes slideDown {
   from { transform: translateY(-100px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
@@ -168,7 +168,7 @@ footer {
   transform: translateY(-25px);
   /*rotar    transform: rotate(360deg);*/
 }
-.pp {
+.prf {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   color: rgb(255, 255, 255);
 }

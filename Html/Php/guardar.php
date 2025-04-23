@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = trim($_POST["password"]);
     $password_hashed = password_hash($password, PASSWORD_DEFAULT); // Hasheamos la contraseña
 
-    // Verificar si el correo ya está registrado
+
     $sql_check = "SELECT id_almacenista FROM almacenistas WHERE correo = ?";
     $stmt_check = $conexion->prepare($sql_check);
     $stmt_check->bind_param("s", $correo);
@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql = "INSERT INTO almacenistas (nombres, apellidos, correo, telefono, password) VALUES (?, ?, ?, ?, ?)";
     $stmt = $conexion->prepare($sql);
     $stmt->bind_param("sssss", $nombres, $apellidos, $correo, $telefono, $password_hashed);
-
+    // si todos los campos se llenan correctamente se ejecuta y direcciona a login
     if ($stmt->execute()) {
         echo "<script>alert('Registro exitoso. Ahora puedes iniciar sesión.'); window.location.href='../login.html';</script>";
     } else {

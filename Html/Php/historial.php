@@ -109,7 +109,7 @@ if ($conexion->connect_errno) {
                         </tr>";
               }
           } else {
-              echo "<tr><td colspan='2'>No hay datos disponibles.</td></tr>";
+              echo "<tr><td colspan='2'>No hay datos disponibles en este momento.</td></tr>";
           }
           ?>
       </tbody>
