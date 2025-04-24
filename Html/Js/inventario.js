@@ -75,9 +75,25 @@ function cargarInventario() {
 
 function mostrarCampos() {
     let tipoRegistro = document.getElementById("tipo_registro").value;
-    document.getElementById("materialFields").style.display = (tipoRegistro === "Material") ? "block" : "none";
-    document.getElementById("equipoFields").style.display = (tipoRegistro === "Equipo") ? "block" : "none";
+    let materialFields = document.getElementById("materialFields");
+    let equipoFields = document.getElementById("equipoFields");
+    let nombreMaterial = document.getElementById("nombre_material");
+
+    if (tipoRegistro === "Material") {
+        materialFields.style.display = "block";
+        equipoFields.style.display = "none";
+        nombreMaterial.setAttribute("required", "required");
+    } else if (tipoRegistro === "Equipo") {
+        materialFields.style.display = "none";
+        equipoFields.style.display = "block";
+        nombreMaterial.removeAttribute("required");
+    } else {
+        materialFields.style.display = "none";
+        equipoFields.style.display = "none";
+        nombreMaterial.removeAttribute("required");
+    }
 }
+
 
 function limpiarFormulario() {
     document.getElementById("nombre_material").value = "";

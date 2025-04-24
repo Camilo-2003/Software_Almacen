@@ -69,3 +69,30 @@ h2, h3 {
 .btn-total:hover {
   background-color: #60656a;
 }
+.btn-eliminar1, .btn-eliminar2 {
+  background-color: #ec051d;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  display: inline-block;
+}
+.btn-eliminar1:hover, .btn-eliminar2:hover{
+  background-color: #8d1d28;
+  transform: scale(1.1);
+  transition: 0.3s;
+}
+.btn-editar, .btn-editar2 {
+  background-color: orange;
+  color: white;
+  padding: 5px 10px;
+  margin-right: 5px;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.btn-editar:hover {
+  background-color: darkorange;
+}
+

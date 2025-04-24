@@ -28,7 +28,7 @@
             
             <div id="materialFields" style="display: none;">
                 <label>Nombre del material:</label><br>
-                <input type="text" name="nombre_material" id="nombre_material" placeholder="Ej: HDMI, MARCADOR">                  
+                <input type="text" name="nombre_material" id="nombre_material" placeholder="Ej: Hdmi, Marcador">                  
                 <br>
                 <label>Tipo de material:</label><br>
                 <select name="tipo_material" id="tipo_material">
@@ -70,19 +70,12 @@
             <p class="description">
             Accede a esta opcion para ver el historial mas detallado<br>
             del inventario de los materiales y equipos del almacén</p><p class="ic">⬇️</p> 
-          <!-- <img src="Img/imgg.png" alt="Equipos" class="imgg">-->
+          <!--  <img src="Img/imgg.png" alt="Equipos" class="imgg">-->
 
     <div>
         <a href="Php/historial.php"><button class="historial">📋 Historial de Inventario</button></a>
     </div>
 
-    <script>
-    function mostrarCampos() {
-        let tipoRegistro = document.getElementById("tipo_registro").value;
-        document.getElementById("materialFields").style.display = (tipoRegistro === "Material") ? "block" : "none";
-        document.getElementById("equipoFields").style.display = (tipoRegistro === "Equipo") ? "block" : "none";
-    }
-    </script>
     
     <script src="Js/inventario.js"></script>
 

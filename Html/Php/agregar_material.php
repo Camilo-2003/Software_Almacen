@@ -16,13 +16,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stock = $_POST["stock_material"];
 
 //No se permiten campos nulos
-if (empty($nombre) || empty($tipo) || empty($stock) || !is_numeric($stock)) {
-    echo "Todos los campos son obligatorios y el stock debe ser numérico.";
+if (empty($nombre) || empty($tipo) || empty($stock)) {
+    echo "Todos los campos son obligatorios.";
     exit();
 }
 //Se inserta el material en la tabla materiales en la bdd
         $sql = "INSERT INTO materiales (nombre, tipo, stock) VALUES ('$nombre', '$tipo', '$stock')";
         $conexion->query($sql);
+
     } 
     elseif ($tipo_registro == "Equipo") { //si se selecciona la opción de "Equipo" muestra los campos de equipo
         $marca = $_POST["marca"];

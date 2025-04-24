@@ -13,7 +13,7 @@ if ($conexion->connect_errno) {
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="Img/logo_sena.png" type="image/x-icon">
+    <link rel="icon" href="../Img/logo_sena.png" type="image/x-icon">
     <title>Historial de Inventario</title>
     <link rel="stylesheet" href="../Css/historialphp.css">
 </head>
@@ -23,13 +23,16 @@ if ($conexion->connect_errno) {
     </header>
     <br>
     <h2>📦 Materiales</h2><br>
+    <input type="text" id="busquedaMateriales" placeholder="🔍 Buscar materiales..." onkeyup="filtrarTabla('busquedaMateriales', 'tablaMateriales')">
+    <br><br>
     <div class="container">
-        <table>
+        <table id="tablaMateriales">
             <thead>
                 <tr>
                     <th>Nombre</th>
                     <th>Tipo</th>
                     <th>Cantidad</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -43,24 +46,32 @@ if ($conexion->connect_errno) {
                                 <td>{$row['nombre']}</td>
                                 <td>{$row['tipo']}</td>
                                 <td>{$row['stock']}</td>
+                                <td>
+                                    <a class='btn-editar' href='editar.php?tipo=material&id={$row['id_material']}'>✏️ Editar</a>
+                                    <a class='btn-eliminar1' href='eliminar.php?tipo=material&id={$row['id_material']}' onclick='return confirmarEliminacion()'>🗑️ Eliminar</a>
+                                </td>
                               </tr>";
                     }
                 } else {
-                    echo "<tr><td colspan='3'>No hay materiales registrados en este momento.</td></tr>";
+                    echo "<tr><td colspan='4'>No hay materiales registrados en este momento.</td></tr>";
                 }
                 ?>
             </tbody>
         </table>
-    </div><br>
+    </div>
+
+    <br>
     <h2>💻 Equipos</h2><br>
-      <div class="container2">
-       
-        <table>
+    <input type="text" id="busquedaEquipos" placeholder="🔍 Buscar equipos..." onkeyup="filtrarTabla('busquedaEquipos', 'tablaEquipos')">
+    <br><br>
+    <div class="container2">
+        <table id="tablaEquipos">
             <thead>
                 <tr>
                     <th>Marca</th>
                     <th>Serial</th>
                     <th>Estado</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -74,81 +85,87 @@ if ($conexion->connect_errno) {
                                 <td>{$row['marca']}</td>
                                 <td>{$row['serial']}</td>
                                 <td>{$row['estado']}</td>
+                                <td>
+                                    <a class='btn-editar2' href='editar.php?tipo=equipo&id={$row['id_equipo']}'>✏️ Editar</a>
+                                    <a class='btn-eliminar2' href='eliminar.php?tipo=equipo&id={$row['id_equipo']}' onclick='return confirmarEliminacion()'>🗑️ Eliminar</a>
+                                </td>
                               </tr>";
                     }
                 } else {
-                    echo "<tr><td colspan='3'>No hay equipos registrados en este momento.</td></tr>";
+                    echo "<tr><td colspan='4'>No hay equipos registrados en este momento.</td></tr>";
                 }
                 ?>
             </tbody>
         </table>
-    </div><br>
+    </div>
 
-<button class="btn-total" onclick="mostrarTotalesEquipos()">📊 Ver total de equipos por marca</button>
+    <br>
 
-<h3 id="tituloTotales" style="display: none;">🔢 Equipos por Marca</h3>
+    <button class="btn-total" onclick="mostrarTotalesEquipos()">📊 Ver total de equipos por marca</button>
 
-<div class="container2" id="contenedorTabla" style="display: none; margin-top: 10px;">
-  <table>
-      <thead>
-          <tr>
-              <th>Marca</th>
-              <th>Total</th>
-          </tr>
-      </thead>
-      <tbody>
-          <?php
-          $sqlTotal = "SELECT marca, COUNT(*) AS total FROM equipos GROUP BY marca";
-          $resultTotal = $conexion->query($sqlTotal);
+    <h3 id="tituloTotales" style="display: none;">🔢 Equipos por Marca</h3>
 
-          if ($resultTotal->num_rows > 0) {
-              while ($row = $resultTotal->fetch_assoc()) {
-                  echo "<tr>
-                          <td>{$row['marca']}</td>
-                          <td>{$row['total']}</td>
-                        </tr>";
-              }
-          } else {
-              echo "<tr><td colspan='2'>No hay datos disponibles en este momento.</td></tr>";
-          }
-          ?>
-      </tbody>
-  </table>
-</div>
+    <div class="container2" id="contenedorTabla" style="display: none; margin-top: 10px;">
+        <table>
+            <thead>
+                <tr>
+                    <th>Marca</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $sqlTotal = "SELECT marca, COUNT(*) AS total FROM equipos GROUP BY marca";
+                $resultTotal = $conexion->query($sqlTotal);
 
-<button class="btn-total" onclick="mostrarTotalesMateriales()">📦 Ver total de materiales por tipo</button>
+                if ($resultTotal->num_rows > 0) {
+                    while ($row = $resultTotal->fetch_assoc()) {
+                        echo "<tr>
+                                <td>{$row['marca']}</td>
+                                <td>{$row['total']}</td>
+                              </tr>";
+                    }
+                } else {
+                    echo "<tr><td colspan='2'>No hay datos disponibles en este momento.</td></tr>";
+                }
+                ?>
+            </tbody>
+        </table>
+    </div>
 
-<h3 id="tituloTotalesMateriales" style="display: none;">📋 Total de Materiales por Tipo</h3>
+    <button class="btn-total" onclick="mostrarTotalesMateriales()">📦 Ver total de materiales por tipo</button>
 
-<div class="container2" id="contenedorTablaMateriales" style="display: none; margin-top: 10px;">
-  <table>
-      <thead>
-          <tr>
-              <th>Tipo</th>
-              <th>Total</th>
-          </tr>
-      </thead>
-      <tbody>
-          <?php
-          $sqlMat = "SELECT tipo, COUNT(*) AS total FROM materiales GROUP BY tipo";
-          $resultMat = $conexion->query($sqlMat);
+    <h3 id="tituloTotalesMateriales" style="display: none;">📋 Total de Materiales por Tipo</h3>
 
-          if ($resultMat->num_rows > 0) {
-              while ($row = $resultMat->fetch_assoc()) {
-                  echo "<tr>
-                          <td>{$row['tipo']}</td>
-                          <td>{$row['total']}</td>
-                        </tr>";
-              }
-          } else {
-              echo "<tr><td colspan='2'>No hay materiales registrados.</td></tr>";
-          }
-          ?>
-      </tbody>
-  </table>
-</div>
+    <div class="container2" id="contenedorTablaMateriales" style="display: none; margin-top: 10px;">
+        <table>
+            <thead>
+                <tr>
+                    <th>Tipo</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $sqlMat = "SELECT tipo, COUNT(*) AS total FROM materiales GROUP BY tipo";
+                $resultMat = $conexion->query($sqlMat);
 
-<script src="../Js/historial.js"></script>
+                if ($resultMat->num_rows > 0) {
+                    while ($row = $resultMat->fetch_assoc()) {
+                        echo "<tr>
+                                <td>{$row['tipo']}</td>
+                                <td>{$row['total']}</td>
+                              </tr>";
+                    }
+                } else {
+                    echo "<tr><td colspan='2'>No hay materiales registrados.</td></tr>";
+                }
+                ?>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="../Js/historial.js"></script>
 
 </body>
 </html>
