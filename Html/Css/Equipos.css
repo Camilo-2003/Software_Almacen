@@ -16,7 +16,7 @@ header {
   background-color: #000;
   color: rgb(17, 179, 57);
   font-size: 1em;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 3px rgb(0, 0, 0);
   animation: slideDown 1s ease-in-out;
 }
 @keyframes slideDown {
@@ -29,6 +29,20 @@ h1 {
   font-family: Stencil;
   animation:slideDown 2s ease-in-out;
 }
+h2 {
+  padding: 10px;
+  width: 50%;
+  margin: 10px auto;
+  font-size: 26px;
+  background-color: green;
+  box-shadow: 10px 10px 10px black;
+}
+.historial {
+  padding: 10px;
+  width: 25%;
+  background-color: green;
+  box-shadow: 10px 10px 10px black;
+}
 
 .logo {
   height: 100px;
@@ -37,13 +51,13 @@ h1 {
 }
 
 .container {
-  background: rgb(35, 122, 57);
+  background: rgb(226, 221, 221);
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 10px rgba(0, 0, 0);
   max-width: 600px;
-  margin-left: 350px;
-  margin-top: 10px;
+  margin: 20px auto;
+  font-weight: bold;
 }
 table {
   width: 100%;
@@ -52,12 +66,12 @@ table {
   background: rgb(255, 255, 255);
 }
 th, td {
-  border: 1px solid #ddd;
+  border: 2px solid #ddd;
   padding: 10px;
   text-align: center;
 }
 button {
-  background: green;
+  background: rgb(0, 0, 0);
   color: white;
   border: none;
   padding: 8px 12px;
@@ -77,9 +91,10 @@ button:hover {
   display: inline;
   margin: 20px;
   padding: 15px;
-  font-size: 1.2em;
-  background: #000000;
-  color: rgb(255, 255, 255);
+  font-size: 1.1em;
+  background:  rgb(226, 221, 221);
+  color: rgb(0, 0, 0);
+  font-weight: bold;
   text-decoration: none;
   border-radius: 5px;
   transition: 0.3s;
@@ -88,13 +103,22 @@ button:hover {
   justify-items: center;
 }
 .hist:hover {
-  background: green;
+  background: rgb(24, 116, 24);
   transform: scale(1.1);
   transition: 0.3s;
 }
-
+.regresar {
+  animation: fadeIn 1.5s ease-in-out;
+  display:flex;
+  left: 0;
+  top: 58px;
+  position: absolute;
+  float: left;
+  border-radius: 12px;
+}
 .rgs {
   float: left;
+  left: 0;
   margin-top: 10px;
   text-decoration: none;
   border-radius: 10px;
@@ -103,9 +127,11 @@ button:hover {
   width: auto;
   padding: 5px;
   font-size: 18px;
+  box-shadow: 2px 2px 7px #157c34;
 }
 .rgs:hover {
   background-color: green;
   transform: scale(1.1);
   transition: 0.3s;
+  border: 1px solid white;
 }

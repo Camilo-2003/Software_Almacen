@@ -79,7 +79,7 @@ h2, h3 {
   display: inline-block;
 }
 .btn-eliminar1:hover, .btn-eliminar2:hover{
-  background-color: #8d1d28;
+  background-color: #9e0d1b;
   transform: scale(1.1);
   transition: 0.3s;
 }
@@ -89,10 +89,31 @@ h2, h3 {
   padding: 5px 10px;
   margin-right: 5px;
   text-decoration: none;
+  transition: background-color 0.3s;
   border-radius: 5px;
+  display: inline-block;
 }
 
-.btn-editar:hover {
-  background-color: darkorange;
+.btn-editar:hover, .btn-editar2:hover {
+  background-color: rgb(170, 102, 19);
+  transform: scale(1.1);
+  transition: 0.3s;
 }
-
+.regresar {
+  float: left;
+  margin-top: -80px;
+  text-decoration: none;
+  border-radius: 10px;
+  background-color: black;
+  color: white;
+  width: auto;
+  padding: 5px;
+  font-size: 18px;
+  box-shadow: 2px 2px 7px #157c34;
+}
+.regresar:hover {
+  background-color: green;
+  transform: scale(1.1);
+  transition: 0.3s;
+  border: 1px solid white;
+}

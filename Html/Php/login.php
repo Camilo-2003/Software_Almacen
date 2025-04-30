@@ -50,6 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (password_verify($password, $row["password"])) {
             $_SESSION["id_almacenista"] = $row["id_almacenista"];
             $_SESSION["nombres"] = $row["nombres"];
+            $_SESSION["apellidos"] = $row["apellidos"]; 
             $_SESSION["correo"] = $row["correo"];
 
             $stmt->close();

@@ -4,3 +4,5 @@ function cancelarFormulario() {
     }
 }
 21 abril 2025 
+
+->	Acceder a propiedad o método de un objeto

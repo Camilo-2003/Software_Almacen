@@ -1,55 +1,41 @@
-function obtenerInstructores() {
-    return JSON.parse(localStorage.getItem("instructores")) || [];
-}
+function validarFormulario() {
+    var nombreInput = document.getElementById("nombre");
+    var apellidoInput = document.getElementById("apellido");
+    var correoInput = document.getElementById("correo");
+    var telefonoInput = document.getElementById("telefono");
+    var ambienteInput = document.getElementById("ambiente");
+    var nombrematerialInput = document.getElementById("nombre_material");
 
-function actualizarInstructores(instructores) {
-    localStorage.setItem("instructores", JSON.stringify(instructores));
-}
+    // Limpiar espacios iniciales
+    nombreInput.value = nombreInput.value.replace(/^\s+/, '');
+    apellidoInput.value = apellidoInput.value.replace(/^\s+/, '');
+    correoInput.value = correoInput.value.replace(/^\s+/, '');
+    telefonoInput.value = telefonoInput.value.replace(/^\s+/, '');
+    ambienteInput.value = ambienteInput.value.replace(/^\s+/, '');
+    nombrematerialInput.value = nombrematerialInput.value.replace(/^\s+/, '');
 
-function mostrarInstructores() {
-    let lista = document.getElementById("listaInstructores");
-    lista.innerHTML = "";
-    let instructores = obtenerInstructores();
-    instructores.forEach((inst, index) => {
-        lista.innerHTML += `
-            <tr>
-                <td contenteditable="true" onblur="editarInstructor(${index}, 'nombre', this.textContent)">${inst.nombre}</td>
-                <td contenteditable="true" onblur="editarInstructor(${index}, 'correo', this.textContent)">${inst.correo}</td>
-                <td contenteditable="true" onblur="editarInstructor(${index}, 'telefono', this.textContent)">${inst.telefono}</td>
-                <td contenteditable="true" onblur="editarInstructor(${index}, 'especialidad', this.textContent)">${inst.especialidad}</td>
-                <td><button onclick="eliminarInstructor(${index})" class="button2">Eliminar</button></td>
-            </tr>`;
-    });
-}
+    return true;
+  }
 
-function agregarInstructor() {
-    let nombre = document.getElementById("nombre").value;
-    let correo = document.getElementById("correo").value;
-    let telefono = document.getElementById("telefono").value;
-    let especialidad = document.getElementById("especialidad").value;
-    
-    if (!nombre || !correo || !telefono || !especialidad) {
-        alert("Todos los campos son obligatorios");
-        return;
-    }
-    
-    let instructores = obtenerInstructores();
-    instructores.push({ nombre, correo, telefono, especialidad });
-    actualizarInstructores(instructores);
-    mostrarInstructores();
-}
+  // Prevenir espacios al inicio mientras se escribe en los input  
 
-function editarInstructor(index, campo, valor) {
-    let instructores = obtenerInstructores();
-    instructores[index][campo] = valor;
-    actualizarInstructores(instructores);
-}
+  document.getElementById("nombre").addEventListener("input", function(e) {
+    this.value = this.value.replace(/^\s+/, '');
+  });
 
-function eliminarInstructor(index) {
-    let instructores = obtenerInstructores();
-    instructores.splice(index, 1);
-    actualizarInstructores(instructores);
-    mostrarInstructores();
-}
+  document.getElementById("apellido").addEventListener("input", function(e) {
+    this.value = this.value.replace(/^\s+/, '');
+  });
+  document.getElementById("correo").addEventListener("input", function(e) {
+    this.value = this.value.replace(/^\s+/, '');
+  });
+  document.getElementById("telefono").addEventListener("input", function(e) {
+    this.value = this.value.replace(/^\s+/, '');
+  });
+  document.getElementById("ambiente").addEventListener("input", function(e) {
+    this.value = this.value.replace(/^\s+/, '');
+  });
+  document.getElementById("nombre_material").addEventListener("input", function(e) {
+    this.value = this.value.replace(/^\s+/, '');
+  });
 
-document.addEventListener("DOMContentLoaded", mostrarInstructores);

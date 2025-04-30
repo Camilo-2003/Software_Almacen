@@ -17,6 +17,7 @@ header {
   justify-content: center;
   padding: 3px;
   background-color: #000000;
+  box-shadow: 0 2px 3px rgb(0, 0, 0);
   font-size: 1em;
   color: rgb(17, 179, 57);
   animation: slideDown 2s ease-in-out;

@@ -7,31 +7,38 @@
   <link rel="stylesheet" href="Css/index.css">
 </head>
 <body>
+  <main>
   <header>
     <div class="left-section">
     <img src="Img/logo_sena.png" alt="Logo Sena" class="logo">
-    <marquee direction="right" scrollamount="7"><h1>Sistema Almacén</h1></marquee><h1>📦</h1>
+    <marquee direction="right" scrollamount="7"><h1>Sistema Almacén</h1></marquee><h1 class="icon">📦</h1>
     </div>
 
     <div class="menu-container">
       <!-- Botón de menú -->
       <button class="menu-button" onclick="toggleMenu()">
-        <div class="menu-icon"></div>
+        <span class="menu-icon">
+          <span class="line"></span>
+          <span class="line"></span>
+          <span class="line"></span>
+        </span>
+        <span class="menu-text">Menú</span>
       </button>
-    </div>
     
-    <div class="menu-overlay" id="menuOverlay">
-      <div class="menu-list"><br><br><br>
+      <div class="menu-overlay" id="menuOverlay">
+        <div class="menu-list"><br><br><br>
           <a href="login.html">👤 Acceder al Sistema</a>
           <a href="index.html">🏡 Home</a>
           <a href="contacto.html">📞 Contacto</a>
-          <a href="SobreNosotros.html">🔎 Ayuda</a>
+          <a href="Ayuda.html">🔎 Ayuda</a>
+        </div>
       </div>
     </div>
+    
 </header>
  
   <div class="container">
-    <h2>Bienvenido Al Sistema De Almacén</h2>
+    <h2>Bienvenido al sistema de almacén</h2>
     <p class="info">
       Este sistema permite gestionar el inventario de equipos y materiales del almacén, realizar préstamos 
       de equipos, y materiales que se clasifican entre consumibles y no consumibles, y registrar novedades.
@@ -40,8 +47,8 @@
     
     <div class="features">
       <div class="feature">
-        <h3>Controla los prestamos 🤝</h3><br>
-        <p class="prf">Hazle seguimiento a los prestamos que realices.</p>
+        <h3>Controla los préstamos 🤝</h3><br>
+        <p class="prf">Hazle seguimiento a los préstamos que realices.</p>
       </div>
         <div class="feature">
         <h3>Control de Inventario 📊</h3><br>
@@ -62,18 +69,13 @@
     <img src="Img/ssena.avif" class="active" alt="Gestión de préstamos">
     <img src="Img/wallpaper-625623_1280.png" class="active" alt="Administración del sistema">
   </div>
-  <br><br>
+  </main>
   
-  <footer>
-    <div class="footer-left">
+<footer>
         <img src="Img/escudo.gif" alt="Logo Sena" class="log">
         <p>&copy; 2025 Sistema Almacén | SENA</p>
-    </div>
-
-    <div class="footer-right">
         <p>Contacto: almacen@sena.edu.co</p>
-    </div>
-    
+        <p>Centro Textil Y De Gestión Industrial</p>
 </footer>
 
 

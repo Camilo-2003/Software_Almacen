@@ -8,27 +8,54 @@ body {
 h2 {
   color: #000000;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 10px;
+  width: 50%;
+  margin: 10px auto;
+  background-color: green;
+  box-shadow: 10px 10px 10px black;
+}
+.list {
+  padding: 10px; 
+  width: 25%;
+  margin: 10px auto;
+  background-color: green;
+  box-shadow: 10px 10px 10px black;
 }
 .container {
-  background: rgb(35, 122, 57);
-  color: rgb(255, 255, 255);
+  background:  rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 10px rgba(0, 0, 0);
   max-width: 600px;
   margin: 20px auto;
 }
+label {
+  font-weight: bold;
+}
+input {
+  padding: 4px;
+  border-radius: 4px;
+  width: 40%;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
-  background: rgb(35, 122, 57);
-  color: rgb(255, 255, 255);
+  background: rgb(20, 136, 49);
+  color: rgb(0, 0, 0);
 }
 table, th, td {
-  border: 1px solid #ddd;
+  border: 1px solid #141414;
 }
-th, td {
+th {
+  padding: 10px;
+  text-align: center;
+}
+td {
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
   padding: 10px;
   text-align: center;
 }
@@ -43,28 +70,18 @@ th, td {
 .button1:hover{
   background-color: #4CAF50;
 }
-.button2 {
-  background: #000000;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  cursor: pointer;
-  border-radius: 5px;
-}
-button:hover {
-  background: red;
-}
 .option {
   padding: 20px 30px;
   font-size: 1em;
-  background:rgb(35, 122, 57);
-  color: rgb(255, 255, 255);
+  background:rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  font-weight: bold;
   text-decoration: none;
   border-radius: 5px;
   float: right;
 }
 .option:hover {
-  background: green;
+  background: rgb(47, 146, 47);
 }
 .contain {
   display:flex;
@@ -74,14 +91,15 @@ button:hover {
 .rgs {
   text-decoration: none;
   border-radius: 10px;
-  background-color: black;
-  color: white;
+  background-color: rgb(7, 7, 7);
+  color: rgb(255, 255, 255);
   width: auto;
   padding: 5px;
   font-size: 18px;
+  box-shadow: 2px 2px 7px #157c34;
 }
 .rgs:hover {
-  background-color: green;
+  background-color: rgb(13, 82, 13);
   transform: scale(1.1);
   transition: 0.3s;
 }

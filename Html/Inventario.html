@@ -10,15 +10,15 @@
 
     <header>
         <h1>📋 Registro De Elementos</h1>
+        <div class="container-rgs">
+            <a href="almacenista.php" class="rgs" title="Haz clic para volver">Regresar</a>
+        </div>
     </header>
-    <div class="container-rgs">
-        <a href="almacenista.php" class="rgs">Regresar</a>
-    </div>
 
     <div class="container">
         <h2>Nuevo Registro</h2>
         
-        <form action="Php/agregar_material.php" method="POST" class="lista">
+        <form action="Php/agregar_material.php" method="POST" class="lista"  onsubmit="return validarFormulario()">
             <label>Tipo de registro:</label><br>
             <select name="tipo_registro" id="tipo_registro" onchange="mostrarCampos()" required>
                 <option value="">Seleccione</option>
@@ -37,7 +37,7 @@
                 </select>
                 <br>
                 <label>Cantidad a ingresar:</label><br>
-                <input type="number" name="stock_material" id="stock_material" min="1">
+                <input type="number" name="stock_material" id="stock_material" min="1" value="0">
             </div>
                  <br>
             <div id="equipoFields" style="display: none;">

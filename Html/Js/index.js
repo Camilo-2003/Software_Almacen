@@ -22,15 +22,3 @@ document.addEventListener("click", (event) => {
   }
 });
 
-window.addEventListener('scroll', function() {
-  const footer = document.querySelector('footer');
-  const windowHeight = window.innerHeight;
-  const documentHeight = document.documentElement.scrollHeight;
-  const scrollPosition = window.scrollY;
-
-  if (scrollPosition + windowHeight >= documentHeight - 10) {
-    footer.style.bottom = '0';
-  } else {
-    footer.style.bottom = '-180px';
-  }
-});

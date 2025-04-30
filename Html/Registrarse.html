@@ -10,31 +10,24 @@
 <body>
     <form action="Php/guardar.php" method="POST" onsubmit="return validarFormulario()">
         <h2>Crear Cuenta</h2>
-
+        <br>
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" name="nombre" required pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]{6,}" title="El nombre debe tener al menos 6 letras">
-
         <label for="apellido">Apellido:</label>
         <input type="text" id="apellido" name="apellido" required pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]{6,}" title="El apellido debe tener al menos 6 letras">
-
         <label for="correo">Correo Electrónico:</label>
         <input type="email" id="correo" name="correo" required>
-
         <label for="telefono">Teléfono:</label>
         <input type="tel" id="telefono" name="telefono" required pattern="[0-9]{10}" maxlength="10" title="Debe ser un número de 10 dígitos">
-
         <label for="password">Contraseña:</label>
         <input type="password" id="password" name="password" required>
-
         <label for="confirm-password">Confirmar Contraseña:</label>
         <input type="password" id="confirm-password" name="confirm-password" required>
-
         <div class="botones">
             <button type="submit">Guardar</button>
             <button type="button" onclick="cancelarFormulario()">Cancelar</button>
         </div>
     </form>
     <script src="Js/Registrarse.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-</body>
+</body> 
 </html>

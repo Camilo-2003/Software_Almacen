@@ -31,6 +31,7 @@ function validarFormulario() {
 
     return true;
 }
+// redirección 
 function cancelarFormulario() {
     if (confirm("¿Estás seguro de que deseas cancelar el registro?")) {
         window.location.href = "login.html";   
@@ -38,13 +39,14 @@ function cancelarFormulario() {
 }
 
 
-// Prevenir que el espacio sea el primer carácter en nombre y apellido
+// Prevenir que el espacio sea el primer carácter en nombre
 document.getElementById("nombre").addEventListener("input", function(e) {
     if (this.value.startsWith(" ")) {
         this.value = this.value.trimStart();
     }
 });
 
+// Prevenir que el espacio sea el primer carácter en el apellido
 document.getElementById("apellido").addEventListener("input", function(e) {
     if (this.value.startsWith(" ")) {
         this.value = this.value.trimStart();
@@ -58,3 +60,17 @@ document.getElementById("telefono").addEventListener("input", function(e) {
         this.value = this.value.slice(0, 10);
     }
 });
+
+//evita insertar espacios al crear la contraseña
+document.getElementById("password").addEventListener("input", function(e) {
+    this.value = this.value.replace(/^\s+/, '');
+  });
+
+  document.getElementById("confirm-password").addEventListener("input", function(e) {
+    this.value = this.value.replace(/^\s+/, '');
+  });
+//evita insertar espacios al ingresar el correo
+  document.getElementById("correo").addEventListener("input", function(e) {
+    this.value = this.value.replace(/^\s+/, '');
+  });
+

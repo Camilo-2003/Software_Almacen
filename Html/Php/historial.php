@@ -22,6 +22,10 @@ if ($conexion->connect_errno) {
         <h1>📋 Historial de Inventario</h1>
     </header>
     <br>
+    <div>
+        <a href="../Inventario.html" class="regresar" title="Haz clic para volver ">Regresar</a>
+    </div>
+    <br>
     <h2>📦 Materiales</h2><br>
     <input type="text" id="busquedaMateriales" placeholder="🔍 Buscar materiales..." onkeyup="filtrarTabla('busquedaMateriales', 'tablaMateriales')">
     <br><br>
@@ -115,6 +119,7 @@ if ($conexion->connect_errno) {
             </thead>
             <tbody>
                 <?php
+                //Esto agrupa los equipos por marca y cuenta cuántos hay de cada una.
                 $sqlTotal = "SELECT marca, COUNT(*) AS total FROM equipos GROUP BY marca";
                 $resultTotal = $conexion->query($sqlTotal);
 
@@ -147,6 +152,7 @@ if ($conexion->connect_errno) {
             </thead>
             <tbody>
                 <?php
+                //Esto agrupa los materiales por tipo y cuenta cuántos hay de cada uno.
                 $sqlMat = "SELECT tipo, COUNT(*) AS total FROM materiales GROUP BY tipo";
                 $resultMat = $conexion->query($sqlMat);
 
