@@ -1,49 +1,56 @@
 <?php
-print_r($_POST);
-?>
-
-<?php
-
 require_once $_SERVER['DOCUMENT_ROOT'] . '/Software_Almacen/Html/conexion.php';
-//verifica que se haya enviando mediante el metodo post
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $tipo_registro = $_POST["tipo_registro"];
-    
-//si se selecciona la opción de "Material" muestra los campos de material
+    $tipo_registro = isset($_POST["tipo_registro"]) ? $_POST["tipo_registro"] : '';
+
     if ($tipo_registro == "Material") {
-        $nombre = $_POST["nombre_material"];
-        $tipo = $_POST["tipo_material"];
-        $stock = $_POST["stock_material"];
+        $nombre = isset($_POST["nombre_material"]) ? trim($_POST["nombre_material"]) : '';
+        $tipo = isset($_POST["tipo_material"]) ? $_POST["tipo_material"] : '';
+        $stock = isset($_POST["stock_material"]) ? (int)$_POST["stock_material"] : 0;
 
-//No se permiten campos nulos
-if (empty($nombre) || empty($tipo) || empty($stock)) {
-    echo "Todos los campos son obligatorios.";
-    exit();
-}
-//Se inserta el material en la tabla materiales en la bdd
-        $sql = "INSERT INTO materiales (nombre, tipo, stock) VALUES ('$nombre', '$tipo', '$stock')";
-        $conexion->query($sql);
-
-    } 
-    elseif ($tipo_registro == "Equipo") { //si se selecciona la opción de "Equipo" muestra los campos de equipo
-        $marca = $_POST["marca"];
-        $serial = $_POST["serial"];
-        $estado = $_POST["estado"];
-//No se permiten campos nulos
-
-        if (empty($marca) || empty($serial) || empty($estado)) {
-            echo "Todos los campos son obligatorios";
+        if (empty($nombre) || empty($tipo) || $stock <= 0) {
+            echo "Todos los campos son obligatorios o la cantidad debe ser mayor a 0.";
             exit();
         }
-        //Se inserta el equipo en la tabla equipos en la bdd
 
-        $sql = "INSERT INTO equipos (marca, serial, estado) VALUES ('$marca', '$serial', '$estado')";
-        $conexion->query($sql);
+        $sql = "INSERT INTO materiales (nombre, tipo, stock) VALUES (?, ?, ?)";
+        $stmt = $conexion->prepare($sql);
+        $stmt->bind_param("ssi", $nombre, $tipo, $stock);
 
-      
+        if ($stmt->execute()) {
+            echo "Material agregado correctamente.";
+        } else {
+            echo "Error al agregar el material.";
+        }
+        $stmt->close();
+
+    } elseif ($tipo_registro == "Equipo") {
+        $marca = isset($_POST["marca"]) ? trim($_POST["marca"]) : '';
+        $serial = isset($_POST["serial"]) ? trim($_POST["serial"]) : '';
+        $estado = isset($_POST["estado"]) ? $_POST["estado"] : '';
+
+        if (empty($marca) || empty($serial) || empty($estado)) {
+            echo "Todos los campos son obligatorios.";
+            exit();
+        }
+
+        $sql = "INSERT INTO equipos (marca, serial, estado) VALUES (?, ?, ?)";
+        $stmt = $conexion->prepare($sql);
+        $stmt->bind_param("sss", $marca, $serial, $estado);
+
+        if ($stmt->execute()) {
+            echo "Equipo agregado correctamente.";
+        } else {
+            echo "Error al agregar el equipo.";
+        }
+        $stmt->close();
+    } else {
+        echo "Tipo de registro no válido.";
     }
-//redireccion después de agregar el material o equipo
-    header("Location: ../inventario.html");
-    exit();
+} else {
+    echo "Método de solicitud no permitido.";
 }
+
+$conexion->close();
 ?>

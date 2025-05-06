@@ -9,12 +9,12 @@ function validarFormulario() {
     if (nombre.length < 6 || apellido.length < 6) {
         alert("El nombre y el apellido deben tener al menos  letras.");
         return false;
-    }
+    } 
 
     // Validar que nombre y apellido no sean solo espacios
     if (nombre === "" || apellido === "") {
         alert("El nombre y apellido no pueden estar vacíos o contener solo espacios.");
-        return false;
+        return false; 
     }
 
     // Validar longitud del teléfono

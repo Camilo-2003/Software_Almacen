@@ -1,8 +1,0 @@
-function cancelarFormulario() {
-    if (confirm("¿Estás seguro de que deseas cancelar el registro?")) {
-        window.location.href = "login.html";   
-    }
-}
-21 abril 2025 
-
-->	Acceder a propiedad o método de un objeto

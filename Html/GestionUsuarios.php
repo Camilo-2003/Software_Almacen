@@ -19,10 +19,10 @@
     <div class="container">
         <h2>Registrar Instructor👇</h2>
         <br>
-        <label>Nombre:</label>
+        <label>Nombres:</label>
         <input type="text" id="nombre" name="nombre" placeholder="Nombre" required>
         <br><br>
-        <label>Apellido:</label>
+        <label>Apellidos:</label>
         <input type="text" id="apellido" name="apellido" placeholder="Apellido" required>
         <br><br>
         <label>Correo:</label>

@@ -27,7 +27,7 @@ if ($conexion->connect_errno) {
     </div>
     <br>
     <h2>📦 Materiales</h2><br>
-    <input type="text" id="busquedaMateriales" placeholder="🔍 Buscar materiales..." onkeyup="filtrarTabla('busquedaMateriales', 'tablaMateriales')">
+    <input type="text" id="busquedaMateriales" placeholder="🔍 Buscar Materiales..." onkeyup="filtrarTabla('busquedaMateriales', 'tablaMateriales')">
     <br><br>
     <div class="container">
         <table id="tablaMateriales">
@@ -66,7 +66,7 @@ if ($conexion->connect_errno) {
 
     <br>
     <h2>💻 Equipos</h2><br>
-    <input type="text" id="busquedaEquipos" placeholder="🔍 Buscar equipos..." onkeyup="filtrarTabla('busquedaEquipos', 'tablaEquipos')">
+    <input type="text" id="busquedaEquipos" placeholder="🔍 Buscar Equipos..." onkeyup="filtrarTabla('busquedaEquipos', 'tablaEquipos')">
     <br><br>
     <div class="container2">
         <table id="tablaEquipos">

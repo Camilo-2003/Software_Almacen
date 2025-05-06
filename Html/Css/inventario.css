@@ -2,7 +2,7 @@ body {
     overflow-x: hidden;
     font-family: Arial, sans-serif;
     text-align: center;
-    background: radial-gradient(circle, #4CAF50, #000000);
+    background: radial-gradient(circle, #4CAF50, #ffffff);
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -14,10 +14,10 @@ header {
     align-items: center;
     justify-content: center;
     padding: 15px;
-    background: black;
+    background: rgb(255, 255, 255);
     font-size: 1em;
     color: rgb(17, 179, 57);
-    box-shadow: 0 2px 3px rgb(0, 0, 0);
+    box-shadow: 0 2px 3px rgb(8, 126, 43);
     margin: 0;
 }
 h1 {
@@ -33,24 +33,39 @@ h2 {
     color: #000000;
     font-size: 23px;
     box-shadow: 10px 10px 10px black;
+    margin-top: -1px;
 }
 .container {
-    border: 1px solid rgb(6, 138, 138);
     max-width: 800px;
-    height: 270px;
-    width: 500px;
+    height: 360px;
+    width: 100%;
     margin: auto;
     background: rgb(255, 255, 255);
     color: rgb(0, 0, 0);
-    padding: 20px;
+    padding: 7px;
     border-radius: 10px;
-    box-shadow: 10px 10px 10px rgba(0, 0, 0);
-    margin-top: 30px; /* Ajuste para evitar que quede pegado al header */
+    box-shadow: 10px 10px 3px rgb(51, 49, 49);
+    margin-top: 15px; /* Ajuste para evitar que quede pegado al header */
     text-align: center;
     justify-content: center;
     align-items: center;
     font-weight: 700;
 }
+label {
+    display: block;
+    padding: 6px;
+}
+input {
+    width: 80%;
+    height: 25px;
+    font-weight: bold;
+}
+select {
+    width: 80%;
+    height: 30px;
+    font-weight: bold;
+}
+
 .lista {
     text-align: center;
 }
@@ -60,26 +75,33 @@ h2 {
     color: rgb(255, 255, 255);
     cursor: pointer;
     border: none;
-    padding: 8px 12px;
+    padding: 10px 12px;
+    margin-top: 20px;
 }
 .agg:hover {
     background-color: #4CAF50;
 }
 .historial {
-    margin-top: -10px;
-    font-size: 20px;
-    background-color: #000000;
-    color: aliceblue;
-    margin-bottom: 10px;
-    padding: 8px;
+    font-weight: bold;
+    margin-top: 5px;
+    font-size: 17px;
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    padding: 15px;
     border-radius: 10px;
+    border-style: none;
+    box-shadow: 4px 4px 1px #157c34;
 }
 .historial:hover {
-    background-color: #4CAF50;
+    background-color: green;
+    color: white;
+    transform: scale(1.1);
+    transition: 0.3s;
+    outline: 2px solid white;
 }
 .description {
-    background-color: rgb(0, 0, 0);
-    color: antiquewhite;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
     text-align: center;
     font-weight: bold;
     margin-top: 60px;
@@ -87,15 +109,14 @@ h2 {
     justify-content: center;
     align-items: center;
     text-align: center;
-    margin: 30px auto;
-    padding: 25px;
-    border-radius: 40px 110px;
-    border: 1px solid green;
-    box-shadow: 10px 10px 20px black;
+    margin: 13px auto;
+    padding: 13px;
+    border-radius: 15px 120px;
+    box-shadow: 10px 10px 2px rgb(51, 49, 49);
 }
 .ic {
     font-size: 25px;
-    margin-top: -20px;
+    margin-top: -10px;
 }
 /*.imgg {
     width: 130px;
@@ -104,8 +125,8 @@ h2 {
 .container-rgs {
     animation: fadeIn 1.5s ease-in-out;
     display:flex;
-    left: 22px;
-    top: 58px;
+    left: 8px;
+    top: 34px;
     position: absolute;
     float: left;
     border-radius: 12px;
@@ -113,16 +134,18 @@ h2 {
 .rgs {
     text-decoration: none;
     border-radius: 10px;
-    background-color: black;
-    color: rgb(255, 255, 255);
+    background-color: rgb(255, 255, 255);
+    color: rgb(17, 179, 57);
     width: auto;
-    padding: 5px;
+    padding: 15px;
     font-size: 18px; 
     box-shadow: 2px 2px 7px #157c34;
+    text-shadow: 1px 1px 1px rgb(0, 0, 0);
 }
 .rgs:hover {
-    background-color: rgb(7, 80, 7);
+    background-color: green;
+    color: white;
     transform: scale(1.1);
     transition: 0.3s;
-    border: 1px solid white;
+    outline: 2px solid white;
 }

@@ -67,7 +67,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Si el correo no está registrado, redirigir al registro
         $stmt->close();
         $conexion->close();
-        header("Location: ../registrarse.html");
+        echo "<script>alert('🚨 No estás registrado. Por favor, regístrate.'); window.location.href='/Software_Almacen/Html/registrarse.html';</script>";
+        //header("Location: ../registrarse.html");
         exit();
     }
 }
