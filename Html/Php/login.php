@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $row_count = $result_count->fetch_assoc();
 
     if ($row_count["total"] == 0) {
-        // Si no hay usuarios, redirigir a registrarse.html de inmediato
+        // Si no esta registrado, redirigir a registrarse.html de inmediato
         header("Location: ../registrarse.html");
         exit();
     }
