@@ -1,35 +1,21 @@
-<?php
-
-require_once __DIR__ . '/conexion.php';
-
-session_start();
-
-// Verificar si el usuario está autenticado
-if (!isset($_SESSION["id_almacenista"])) {
-    header("Location: ../login.html");
-    exit();
-}
-
-?> 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <link rel="icon" href="Img/logo_sena.png" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bienvenido Almacenista</title>
-    <link rel="stylesheet" href="Css/almacenista.css">
+    <title>Bienvenido Administrador</title>
+    <link rel="stylesheet" href="Css/administrador.css">
 </head>
 <body>
     <header>
         <img src="Img\logo_sena.png" alt="Logo Sena" class="logo">
-        <h1>Opciones Generales</h1>
+        <h1>Opciones Generales De Administrador</h1>
         <nav>
         <a href="Php/logout.php" class="access-button">🏃  Cerrar Sesión</a>
         </nav> 
     </header>
-    <P class="rol">Rol: Almacenista</P>
+    <P class="rol">Rol: Administrador</P>
 
     <main class="container">
     <h2>Bienvenido, <?php echo $_SESSION["nombres"] . ' ' . $_SESSION["apellidos"]; ?> 👋</h2> <!--linea 53 login.php-->
@@ -38,10 +24,10 @@ if (!isset($_SESSION["id_almacenista"])) {
             <a href="préstamos.html" class="option">📤 Registrar Préstamos</a>
             <a href="Inventario.html" class="option">📋 Gestionar Inventario</a>
             <a href="GestionUsuarios.php" class="option">👨‍🏫 Gestión de Instructores</a>
-            <a href="Novedades.html" class="option">🛠️ Novedades</a>
+            <a href="Novedades.html" class="option">🛠️ Novedades Y Reportes</a>
+            <a href="Aceptar.html" class="option">✍️ Aceptar Almacenistas Nuevos</a>
         </div>
     </main>
-   
-   <script src="Js/almacenista.js"></script>
+    <br>
 </body>
 </html>

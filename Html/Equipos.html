@@ -17,31 +17,31 @@
     </header>
 
     <div>
-        <a href="DevEquipos.html" class="hist">Historial De Devolución</a>
+        <a href="HistorialDevEquipos.html" class="hist">Historial De Devolución</a>
     </div>
     
- <form action="" onsubmit="return validarFormulario()">
+ <form action="Php/registrar_prestamo_equipo.php"  method="post" onsubmit="return validarFormulario()">
     <div class="container">
         <h2>Registrar Préstamo</h2>
         <br> 
         <label>Tipo de Préstamo:</label>
-        <select id="tipo" onchange="cargarEquipos()">
+        <select id="tipo" name="tipo" onchange="cargarEquipos()">
             <option value="">Seleccionar</option>
             <option value="No_Consumible">Devolutivo</option>
         </select>
         <br><br>
         <label>Equipo:</label>
-        <select id="equipo"></select>
+        <select id="equipo" name="equipo"></select>
         <br><br>
         <label>Serial:</label>
-        <input type="text" id="serial" placeholder="Ejemplo: 2342ftw5" required>
+        <input type="text" id="serial" name="serial" placeholder="Ejemplo: 2342ftw5" required>
         <br><br>
         <label>Cantidad:</label>
-        <input type="number" id="cantidad" max="1" placeholder="No puede ser mayor a 1" oninput="validarCantidad(this)">
+        <input type="number" id="cantidad" name="cantidad" max="1" placeholder="No puede ser mayor a 1" oninput="validarCantidad(this)">
         <!--max="1" ya que cada equipo tiene un serial diferente por ende no se puede mas de 1-->
         <br><br>
         <label>Instructor:</label>
-        <input type="text" id="instructor" placeholder="Nombre del Instructor">
+        <input type="text" id="instructor" name="instructor" placeholder="Nombre del Instructor">
         <br><br>
         <button type="button" onclick="registrarPrestamo()">Prestar</button>
     </div>
@@ -67,3 +67,5 @@
   <script src="Js/Equipos.js"></script>
 </body>
 </html>
+
+

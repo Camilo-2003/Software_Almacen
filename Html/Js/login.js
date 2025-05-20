@@ -36,6 +36,6 @@ const params = new URLSearchParams(window.location.search);
 
 // Verificar si viene el mensaje de cierre
 if (params.get("mensaje") === "cierre") {
-    alert("¡Has cerrado sesión correctamente!");
+    alert("✅¡Has cerrado sesión correctamente!");
 }
  

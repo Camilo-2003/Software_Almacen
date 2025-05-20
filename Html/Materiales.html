@@ -2,47 +2,45 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="Img/logo_sena.png" type="image/x-icon">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Materiales</title>
+    <title>Préstamo de Materiales</title>
     <link rel="stylesheet" href="Css/Materiales.css">
 </head>
 <body>
     <header>
-        <img src="Img\logo_sena.png" alt="Logo Sena" class="logo">
-        <h1>Préstamo De Materiales</h1>
+        <img src="Img/logo_sena.png" alt="Logo Sena" class="logo">
+        <h1>Préstamo de Materiales</h1>
         <div class="regresar">
-            <a href="préstamos.html" class="rgs" title="Haz clic para volver ">Regresar</a>
+            <a href="préstamos.html" class="rgs" title="Haz clic para volver">Regresar</a>
         </div>
     </header>
 
     <div>
-        <a href="DevMaterial.html" class="hist">Historial De Devolución</a>
+        <a href="HistorialDevMaterial.html" class="hist">Historial de Devoluciones</a>
     </div>
 
-<form action="" onsubmit="return validarFormulario()">
-    <div class="container">
-        <h2>Registrar Préstamo</h2>
-        <br>
-        <label>Tipo de Préstamo:</label>
-        <select id="tipo" onchange="cargarMateriales()">
-            <option value="">Seleccionar</option> 
-            <option value="Consumible">Consumible</option>
-            <option value="No_Consumible">No Consumible</option>
-        </select>
-        <br><br>
-        <label>Material:</label>
-        <select id="material"></select>
-        <br><br>
-        <label>Cantidad:</label>
-        <input type="number" id="cantidad" min="1" >
-        <br><br>
-        <label>Instructor:</label>
-        <input type="text" id="instructor" placeholder="Nombre del Instructor">
-        <br><br>
-        <button type="button" onclick="registrarPrestamo()">Prestar</button>
-    </div>
-</form>
+    <form action="Php/registrar_prestamo_materiales.php" method="post" onsubmit="return validarFormulario()">
+        <div class="container">
+            <h2>Registrar Préstamo</h2>
+            <label>Tipo de Préstamo:</label>
+            <select id="tipo" name="tipo de préstamos" onchange="cargarMateriales()">
+                <option value="">Seleccionar</option>
+                <option value="Consumible">Consumible</option>
+                <option value="No_Consumible">No Consumible</option>
+            </select>
+            <br><br>
+            <label>Material:</label>
+            <select id="material" name="Material"></select>
+            <br><br>
+            <label>Cantidad:</label>
+            <input type="number" id="cantidad" name="Cantidad" nmin="1">
+            <br><br>
+            <label>Instructor:</label>
+            <input type="text" id="instructor" name="Instructor" placeholder="Nombre del Instructor">
+            <br><br>
+            <button type="button" onclick="registrarPrestamo()">Prestar</button>
+        </div>
+    </form>
+
     <h2 class="historial">Historial de Préstamos</h2>
     <table>
         <thead>
@@ -51,14 +49,18 @@
                 <th>Material</th>
                 <th>Cantidad</th>
                 <th>Instructor</th>
-                <th>Fecha</th>
-                <th>Hora</th>
+                <th>Fecha del Prestamo</th>
+                <th>Hora de devolucion</th>
                 <th>Estado</th>
                 <th>Acción</th>
             </tr>
         </thead>
         <tbody id="historial"></tbody>
     </table>
-  <script src="Js/Materiales.js"></script>
+
+    <script src="Js/Materiales.js"></script>
 </body>
 </html>
+
+
+

@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($stmt_update->execute()) {
         echo "<script>alert('✅Instructor actualizado correctamente.'); window.location.href='/Software_Almacen/Html/instructores.php';</script>";
     } else {
-        echo "⚠️Error al actualizar.";
+        echo "⚠️Error al actualizar, otro instructor ya tiene esta información.";
     }
 }
 ?>

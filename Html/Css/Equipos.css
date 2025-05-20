@@ -1,7 +1,7 @@
 body {
   overflow-x: hidden;
   font-family: Arial, sans-serif;
-  background: radial-gradient(circle, #4CAF50, #000000);
+  background: radial-gradient(circle, #4CAF50, #ffffff);
   text-align: center;
   margin: 0;
   padding: 0;
@@ -13,10 +13,10 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #000;
+  background-color: #ffffff;
   color: rgb(17, 179, 57);
   font-size: 1em;
-  box-shadow: 0 2px 3px rgb(0, 0, 0);
+  box-shadow: 0 2px 3px rgb(8, 126, 43);
   animation: slideDown 1s ease-in-out;
 }
 @keyframes slideDown {
@@ -51,13 +51,31 @@ h2 {
 }
 
 .container {
-  background: rgb(226, 221, 221);
+  background: rgb(255, 255, 255);
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0);
   max-width: 600px;
   margin: 20px auto;
   font-weight: bold;
+}
+label {
+  display: block;
+}
+input {
+  width: 80%;
+  height: 25px;
+  border: 1px solid #ccc;
+}
+input:focus {
+  box-shadow: 0 0 10px rgba(0, 123, 255);
+  outline: none;
+}
+select {
+  font-weight: bold;
+  width: 80%;
+  height: 30px;
+  border: 1px solid #ccc;
 }
 table {
   width: 100%;
@@ -92,7 +110,7 @@ button:hover {
   margin: 20px;
   padding: 15px;
   font-size: 1.1em;
-  background:  rgb(226, 221, 221);
+  background:  rgb(255, 255, 255);
   color: rgb(0, 0, 0);
   font-weight: bold;
   text-decoration: none;
@@ -101,37 +119,42 @@ button:hover {
   margin-bottom: 10px;
   justify-content: center;
   justify-items: center;
+  box-shadow: 4px 4px 1px #157c34;
 }
 .hist:hover {
   background: rgb(24, 116, 24);
+  color: white;
   transform: scale(1.1);
   transition: 0.3s;
+  outline: 2px solid white;
 }
 .regresar {
   animation: fadeIn 1.5s ease-in-out;
   display:flex;
-  left: 0;
-  top: 58px;
+  left: 5px;
+  top: 35px;
   position: absolute;
   float: left;
   border-radius: 12px;
 }
 .rgs {
   float: left;
-  left: 0;
+  left: 5px;
   margin-top: 10px;
   text-decoration: none;
   border-radius: 10px;
-  background-color: black;
-  color: white;
+  background-color: rgb(255, 255, 255);
+  color: rgb(17, 179, 57);
   width: auto;
-  padding: 5px;
+  padding: 15px;
   font-size: 18px;
   box-shadow: 2px 2px 7px #157c34;
+  text-shadow: 1px 1px 1px rgb(0, 0, 0);
 }
 .rgs:hover {
   background-color: green;
+  color: white;
   transform: scale(1.1);
   transition: 0.3s;
-  border: 1px solid white;
+  outline: 2px solid white;
 }

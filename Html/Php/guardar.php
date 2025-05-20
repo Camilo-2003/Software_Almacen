@@ -18,11 +18,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt_check->store_result();
 
     if ($stmt_check->num_rows > 0) {
-        echo "<script>alert('El correo ya está registrado. Usa otro.'); window.location.href='../registrarse.html';</script>";
+        echo "<script>alert('⚠️El correo ya está registrado. Usa otro.'); window.location.href='../registrarse.html';</script>";
         $stmt_check->close();
         $conexion->close();
         exit();
-    }
+    } 
     $stmt_check->close();
 
     // Insertar usuario en la BD
@@ -31,9 +31,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("sssss", $nombres, $apellidos, $correo, $telefono, $password_hashed);
     // si todos los campos se llenan correctamente se ejecuta y direcciona a login
     if ($stmt->execute()) {
-        echo "<script>alert('Registro exitoso. Ahora puedes iniciar sesión.'); window.location.href='../login.html';</script>";
+        echo "<script>alert('✅Registro exitoso. Ahora puedes iniciar sesión.'); window.location.href='../login.html';</script>";
     } else {
-        echo "<script>alert('Error al registrar. Inténtalo de nuevo.'); window.location.href='../registrarse.html';</script>";
+        echo "<script>alert('🚨Error al registrar. Inténtalo de nuevo.'); window.location.href='../registrarse.html';</script>";
     }
 
     $stmt->close();

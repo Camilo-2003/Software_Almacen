@@ -1,7 +1,7 @@
 body { 
   font-family: Arial, sans-serif; 
   text-align: center;
-  background: radial-gradient(circle, #4CAF50, #000000);
+  background: radial-gradient(circle, #4CAF50, #ffffff);
 }
 .container, .container2 { 
   width: 80%; 
@@ -49,13 +49,14 @@ h1 {
   margin: auto;
   border: 1px solid black;
 }
-h2, h3 {
+h2 {
   color: rgb(0, 0, 0);
   background-color: white;
   border-radius: 8px;
   margin: auto;
   width: 50%;
   padding: 5px;
+  border: 3px solid black;
 }
 .btn-total {
   background-color: #007bff;
@@ -65,6 +66,7 @@ h2, h3 {
   margin: 10px 0;
   cursor: pointer;
   border-radius: 5px;
+  border: 2px solid black;
 }
 .btn-total:hover {
   background-color: #60656a;
@@ -89,7 +91,7 @@ h2, h3 {
   padding: 5px 10px;
   margin-right: 5px;
   text-decoration: none;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s; 
   border-radius: 5px;
   display: inline-block;
 }
@@ -104,16 +106,24 @@ h2, h3 {
   margin-top: -80px;
   text-decoration: none;
   border-radius: 10px;
-  background-color: black;
-  color: white;
+  background-color: rgb(255, 255, 255);
+  color: rgb(17, 179, 57);
   width: auto;
-  padding: 5px;
+  padding: 15px;
   font-size: 18px;
   box-shadow: 2px 2px 7px #157c34;
+  text-shadow: 1px 1px 1px rgb(0, 0, 0);
 }
 .regresar:hover {
   background-color: green;
+  color: white;
   transform: scale(1.1);
   transition: 0.3s;
-  border: 1px solid white;
+  outline: 2px solid white;
+}
+#busquedaMateriales {
+  font-size: 16px;
+}
+#busquedaEquipos {
+  font-size: 16px;
 }

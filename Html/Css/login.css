@@ -5,7 +5,7 @@ body {
     padding: 0;
     /*background: url(fondo.jpg);*/
     /*background: linear-gradient(to right, #4CAF50, #000000); posble2do fondo*/
-    background: radial-gradient(circle, #4CAF50, #000000);
+    background: radial-gradient(circle, #4CAF50, #ffffff);
     overflow: hidden;
   }
 
@@ -19,8 +19,8 @@ body {
     align-items: center;
     justify-content: center;
     padding: 10px; 
-    background-color: #000000;
-    box-shadow: 0 2px 3px rgb(0, 0, 0); 
+    background-color: #ffffff;
+    box-shadow: 0 2px 3px rgb(8, 126, 43);
     color: rgb(17, 179, 57);
     font-size: 1em;
     animation: slideDown 2s ease-in-out;
@@ -37,7 +37,8 @@ body {
     animation:slideDown 2s ease-in-out;
   }
   .container {
-    background: white;
+    /*background: radial-gradient(circle, #12b561, #ffffff);*/
+    background:-moz-linear-gradient(top, #12b561, #ffffff);
     padding: 40px;
     border-radius: 15px;
     box-shadow: 10px 10px 55px rgb(0, 0, 0);
@@ -100,7 +101,7 @@ body {
     border-bottom: 2px solid transparent; /* Para efecto en hover */
     position: relative;
   }
-
+ 
   .regist::after{
     content: "";
     width: 0;
@@ -122,26 +123,29 @@ body {
     display:flex;
     margin-left: 1px;
     left: 0;
-    top: 98px;
+    font-weight: bold;
+    top: 70px;
     position: absolute;
     float: left;
-    box-shadow: 2px 2px 7px #157c34;
     border-radius: 12px;
   }
   .btnn {
     text-decoration: none;
     border-radius: 10px;
-    background-color: black;
-    color: white;
+    background-color: rgb(255, 255, 255);
+    color: rgb(17, 179, 57);
     width: auto;
-    padding: 5px;
-    font-size: 18px;
+    font-size: 19px;
+    padding: 15px;
+    text-shadow: 1px 1px 1px rgb(0, 0, 0);
+    box-shadow: 2px 2px 7px #157c34;
   }
   .btnn:hover {
     background-color: green;
+    color: white;
     transform: scale(1.1);
     transition: 0.3s;
-    border: 1px solid white;
+    outline: 2px solid white;
   }
   
 

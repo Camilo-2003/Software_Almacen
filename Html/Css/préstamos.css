@@ -1,7 +1,7 @@
 body {
     overflow-x: hidden;
     font-family: Arial, sans-serif;
-    background: radial-gradient(circle, #4CAF50, #000000);
+    background: radial-gradient(circle, #4CAF50, #ffffff);
     margin: 0;
     padding: 0;
 }
@@ -12,12 +12,12 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #000;
+    background-color: #ffffff;
     padding: 11px;
     margin: 0;
     color: rgb(17, 179, 57);
     font-size: 1em;
-    box-shadow: 0 2px 3px rgb(0, 0, 0);
+    box-shadow: 0 2px 3px rgb(8, 126, 43);
     animation: slideDown 1s ease-in-out;
 }
 
@@ -38,29 +38,35 @@ h1 {
     animation: slideDown 2s ease-in-out;
 }
 
-.options {
-    display: flex;
+.options1 {
+    float: left;
+    margin-left: 50px;
+    display: block;
     justify-content: center;
-    gap: 150px;
-    margin-top: 60px;
-    background-color: rgb(255, 255, 255);
-    box-shadow: 10px 10px 20px black;
-    width: 47%;
-    margin: 20px auto;
-    padding: 10px;
-    border-radius: 8px; 
-}
-
-.option-container1 {
+    margin-top: 10px;
+    background-color: white;
+    box-shadow: 5px 5px 20px black;
+    width: 42%;
+    padding: 18px;
+    border-radius: 10px; 
     text-align: center;
-    width: 225px;
 }
-.option-container2 {
+.options2 {
+    float: right;
+    margin-right: 50px;
+    display: block;
+    justify-content: center;
+    margin-top: 10px;
+    background-color: white;
+    box-shadow: 5px 5px 20px black;
+    width: 42%;
+    padding: 18px;
+    border-radius: 10px; 
     text-align: center;
-    width: 225px;
 }
 
 .option {
+    float: left;
     display: block;
     padding: 15px;
     font-size: 1em;
@@ -71,6 +77,8 @@ h1 {
     transition: 0.3s;
     margin-bottom: 10px;
     font-weight: bold;
+    width: 35%;
+    margin: 0 auto;
 }
 
 .option:hover {
@@ -78,29 +86,55 @@ h1 {
     transform: scale(1.1);
     transition: 0.3s;
 }
+.option2 {
+    float: right;
+    display: block;
+    padding: 15px;
+    font-size: 1em;
+    background: rgb(34, 87, 34);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: 0.3s;
+    margin-bottom: 10px;
+    font-weight: bold;
+    width: 35%;
+    margin: 0 auto;
+}
+
+.option2:hover {
+    background: rgb(9, 190, 9);
+    transform: scale(1.1);
+    transition: 0.3s;
+}
 
 .description {
     background-color: rgb(2, 2, 2);
-    padding: 40px;
+    padding: 20px;
     font-size: 15px;
     color: rgb(255, 255, 255);
-    /*
-    border-top: 4px solid red;
+    /*border-top: 4px solid red;
     border-right: 4px solid yellow;
     border-bottom: 4px solid blue;
     border-left: 4px solid black;*/
     border-radius: 20px;
     font-weight: bold;
+    width: 400px;
+    height: 50px;
+    margin: 70px auto;
 }
 .imgg {
     border-radius: 50px;
     box-shadow: 10px 10px 30px rgb(14, 90, 46);
+    margin-top: -35px;
+    width: 45%;
+    height: 35%;
 }
 .btn {
     animation: fadeIn 1.5s ease-in-out;
     display:flex;
-    left: 22px;
-    top: 10px;
+    left: 5px;
+    top: -12px;
     position: absolute;
     float: left;
     border-radius: 12px;
@@ -108,16 +142,19 @@ h1 {
 .rgs {
     text-decoration: none;
     border-radius: 10px;
-    background-color: black;
-    color: rgb(255, 255, 255);
+    background-color: rgb(255, 255, 255);
+    color: rgb(17, 179, 57);
     width: auto;
-    padding: 5px;
+    padding: 15px;
     font-size: 18px;
     margin-top: 58px;
     box-shadow: 2px 2px 7px #157c34;
+    text-shadow: 1px 1px 1px rgb(0, 0, 0);
 }
 .rgs:hover {
-    background-color: rgb(9, 73, 9);
+    background-color: green;
+    color: white;
     transform: scale(1.1);
     transition: 0.3s;
+    outline: 2px solid white;
 }

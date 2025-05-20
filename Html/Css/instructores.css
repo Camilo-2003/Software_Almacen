@@ -1,5 +1,5 @@
 body {
-  background: radial-gradient(circle, #4CAF50, #000000);
+  background: radial-gradient(circle, #4CAF50, #ffffff);
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
@@ -58,23 +58,25 @@ td {
 }
 .contain {
   display:flex;
-  margin-top: 20px;
+  margin-top: 6px;
   margin-left: 12px;
 }
 .rgs {
   text-decoration: none;
   border-radius: 10px;
-  background-color: rgb(7, 7, 7);
-  color: rgb(255, 255, 255);
+  background-color: rgb(255, 255, 255);
+  color: rgb(17, 179, 57);
   width: auto;
-  padding: 5px;
+  padding: 15px;
   font-size: 18px;
   box-shadow: 2px 2px 7px #157c34;
+  text-shadow: 1px 1px 1px rgb(0, 0, 0);
 }
 .rgs:hover {
-  background-color: rgb(13, 82, 13);
+  background-color: green;
+  color: white;
   transform: scale(1.0);
   transition: 0.3s;
-  outline: 1px solid white; /*se remplaza por border y evita que se sobreponga a otros elementos*/
+  outline: 2px solid white; /*se remplaza por border y evita que se sobreponga a otros elementos*/
   /*outline-offset: 5px; se le da un espacio al borde para que no se vea tan pegado*/
 } 

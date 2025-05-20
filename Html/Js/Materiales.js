@@ -1,16 +1,18 @@
+// Definición del inventario inicial
 const inventario = {
     Consumible: { "Papel": 100, "Tinta": 100, "Marcadores": 100 },
     No_Consumible: { "Hdmi": 100, "Proyector": 100, "Impresora": 100 }
 };
 
+// Cargar materiales según el tipo seleccionado
 function cargarMateriales() {
-    let tipo = document.getElementById("tipo").value;
-    let materialSelect = document.getElementById("material");
+    const tipo = document.getElementById("tipo").value;
+    const materialSelect = document.getElementById("material");
     materialSelect.innerHTML = "<option value=''>Seleccionar</option>";
-    
+
     if (tipo && inventario[tipo]) {
-        for (let item in inventario[tipo]) {
-            let option = document.createElement("option");
+        for (const item in inventario[tipo]) {
+            const option = document.createElement("option");
             option.value = item;
             option.textContent = `${item} (${inventario[tipo][item]})`;
             materialSelect.appendChild(option);
@@ -18,72 +20,190 @@ function cargarMateriales() {
     }
 }
 
+// Registrar un nuevo préstamo
 function registrarPrestamo() {
-    let tipo = document.getElementById("tipo").value;
-    let material = document.getElementById("material").value;
-    let cantidad = parseInt(document.getElementById("cantidad").value);
-    let instructor = document.getElementById("instructor").value;
-    let historial = document.getElementById("historial");
-    
-    if (!tipo || !material || !instructor || cantidad < 1) {
-        alert("Por favor, complete todos los campos correctamente");
+    const tipo = document.getElementById('tipo').value;
+    const material = document.getElementById('material').value;
+    const cantidadInput = document.getElementById('cantidad').value;
+    const cantidad = parseInt(cantidadInput, 10);
+    const instructor = document.getElementById('instructor').value.trim();
+
+    // Validación de campos
+    if (!tipo || !material || !cantidad || !instructor) {
+        alert("Por favor, completa todos los campos.");
         return;
     }
-    
+
+    // Validación de cantidad
+    if (isNaN(cantidad) || cantidad <= 0) {
+        alert("Por favor, ingresa una cantidad válida.");
+        return;
+    }
+
+    // Validación de disponibilidad en el inventario
     if (inventario[tipo][material] < cantidad) {
-        alert("No hay suficiente stock");
+        alert(`No hay suficiente ${material} disponible. Cantidad en inventario: ${inventario[tipo][material]}`);
         return;
     }
-    inventario[tipo][material] -= cantidad;
-    cargarMateriales();
-    
-    let fecha = new Date();
-    let fechaStr = fecha.toLocaleDateString();
-    let horaStr = fecha.toLocaleTimeString();
-    
-    let fila = `<tr>
-        <td>${tipo}</td>
-        <td>${material}</td>
-        <td>${cantidad}</td>
-        <td>${instructor}</td>
-        <td>${fechaStr}</td>
-        <td>${horaStr}</td>
-        <td style="color: black;background-color:red">Prestado</td>
-        ${tipo === 'No_Consumible' ? '<td><button onclick="devolver(this)">Devolver</button></td>' : '<td>-</td>'}
-    </tr>`;
-    
-    historial.innerHTML += fila;
-}
 
-function devolver(boton) {
-    let fila = boton.parentElement.parentElement;
-    let material = fila.cells[1].textContent;
-    let cantidad = parseInt(fila.cells[2].textContent);
-    
-    let confirmacion = confirm("¿Hubo algún problema con la devolución?");
-    if (confirmacion) {
-        let evidencia = prompt("Describe el problema que se presento con la devolución:");
-        alert("Evidencia registrada: " + evidencia);
+    const fecha = new Date();
+    const id = Date.now().toString();
+
+    let estado = 'prestado';
+    let fechaDevolucion = null;
+
+    if (tipo === 'Consumible') {
+        estado = 'no devolutivo';
+        fechaDevolucion = fecha.toLocaleTimeString();
     } else {
-        inventario["No_Consumible"][material] += cantidad;
-        cargarMateriales();
+        inventario[tipo][material] -= cantidad;
     }
-    
-    fila.cells[6].textContent = "Devuelto";
-    fila.cells[6].style.color = "black";
-    fila.cells[6].style.backgroundColor = "green";
-    boton.remove();
+
+    const prestamo = {
+        id,
+        tipo,
+        material,
+        cantidad,
+        instructor,
+        fecha: fecha.toLocaleDateString(),
+        hora: fecha.toLocaleTimeString(),
+        estado,
+        fechaDevolucion,
+        novedad: null
+    };
+
+    const prestamos = JSON.parse(localStorage.getItem('prestamos')) || [];
+    prestamos.push(prestamo);
+    localStorage.setItem('prestamos', JSON.stringify(prestamos));
+
+    cargarMateriales();
+    mostrarHistorial();
+    alert("Préstamo registrado correctamente.");
 }
 
+// Mostrar el historial de préstamos
+function mostrarHistorial() {
+    const tbody = document.getElementById('historial');
+    if (!tbody) return; // Verifica si el elemento existe
+    tbody.innerHTML = '';
+
+    const prestamos = JSON.parse(localStorage.getItem('prestamos')) || [];
+
+    prestamos.forEach(p => {
+        const fila = document.createElement('tr');
+        fila.innerHTML = `
+            <td>${p.tipo}</td>
+            <td>${p.material}</td>
+            <td>${p.cantidad}</td>  
+            <td>${p.instructor}</td>
+            <td>${p.fecha}</td>
+            <td>${p.hora}</td>
+            <td style="color: white; background-color: ${p.estado === 'prestado' ? 'orange' : p.estado === 'devuelto' ? 'green' : 'gray'}">
+                ${p.estado}
+            </td>
+            <td>
+                ${p.estado === 'prestado' && p.tipo !== 'Consumible' ? `<button onclick="irADevolucion('${p.id}')">Devolver</button>` : ''}
+            </td>
+        `;
+        tbody.appendChild(fila);
+    });
+}
+
+// Redirigir a la página de devolución
+function irADevolucion(id) {
+    sessionStorage.setItem('prestamoADevolver', id);
+    window.location.href = 'DevolucionMateriales.html';
+}
+
+// Confirmar devolución del material
+function confirmarDevolucion() {
+    const id = sessionStorage.getItem('prestamoADevolver');
+    if (!id) {
+        alert("No se encontró el préstamo a devolver.");
+        return;
+    }
+
+    const prestamos = JSON.parse(localStorage.getItem('prestamos')) || [];
+    const prestamoIndex = prestamos.findIndex(p => p.id === id);
+
+    if (prestamoIndex === -1) {
+        alert("Préstamo no encontrado.");
+        return;
+    }
+
+    const prestamo = prestamos[prestamoIndex];
+
+    // Actualizar estado y fecha de devolución
+    prestamo.estado = 'devuelto';
+    prestamo.fechaDevolucion = new Date().toLocaleTimeString();
+    prestamo.novedad = document.getElementById('novedad') ? document.getElementById('novedad').value.trim() : '';
+
+    // Actualizar inventario
+    if (inventario[prestamo.tipo] && inventario[prestamo.tipo][prestamo.material] !== undefined) {
+        inventario[prestamo.tipo][prestamo.material] += prestamo.cantidad;
+    }
+
+    // Guardar cambios
+    prestamos[prestamoIndex] = prestamo;
+    localStorage.setItem('prestamos', JSON.stringify(prestamos));
+
+    // Limpiar sesión
+    sessionStorage.removeItem('prestamoADevolver');
+
+    // Actualizar historial
+    mostrarHistorial();
+    mostrarHistorialDevoluciones();
+
+    alert("Devolución registrada correctamente.");
+}
+
+// Mostrar historial de devoluciones
+function mostrarHistorialDevoluciones() {
+    const tbody = document.getElementById('tablaDevoluciones');
+    if (!tbody) return; // Verifica si el elemento existe
+    tbody.innerHTML = '';
+
+    const prestamos = JSON.parse(localStorage.getItem('prestamos')) || [];
+
+    prestamos.forEach(p => {
+        if (p.estado === 'devuelto' || p.estado === 'no devolutivo') {
+            const fila = document.createElement('tr');
+            fila.innerHTML = `
+                <td>${p.tipo}</td>
+                <td>${p.material}</td>
+                <td>${p.cantidad}</td>
+                <td>${p.instructor}</td>
+                <td>${p.fecha}</td>
+                <td>${p.fechaDevolucion || '-'}</td>
+                <td>${p.novedad || '-'}</td>
+                <td style="color: white; background-color: ${p.estado === 'devuelto' ? 'green' : 'gray'}">
+                    ${p.estado}
+                </td>
+            `;
+            tbody.appendChild(fila);
+        }
+    });
+}
+
+// Validar el formulario antes de enviar
 function validarFormulario() {
- var instructorInput = document.getElementById("instructor");
-
- instructorInput.value = instructorInput.value.replace(/^\s+/, '');
-    
- return true; 
+    const instructorInput = document.getElementById("instructor");
+    instructorInput.value = instructorInput.value.trim();
+    return true;
 }
-  // Prevenir espacios al inicio mientras escribe
-    
-document.getElementById("instructor").addEventListener("input", function(e) {
-this.value = this.value.replace(/^\s+/, '');
+
+// Eliminar espacios al inicio del campo instructor mientras se escribe
+document.addEventListener("DOMContentLoaded", function () {
+    const instructorInput = document.getElementById("instructor");
+    if (instructorInput) {
+        instructorInput.addEventListener("input", function () {
+            this.value = this.value.replace(/^\s+/, '');
+        });
+    }
+
+    // Mostrar historial si existen las tablas correspondientes
+    mostrarHistorial();
+    mostrarHistorialDevoluciones();
 });
+
+

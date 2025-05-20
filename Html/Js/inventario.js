@@ -1,5 +1,13 @@
 document.addEventListener("DOMContentLoaded", function () {
     cargarInventario();
+
+    // Manejar el envío del formulario
+    document.getElementById("formularioInventario").addEventListener("submit", function (event) {
+        event.preventDefault(); // Evitar el envío predeterminado del formulario
+        if (validarFormulario()) {
+            agregarInventario(); // Procesar los datos solo si la validación pasa
+        }
+    });
 });
 
 function agregarInventario() {
@@ -13,33 +21,21 @@ function agregarInventario() {
         let tipo = document.getElementById("tipo_material").value;
         let stock = document.getElementById("stock_material").value;
 
-        if (nombre === "" || stock <= 0) {
-            alert("⚠️ Ingresa datos válidos.");
-            return;
-        }
-
-        formData.append("nombre", nombre);
-        formData.append("tipo", tipo);
-        formData.append("stock", stock);
+        formData.append("nombre_material", nombre);
+        formData.append("tipo_material", tipo);
+        formData.append("stock_material", stock);
 
     } else if (tipoRegistro === "Equipo") {
         let marca = document.getElementById("marca").value.trim();
         let serial = document.getElementById("serial").value.trim();
         let estado = document.getElementById("estado").value;
 
-        if (marca === "" || serial === "") {
-            alert("⚠️ Ingresa datos válidos.");
-            return;
-        }
-
         formData.append("marca", marca);
         formData.append("serial", serial);
         formData.append("estado", estado);
-    } else {
-        alert("⚠️ Selecciona un tipo de registro.");
-        return;
     }
-    console.log([...formData]); // Verificar si los datos están correctos antes de enviarlos
+
+    console.log([...formData]); // Para depuración
 
     fetch("Php/agregar_material.php", {
         method: "POST",
@@ -47,11 +43,20 @@ function agregarInventario() {
     })
     .then(response => response.text())
     .then(data => {
-        alert(data); // Muestra mensaje de éxito o error
-        cargarInventario(); // Recarga la tabla
-        limpiarFormulario();
+        if (data.includes("obligatorios") || data.includes("no válido")) {
+            alert("⚠️ Error: " + data);
+        } else if (data.includes("Error")) {
+            alert("⚠️ Ocurrió un error al agregar el equipo, serial ya existente .");
+        } else {
+            alert("✅ Registro agregado correctamente.");
+            cargarInventario(); // Recarga la tabla
+            limpiarFormulario(); // Limpia el formulario
+        }
     })
-    .catch(error => console.error("Error:", error));
+    .catch(error => {
+        console.error("Error:", error);
+        alert("⚠️ Error al conectar con el servidor.");
+    });
 }
 
 function cargarInventario() {
@@ -78,46 +83,81 @@ function mostrarCampos() {
     let materialFields = document.getElementById("materialFields");
     let equipoFields = document.getElementById("equipoFields");
     let nombreMaterial = document.getElementById("nombre_material");
-   //si selecciono material solo aparecen opciones de material
+
     if (tipoRegistro === "Material") {
         materialFields.style.display = "block";
         equipoFields.style.display = "none";
         nombreMaterial.setAttribute("required", "required");
-    //si selecciono equipo solo aparecen opciones de equipo
     } else if (tipoRegistro === "Equipo") { 
         materialFields.style.display = "none";
         equipoFields.style.display = "block";
         nombreMaterial.removeAttribute("required");
-    // si o si debes seleccionar una de las 2 opciones
     } else {
         materialFields.style.display = "none";
         equipoFields.style.display = "none";
         nombreMaterial.removeAttribute("required");
     }
 }
-//refrescar y limpiar informacion que ya se ha registrado 
+
 function limpiarFormulario() {
     document.getElementById("nombre_material").value = "";
     document.getElementById("stock_material").value = "1";
     document.getElementById("marca").value = "";
     document.getElementById("serial").value = "";
+    document.getElementById("tipo_registro").value = "";
+    mostrarCampos(); // Actualizar visibilidad de campos
 }
 
-//solo para el input de nombre de material
 function validarFormulario() {
-    var nombreMaterialInput = document.getElementById("nombre_material");
-    var nombreEquipoInput = document.getElementById("serial");
-// Limpiar espacios iniciales
-nombreMaterialInput.value = nombreMaterialInput.value.replace(/^\s+/, '');
-nombreEquipoInput.value = nombreEquipoInput.value.replace(/^\s+/, '');
+    let tipoRegistro = document.getElementById("tipo_registro").value;
+
+    if (tipoRegistro === "") {
+        alert("⚠️ Selecciona un tipo de registro.");
+        return false;
+    }
+
+    if (tipoRegistro === "Material") {
+        let nombreMaterial = document.getElementById("nombre_material").value.trim();
+        let stockMaterial = document.getElementById("stock_material").value;
+
+        // Limpiar espacios iniciales
+        document.getElementById("nombre_material").value = nombreMaterial;
+
+        if (nombreMaterial === "") {
+            alert("⚠️ El nombre del material es obligatorio.");
+            return false;
+        }
+        if (stockMaterial <= 0) {
+            alert("⚠️ La cantidad debe ser mayor a 0.");
+            return false;
+        }
+    } else if (tipoRegistro === "Equipo") {
+        let marca = document.getElementById("marca").value.trim();
+        let serial = document.getElementById("serial").value.trim();
+
+        // Limpiar espacios iniciales
+        document.getElementById("serial").value = serial;
+
+        if (marca === "") {
+            alert("⚠️ La marca es obligatoria.");
+            return false;
+        }
+        if (serial === "") {
+            alert("⚠️ El serial es obligatorio.");
+            return false;
+        }
+    }
+
     return true;
 }
-// Prevenir espacios al inicio mientras se escribe en el input 
+
+// Prevenir espacios al inicio mientras se escribe en los inputs
 document.getElementById("nombre_material").addEventListener("input", function(e) {
-this.value = this.value.replace(/^\s+/, '');
+    this.value = this.value.replace(/^\s+/, '');
 });
 
 document.getElementById("serial").addEventListener("input", function(e) {
-this.value = this.value.replace(/^\s+/, '');
+    this.value = this.value.replace(/^\s+/, '');
 });
 
+  
