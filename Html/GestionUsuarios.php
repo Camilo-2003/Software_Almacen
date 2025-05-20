@@ -29,7 +29,7 @@
         <input type="email" id="correo" name="correo" placeholder="Correo Electrónico" required>
         <br><br>
         <label>Teléfono:</label>
-        <input type="tel" id="telefono" name="telefono" placeholder="Teléfono" required>
+        <input type="tel" id="telefono" name="telefono" placeholder="Teléfono" required pattern="[0-9]{10}" maxlength="10" title="Debe ser un número de 10 dígitos">
         <br><br>
         <label>Ambiente:</label>
         <input type="text" id="ambiente" name="ambiente" placeholder="Ambiente" required>

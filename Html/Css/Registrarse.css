@@ -1,5 +1,5 @@
 body {
-    background: radial-gradient(circle, #38c43c, #ffffff);
+   background: radial-gradient(circle, #4CAF50, #ffffff);
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
@@ -11,25 +11,32 @@ body {
 }
 h2 {
     text-align: center;
+    margin-top: -8px;
 }
 /* Formulario más compacto */
 form {
-    background-color: #ffffff;
-    padding: 20px;
+    background:-moz-linear-gradient(top, #12b561, #ffffff);
+    padding: 15px;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 600px; /* Ajustado para que no genere scroll */
-    height: auto;
-    max-width: 90%;
+    box-shadow: 3px 3px 15px rgb(0, 0, 0);
+    width: 615px; /* Ajustado para que no genere scroll */
+    height: 93%;
+    max-width: 95%;
     box-sizing: border-box;
+    margin-top: 24px;
+}
+.contain {
+    margin: 30px auto;
+    height: 100%;
 }
 
 label {
     display: block;
-    margin-bottom: 4px;
-    color: #333333;
+    margin-bottom: 2px;
+    color: #000000;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 15px;
+    padding: 5px;
 }
 
 input[type="text"],
@@ -55,7 +62,7 @@ input:focus {
 /* Contenedor para los botones */
 .botones {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; 
     margin-top: 10px;
 }
 
@@ -77,6 +84,7 @@ button[type="submit"] {
 
 button[type="submit"]:hover {
     background-color: #0056b3;
+    transform: scale(1.03);
 }
 
 button[type="button"] {
@@ -86,6 +94,7 @@ button[type="button"] {
 
 button[type="button"]:hover {
     background-color: #e60b20;
+    transform: scale(1.03);
 }
 
 /* Responsive por si acaso */
@@ -102,4 +111,74 @@ button[type="button"]:hover {
         width: 100%;
         margin-bottom: 8px;
     }
+}
+#loader {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(255,255,255,0.9);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    animation: fadeOut 0s ease 0.5s forwards; /* ← Aquí defines duración */
+  }
+  .spinner {
+    width: 60px;
+    height: 60px;
+    border: 6px solid #ccc;
+    border-top: 6px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  @keyframes fadeOut {
+    to {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+  .loader-text {
+    text-align: center;
+    color: green;
+    font-weight: bold;
+    position: fixed;
+    top: 370px; left: 645px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+
+  .regist {
+    text-decoration: none; /* Quitamos el subrayado */
+    color: #000; /* Color negro */
+    font-weight: bold;
+    font-size: 17px;
+    transition: color 0.3s ease;
+    border-bottom: 2px solid transparent; /* Para efecto en hover */
+    position: relative;
+  }
+ 
+  .regist::after{
+    content: "";
+    width: 0;
+    height: 4px;
+    position: absolute;
+    background: blue;
+    left: 0;
+    bottom: -8px;
+    transition: width 0.5s ease;
+  }
+  .regist:hover {
+    color: blue;  
+  }
+  .regist:hover::after {
+    width: 100%;
+  }
+.ingresar {
+    text-align: center;
 }
