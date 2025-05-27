@@ -6,15 +6,13 @@ include("prohibirAcceso.php");
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="Img/logo_sena.png" type="image/x-icon">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Materiales</title>
+    <title>Préstamo de Materiales</title>
     <link rel="stylesheet" href="Css/Materiales.css">
 </head>
 <body>
     <header>
-        <img src="Img\logo_sena.png" alt="Logo Sena" class="logo">
-        <h1>Préstamo De Materiales</h1>
+        <img src="Img/logo_sena.png" alt="Logo Sena" class="logo">
+        <h1>Préstamo de Materiales</h1>
         <div class="regresar">
             <a href="préstamos.php" class="rgs" title="Haz clic para volver ">Regresar</a>
         </div>
@@ -24,45 +22,41 @@ include("prohibirAcceso.php");
         <a href="HistorialDevMaterial.php" class="hist">Historial De Devolución</a>
     </div>
 
-<form action="" onsubmit="return validarFormulario()">
-    <div class="container">
-        <h2>Registrar Préstamo</h2>
-        <br>
-        <label>Tipo de Préstamo:</label>
-        <select id="tipo" onchange="cargarMateriales()">
-            <option value="">Seleccionar</option> 
-            <option value="Consumible">Consumible</option>
-            <option value="No_Consumible">No Consumible</option>
-        </select>
-        <br><br>
-        <label>Material:</label>
-        <select id="material"></select>
-        <br><br>
-        <label>Cantidad:</label>
-        <input type="number" id="cantidad" min="1" >
-        <br><br>
-        <label>Instructor:</label>
-        <input type="text" id="instructor" placeholder="Nombre del Instructor">
-        <br><br>
-        <button type="button" onclick="registrarPrestamo()">Prestar</button>
-    </div>
-</form>
-    <h2 class="historial">Historial de Préstamos</h2>
-    <table>
-        <thead>
-            <tr class="encabezado">
-                <th>Tipo</th>
-                <th>Material</th>
-                <th>Cantidad</th>
-                <th>Instructor</th>
-                <th>Fecha</th>
-                <th>Hora</th>
-                <th>Estado</th>
-                <th>Acción</th>
-            </tr>
-        </thead>
-        <tbody id="historial"></tbody>
-    </table>
-  <script src="Js/Materiales.js"></script>
+    <form action="Php/registrar_prestamo_materiales.php" method="post" onsubmit="return validarFormulario()">
+        <div class="container">
+            <h2>Registrar Préstamo</h2>
+
+            <label for="Tipo">Tipo de Préstamo:</label>
+            <select id="Tipo" name="Tipo" required>
+                <option value="">Seleccionar</option>
+                <option value="consumible" style="text-transform: none;">consumible</option>
+                <option value="no consumible " style="text-transform: none;">no Consumible</option>
+            </select>
+            <br><br>
+
+            <label for="Material">Material:</label>
+            <input id="Material" name="Material" type="text" placeholder="Nombre del material" required>
+            <br><br>
+
+            <label for="Cantidad">Cantidad:</label>
+            <input type="number" id="Cantidad" name="Cantidad" min="1" required>
+            <br><br>
+
+            <label for="Instructor">Instructor:</label>
+            <input type="text" id="Instructor" name="Instructor" placeholder="Nombre del Instructor" required>
+            <br><br>
+
+            <button type="submit">Prestar</button>
+        </div>
+    </form>
+
+    <script src="Js/Materiales.js"></script>
 </body>
 </html>
+
+
+
+
+
+
+

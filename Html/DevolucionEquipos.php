@@ -7,9 +7,40 @@ include("prohibirAcceso.php");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title> Devolucion Equipos</title>
+    <link rel="icon" href="Img/logo_sena.png" type="image/x-icon">
+    <link rel="stylesheet" href="Css/devequipos.css">
 </head>
 <body>
-    
+    <header>
+        <img src="Img\logo_sena.png" alt="Logo Sena" class="logo">
+        <h1>Devolución Equipos</h1>
+        <div class="regresar">
+            <a href="préstamos.php" class="rgs" title="Haz clic para volver ">Regresar</a>
+        </div>
+    </header>
+    <p>Devolución Equipos 💻</p>
+
+     <table id="table1">
+        <thead >
+            <tr class="encabezadoo">
+                <th>Tipo</th>
+                <th>Equipo</th>
+                <th>Serial</th>
+                <th>Cantidad</th>
+                <th>Instructor</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Estado</th>
+                <th>novedad</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        </tbody>
+    </table>  
+ 
 </body>
 </html>
+
+

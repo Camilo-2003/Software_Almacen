@@ -19,23 +19,10 @@ header {
   box-shadow: 0 2px 3px rgb(8, 126, 43);
   animation: slideDown 1s ease-in-out;
 }
-@keyframes slideDown {
-  from { transform: translateY(-100px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-
 h1 {
   font-size: 40px;
   font-family: Stencil;
   animation:slideDown 2s ease-in-out;
-}
-h2 {
-  padding: 10px;
-  width: 50%;
-  margin: 10px auto;
-  font-size: 26px;
-  background-color: green;
-  box-shadow: 10px 10px 10px black;
 }
 .historial {
   padding: 10px;
@@ -48,34 +35,6 @@ h2 {
   height: 100px;
   margin-right: 20px;
   animation:slideDown 2s ease-in-out;
-}
-
-.container {
-  background: rgb(255, 255, 255);
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0);
-  max-width: 600px;
-  margin: 20px auto;
-  font-weight: bold;
-}
-label {
-  display: block;
-}
-input {
-  width: 80%;
-  height: 25px;
-  border: 1px solid #ccc;
-}
-input:focus {
-  box-shadow: 0 0 10px rgba(0, 123, 255);
-  outline: none;
-}
-select {
-  font-weight: bold;
-  width: 80%;
-  height: 30px;
-  border: 1px solid #ccc;
 }
 table {
   width: 100%;
@@ -157,24 +116,4 @@ button:hover {
   transform: scale(1.1);
   transition: 0.3s;
   outline: 2px solid white;
-}
-.contenedor-boton {
-  text-align: center;
-  margin: 20px 0;
-}
-
-.boton {
-  display: inline-block;
-  background-color: #007bff;
-  color: white;
-  padding: 12px 24px;
-  text-decoration: none;
-  border-radius: 5px;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
-  border: 0cap;
-}
-
-.boton:hover {
-  background-color: #0056b3;
 }
