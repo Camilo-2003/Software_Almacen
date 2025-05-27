@@ -1,3 +1,7 @@
+<?php
+include("prohibirAcceso.php");
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -11,9 +15,9 @@
     <a href="instructores.php" class="option">📋 Ver Instructores Registrados</a>
 </nav>
 <body>
-    <div class="contain">
-        <a href="almacenista.php" class="rgs" title="Haz clic para volver">Regresar</a>
-    </div>
+     <div class="contain">
+        <a href="<?php echo $pagina_regresar; ?>"  class="rgs" title="Haz clic para volver">Regresar</a>
+    </div> 
   
     <form action="Php/AgregarInstructor.php" method="POST" onsubmit="return validarFormulario()">
     <div class="container">

@@ -23,7 +23,7 @@ if ($conexion->connect_errno) {
     </header>
     <br>
     <div>
-        <a href="../Inventario.html" class="regresar" title="Haz clic para volver ">Regresar</a>
+        <a href="../Inventario.php" class="regresar" title="Haz clic para volver ">Regresar</a>
     </div>
     <br>
     <h2>📦 Materiales</h2><br>

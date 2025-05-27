@@ -1,3 +1,8 @@
+<?php
+include("prohibirAcceso.php");
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -12,19 +17,19 @@
         <img src="Img/logo_sena.png" alt="Logo Sena" class="logo">
         <h1>📤 Gestiona tus préstamos</h1>
         <div class="btn">
-            <a href="almacenista.php" class="rgs" title="Haz clic para volver">Regresar</a>
-        </div>
+            <a href="<?php echo $pagina_regresar; ?>"  class="rgs" title="Haz clic para volver">Regresar</a>
+        </div> 
     </header>
     
     <div class="options1">
-            <a href="Equipos.html" class="option">Préstamo Equipos💻</a>
-            <a href="DevolucionEquipos.html" class="option2">Devolución Equipos💻</a>
+            <a href="Equipos.php" class="option">Préstamo Equipos💻</a>
+            <a href="DevolucionEquipos.php" class="option2">Devolución Equipos💻</a>
             <p class="description">Accede a estas opciones para gestionar los préstamos y devoluciones de los equipos del almacen y ve paso a paso.</p>
             <img src="Img/images.png" alt="Equipos" class="imgg">
     </div>
         <div class="options2">
-            <a href="Materiales.html" class="option">Préstamo Materiales🕵️‍♂️</a>
-            <a href="DevolucionMateriales.html" class="option2">Devolución Materiales🕵️‍♂️</a>
+            <a href="Materiales.php" class="option">Préstamo Materiales🕵️‍♂️</a>
+            <a href="DevolucionMateriales.php" class="option2">Devolución Materiales🕵️‍♂️</a>
             <p class="description">Accede a estas opciones para gestionar los préstamos y devoluciones de los materiales del almacen y ve paso a paso.</p>
             <img src="Img/sena3.jpg" alt="Materiales" class="imgg">
     </div><br>

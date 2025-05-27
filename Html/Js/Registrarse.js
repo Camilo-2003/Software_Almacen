@@ -34,7 +34,7 @@ function validarFormulario() {
 // redirección 
 function cancelarFormulario() {
     if (confirm("¿Estás seguro de que deseas cancelar el registro?")) {
-        window.location.href = "login.html";   
+        window.location.href = "login.php";   
     }
 }
 

@@ -1,3 +1,7 @@
+<?php
+include("prohibirAcceso.php");
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -11,8 +15,8 @@
     <header>
         <h1>📋 Registro De Elementos</h1>
         <div class="container-rgs">
-            <a href="almacenista.php" class="rgs" title="Haz clic para volver">Regresar</a>
-        </div>
+            <a href="<?php echo $pagina_regresar; ?>" class="rgs" title="Haz clic para volver">Regresar</a>
+        </div> 
     </header>
 
     <div class="container">

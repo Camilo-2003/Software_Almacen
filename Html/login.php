@@ -23,8 +23,8 @@
   </header>
  
   <div class="container">
-    <h3>Iniciar Sesión <img src="Img/programming.gif" alt="Login"></h3>
-    <form id="loginForm" method="POST" action="Php/login.php" autocomplete="off" onsubmit="return validarFormulario()">
+    <h3>Iniciar Sesión <img src="Img/programming.gif" alt="Login"></h3> 
+    <form id="loginForm" method="POST" action="Php/login2.php" autocomplete="off" onsubmit="return validarFormulario()">
       <label>Ingresar Correo Electrónico:</label>
       <input type="email" id="correo" name="correo" placeholder="Correo Electrónico" required>
       <label>Ingresar Contraseña:</label>

@@ -1,41 +1,48 @@
+<?php
+include("prohibirAcceso.php");
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <link rel="icon" href="Img/logo_sena.png" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Materiales</title>
-    <link rel="stylesheet" href="Css/Materiales.css">
+    <title>Equipos</title>
+    <link rel="stylesheet" href="Css/Equipos.css">
 </head>
-<body>
+<b>
     <header>
         <img src="Img\logo_sena.png" alt="Logo Sena" class="logo">
-        <h1>Préstamo De Materiales</h1>
+        <h1>Préstamo De Equipos</h1>
         <div class="regresar">
-            <a href="préstamos.html" class="rgs" title="Haz clic para volver ">Regresar</a>
+            <a href="préstamos.php" class="rgs" title="Haz clic para volver ">Regresar</a>
         </div>
     </header>
 
     <div>
-        <a href="HistorialDevMaterial.html" class="hist">Historial De Devolución</a>
+        <a href="HistorialDevEquipos.php" class="hist">Historial De Devolución</a>
     </div>
-
-<form action="" onsubmit="return validarFormulario()">
+    
+ <form action="" onsubmit="return validarFormulario()">
     <div class="container">
         <h2>Registrar Préstamo</h2>
-        <br>
+        <br> 
         <label>Tipo de Préstamo:</label>
-        <select id="tipo" onchange="cargarMateriales()">
-            <option value="">Seleccionar</option> 
-            <option value="Consumible">Consumible</option>
-            <option value="No_Consumible">No Consumible</option>
+        <select id="tipo" onchange="cargarEquipos()">
+            <option value="">Seleccionar</option>
+            <option value="No_Consumible">Devolutivo</option>
         </select>
         <br><br>
-        <label>Material:</label>
-        <select id="material"></select>
+        <label>Equipo:</label>
+        <select id="equipo"></select>
+        <br><br>
+        <label>Serial:</label>
+        <input type="text" id="serial" placeholder="Ejemplo: 2342ftw5" required>
         <br><br>
         <label>Cantidad:</label>
-        <input type="number" id="cantidad" min="1" >
+        <input type="number" id="cantidad" max="1" placeholder="No puede ser mayor a 1" oninput="validarCantidad(this)">
+        <!--max="1" ya que cada equipo tiene un serial diferente por ende no se puede mas de 1-->
         <br><br>
         <label>Instructor:</label>
         <input type="text" id="instructor" placeholder="Nombre del Instructor">
@@ -46,9 +53,10 @@
     <h2 class="historial">Historial de Préstamos</h2>
     <table>
         <thead>
-            <tr class="encabezado">
+            <tr class="encabezadoo">
                 <th>Tipo</th>
-                <th>Material</th>
+                <th>Equipo</th>
+                <th>Serial</th>
                 <th>Cantidad</th>
                 <th>Instructor</th>
                 <th>Fecha</th>
@@ -59,6 +67,7 @@
         </thead>
         <tbody id="historial"></tbody>
     </table>
-  <script src="Js/Materiales.js"></script>
+
+  <script src="Js/Equipos.js"></script>
 </body>
 </html>
