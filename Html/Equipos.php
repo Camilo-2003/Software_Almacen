@@ -21,11 +21,7 @@ include("prohibirAcceso.php");
     </header>
 
     <div>
-<<<<<<< HEAD:Html/Equipos.html
-        <a href="historial_prestamos_equipo.html" class="hist">Historial De Prestamos</a>
-=======
         <a href="HistorialDevEquipos.php" class="hist">Historial De Devolución</a>
->>>>>>> 4ba1d77a333f087b72b8688ebbc6e206f28f4ca4:Html/Equipos.php
     </div>
     
  <form action="Php/registrar_prestamo_equipo.php" name="préstamos de equipo" method="post" onsubmit="return validarFormulario()">

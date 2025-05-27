@@ -16,7 +16,7 @@ include("prohibirAcceso.php");
         <img src="Img\logo_sena.png" alt="Logo Sena" class="logo">
         <h1>Devolución Equipos</h1>
         <div class="regresar">
-            <a href="préstamos.html" class="rgs" title="Haz clic para volver ">Regresar</a>
+            <a href="préstamos.php" class="rgs" title="Haz clic para volver ">Regresar</a>
         </div>
     </header>
     <p>Devolución Equipos 💻</p>
