@@ -1,3 +1,7 @@
+<?php
+include("prohibirAcceso.php");
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -12,12 +16,16 @@
         <img src="Img\logo_sena.png" alt="Logo Sena" class="logo">
         <h1>Préstamo De Equipos</h1>
         <div class="regresar">
-            <a href="préstamos.html" class="rgs" title="Haz clic para volver ">Regresar</a>
+            <a href="préstamos.php" class="rgs" title="Haz clic para volver ">Regresar</a>
         </div>
     </header>
 
     <div>
+<<<<<<< HEAD:Html/Equipos.html
         <a href="historial_prestamos_equipo.html" class="hist">Historial De Prestamos</a>
+=======
+        <a href="HistorialDevEquipos.php" class="hist">Historial De Devolución</a>
+>>>>>>> 4ba1d77a333f087b72b8688ebbc6e206f28f4ca4:Html/Equipos.php
     </div>
     
  <form action="Php/registrar_prestamo_equipo.php" name="préstamos de equipo" method="post" onsubmit="return validarFormulario()">

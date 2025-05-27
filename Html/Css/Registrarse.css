@@ -1,5 +1,8 @@
 body {
-   background: radial-gradient(circle, #4CAF50, #ffffff);
+   /* background: radial-gradient(circle, #4CAF50, #ffffff); */
+    background-image: url(../Img/ssena.avif);
+    background-size: cover;
+    background-position: center;
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
@@ -11,19 +14,20 @@ body {
 }
 h2 {
     text-align: center;
-    margin-top: -8px;
+    margin-top: -40px;
 }
-/* Formulario más compacto */
+
 form {
-    background:-moz-linear-gradient(top, #12b561, #ffffff);
-    padding: 15px;
+    background: rgba(255, 255, 255, 0.6); 
+    /* background: linear-gradient(to bottom, #12b561, #ffffff); */
+    padding: 50px;
     border-radius: 10px;
     box-shadow: 3px 3px 15px rgb(0, 0, 0);
     width: 615px; /* Ajustado para que no genere scroll */
-    height: 93%;
+    height: 95%;
     max-width: 95%;
     box-sizing: border-box;
-    margin-top: 24px;
+    margin-top: 17px;
 }
 .contain {
     margin: 30px auto;
@@ -66,7 +70,7 @@ input:focus {
     margin-top: 10px;
 }
 
-/* Botones */
+
 button {
     width: 48%;
     padding: 8px;
@@ -154,8 +158,8 @@ button[type="button"]:hover {
     }
 
   .regist {
-    text-decoration: none; /* Quitamos el subrayado */
-    color: #000; /* Color negro */
+    color: #df1428;
+    text-decoration: none;
     font-weight: bold;
     font-size: 17px;
     transition: color 0.3s ease;
@@ -182,3 +186,31 @@ button[type="button"]:hover {
 .ingresar {
     text-align: center;
 }
+.btn {
+    display:flex;
+    margin-left: 8px;
+    left: 0;
+    font-weight: bold;
+    top: 6px;
+    position: absolute;
+    float: left;
+    border-radius: 12px;
+  }
+  .btnn {
+    text-decoration: none;
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);    
+    color:  rgb(17, 179, 57);
+    width: auto;
+    font-size: 19px;
+    padding: 15px;
+    text-shadow: 1px 1px 1px rgb(0, 0, 0);
+    box-shadow: 2px 2px 7px #157c34;
+  }
+  .btnn:hover {
+    background-color: green;
+    color: white;
+    transform: scale(1.1);
+    transition: 0.3s;
+    outline: 2px solid white;
+  }

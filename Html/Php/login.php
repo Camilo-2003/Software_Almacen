@@ -60,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             $stmt->close();
             $conexion->close();
-            header("Location: ../login.html?error=incorrect_password");
+            header("Location: ../login.php?error=incorrect_password");
             exit();
         }
     } else {

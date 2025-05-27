@@ -1,3 +1,7 @@
+<?php
+include("prohibirAcceso.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

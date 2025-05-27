@@ -1,7 +1,7 @@
 body {
   font-family: Arial, sans-serif;
   text-align: center;
-  width: 100%;
+  width: 101%;
   overflow-x: hidden;
   padding-bottom: 80px;
 }
@@ -11,13 +11,13 @@ body {
  padding: 2px;
  margin-left: -710px;
  border: none;
- border-radius: 10px;
+ border-radius: 10px; 
  box-shadow: 2px 2px 5px rgba(0,0,0);
  background: white;
 }
 
 .sidebar {
-  width: 315px;
+  width: 317px;
   min-height: 100vh;
   background-color: rgb(255, 255, 255);
   color: rgb(0, 0, 0);
@@ -53,9 +53,9 @@ body {
 
 .username {
   text-align: center;
-  margin-top: 5px;
+  margin-top: -12px;
   font-weight: bold;
-  margin: 40px auto;
+  margin: 20px auto;
 }
 
 .nav-menu {
@@ -81,7 +81,7 @@ body {
 }
 
 .logout {
-  background-color: darkred;
+  background-color: red; 
   text-decoration: none;
   color: white;
   padding: 10px 15px;
@@ -91,15 +91,16 @@ body {
 }
 
 .logout:hover {
-  background-color: red;
+  background-color: darkred;
   transform: translateY(5px);
 }
 
 .main-content {
-  margin-left: 280px;
-  padding: 30px;
+  margin-left: 270px;
+  padding: 28px;
   width: calc(100% - 250px);
-  animation: fadeIn 1.5s ease-in-out;
+  margin-top: -23px;
+  /* animation: fadeIn 1.5s ease-in-out; */
 }
 
 header {
@@ -107,9 +108,9 @@ header {
   float: left;
   margin-left: -3px;
   font-family: Stencil;
-  margin-top: -8px;
-  padding: 2px;
-  width: 1001px;
+  margin-top: -11px;
+  padding: 0;
+  width: 1005px;
   position: sticky;
   display: flex;
   align-items: center;
@@ -120,9 +121,9 @@ header {
   z-index: 1000;
 }
 header h1 {
-  font-size: 35px;
+  font-size: 30px;
   margin: 0;
-  padding: 15px;
+  padding: 10px;
 }
 .hr {
   width: 10%;
@@ -152,7 +153,7 @@ h3 {
     opacity: 1;
   }
 }
-
+/* 
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -162,4 +163,23 @@ h3 {
     opacity: 1;
     transform: translateY(0);
   }
+} */
+.hora {
+  margin-top: -5px;
+  font-size: 14px;
+}
+.fecha {
+  color: rgb(0, 30, 128);
+  margin-right: 16px;
+}
+.hora {
+  color: rgb(0, 30, 128);
+  margin-left: -45px;
+}
+.vv {
+  color: black;
+  margin-right: -40px; 
+}
+.vvv {
+  color: black;
 }

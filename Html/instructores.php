@@ -1,6 +1,9 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/Software_Almacen/Html/conexion.php';
 
+include("prohibirAcceso.php");
+
+
 // Consulta para obtener los instructores
 $query = "SELECT * FROM instructores";
 $result = $conexion->query($query);

@@ -1,3 +1,7 @@
+<?php
+include("prohibirAcceso.php");
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -10,12 +14,20 @@
         <img src="Img/logo_sena.png" alt="Logo Sena" class="logo">
         <h1>Préstamo de Materiales</h1>
         <div class="regresar">
+<<<<<<< HEAD:Html/Materiales.html
             <a href="préstamos.html" class="rgs" title="Haz clic para volver">Regresar</a>
+=======
+            <a href="préstamos.php" class="rgs" title="Haz clic para volver ">Regresar</a>
+>>>>>>> 4ba1d77a333f087b72b8688ebbc6e206f28f4ca4:Html/Materiales.php
         </div>
     </header>
 
     <div>
+<<<<<<< HEAD:Html/Materiales.html
         <a href="HistorialDevMaterial.html" class="hist">Historial de Devoluciones</a>
+=======
+        <a href="HistorialDevMaterial.php" class="hist">Historial De Devolución</a>
+>>>>>>> 4ba1d77a333f087b72b8688ebbc6e206f28f4ca4:Html/Materiales.php
     </div>
 
     <form action="Php/registrar_prestamo_materiales.php" method="post" onsubmit="return validarFormulario()">
