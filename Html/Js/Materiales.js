@@ -1,35 +1,32 @@
-  function validarFormulario() {
-            const tipo = document.getElementById("tipo_material").value;
-            const material = document.getElementById("material").value.trim();
-            const cantidad = document.getElementById("cantidad").value;
-            const instructor = document.getElementById("instructor").value.trim();
+function validarFormulario() {
+ document.getElementById("material").value = document.getElementById("material").value.trim();
+ document.getElementById("cantidad").value = document.getElementById("cantidad").value.trim();
+ document.getElementById("instructor").value = document.getElementById("instructor").value.trim();
 
-            if (!tipo || !material || !cantidad || !instructor) {
-                alert("Por favor, completa todos los campos.");
-                return false;
-            }
-
-            if (cantidad <= 0) {
-                alert("La cantidad debe ser mayor a 0.");
-                return false;
-            }
-
-            return true;
+return true;
 }
+document.getElementById("material").addEventListener("input", function(e) {
+this.value = this.value.replace(/^\s+/, '');
+});
+
+document.getElementById("cantidad").addEventListener("input", function(e) {
+this.value = this.value.replace(/^\s+/, '');
+});
+document.getElementById("instructor").addEventListener("input", function(e) {
+this.value = this.value.replace(/^\s+/, '');
+});
 
 function buscarTipoMaterial() {
-    const material = document.getElementById("material").value;
+const material = document.getElementById("material").value;
 
-    if (material.length === 0) {
-        document.getElementById("tipo_material").value = "";
-        return;
-    }
-
-    fetch(`Php/obtener_tipo_material.php?nombre=${encodeURIComponent(material)}`)
-        .then(res => res.text())
-        .then(tipo => {
-            document.getElementById("tipo_material").value = tipo !== "no encontrado" ? tipo : "";
-        });
+if (material.length === 0) {
+    document.getElementById("tipo_material").value = "";
+    return;
 }
 
-;
+// fetch(`Php/Obtener_tipo_material.php?nombre=${encodeURIComponent(material)}`)
+//     .then(res => res.text())
+//     .then(tipo => {
+//         document.getElementById("tipo_material").value = tipo !== "no encontrado" ? tipo : "";
+//     });
+}

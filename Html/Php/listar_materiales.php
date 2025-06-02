@@ -1,5 +1,5 @@
 <?php
-include '../conexion.php';
+include '../Conexion.php';
 $sql = "SELECT nombre, tipo, stock FROM materiales ORDER BY nombre ASC";
 $result = $conexion->query($sql);
 

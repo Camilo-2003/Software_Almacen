@@ -1,0 +1,46 @@
+body {
+background-color: #f5f5f5;
+text-align: center;
+margin: 0;
+padding: 0;
+}
+h2 {
+margin: 1px auto;
+color: rgb(255, 255, 255);
+background-color: green;
+width: 50%;
+padding: 10px;
+border-radius: 6px;
+box-shadow: 2px 2px 3px black;
+margin-top: 12px;
+}
+.container {
+margin: 20px auto;
+margin-top: 1px;
+}
+form {
+margin: 40px auto;
+background-color: rgb(170, 169, 169);
+width: 40%;
+height: 40%;
+padding: 10px;
+border-radius: 5px;
+box-shadow: 2px 3px 2px black;
+}
+label {
+/* float: left; */
+font-weight: bold;
+font-size: 20px;
+}
+button {
+    padding: 12px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+}
+.acept {
+background-color: green;
+}
+.delet {
+    background-color: red;
+}

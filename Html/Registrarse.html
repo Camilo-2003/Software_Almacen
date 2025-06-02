@@ -10,7 +10,7 @@
 <body>
     <header>
     <div class="btn">
-      <a href="login.php" class="btnn">Regresar</a>
+      <a href="Login.php" class="btnn">Regresar</a>
   </div>
   </header>
 
@@ -20,16 +20,16 @@
   </div>
   <br>
 <div class="contain">
-    <form action="Php/guardar2.php" method="POST" onsubmit="return validarFormulario()">
+    <form action="Php/Guardar_Registrarse.php" method="POST" onsubmit="return validarFormulario()">
         <h2>Crear Cuenta</h2>
         <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" required pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]{6,}" title="El nombre debe tener al menos 6 letras" placeholder="Nombres">
+        <input type="text" id="nombre" name="nombre" required pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]{2,}" title="El nombre debe tener al menos 2 letras" placeholder="Nombres">
         <label for="apellido">Apellido:</label>
-        <input type="text" id="apellido" name="apellido" required pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]{6,}" title="El apellido debe tener al menos 6 letras" placeholder="Apellidos">
+        <input type="text" id="apellido" name="apellido" required pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]{2,}" title="El apellido debe tener al menos 2 letras" placeholder="Apellidos">
         <label for="correo">Correo Electrónico:</label>
         <input type="email" id="correo" name="correo" required placeholder="Correo">
         <label for="telefono">Teléfono:</label>
-        <input type="tel" id="telefono" name="telefono" required pattern="[0-9]{10}" maxlength="10" title="Debe ser un número de 10 dígitos" placeholder="Telefono">
+        <input type="number" id="telefono" name="telefono" required pattern="[0-9]{10}" maxlength="10" title="Debe ser un número de 10 dígitos" placeholder="Telefono">
         <label for="password">Contraseña:</label>
         <input type="password" id="password" name="password" required placeholder="Contraseña">
         <label for="confirm-password">Confirmar Contraseña:</label>

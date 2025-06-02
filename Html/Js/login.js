@@ -39,3 +39,22 @@ if (params.get("mensaje") === "cierre") {
     alert("✅¡Has cerrado sesión correctamente!");
 }
  
+// ver y ocultar password
+let clave = document.getElementById("password")
+let ver = document.getElementById("ver");
+let icono = document.getElementById("icono")
+let con = true
+
+ver.addEventListener("click", function () {
+if (con) {
+  clave.type = "text";
+  icono.classList.remove("fa-eye");
+  icono.classList.add("fa-eye-slash");
+  con = false;
+} else {
+  clave.type = "password";
+  icono.classList.remove("fa-eye-slash");
+  icono.classList.add("fa-eye");
+  con = true;
+}
+});

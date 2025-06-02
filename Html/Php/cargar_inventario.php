@@ -1,5 +1,5 @@
 <?php
-include '../conexion.php';
+include '../Conexion.php';
 
 $sql = "SELECT nombre, tipo, stock FROM materiales";
 $result = $conexion->query($sql);

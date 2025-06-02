@@ -1,22 +1,12 @@
 function validarFormulario() {
-    var nombreInput = document.getElementById("nombre");
-    var apellidoInput = document.getElementById("apellido");
-    var correoInput = document.getElementById("correo");
-    var telefonoInput = document.getElementById("telefono");
-    var ambienteInput = document.getElementById("ambiente");
-    var nombrematerialInput = document.getElementById("nombre_material");
-
-    // Limpiar espacios iniciales
-    nombreInput.value = nombreInput.value.replace(/^\s+/, '');
-    apellidoInput.value = apellidoInput.value.replace(/^\s+/, '');
-    correoInput.value = correoInput.value.replace(/^\s+/, '');
-    telefonoInput.value = telefonoInput.value.replace(/^\s+/, '');
-    ambienteInput.value = ambienteInput.value.replace(/^\s+/, '');
-    nombrematerialInput.value = nombrematerialInput.value.replace(/^\s+/, '');
+   document.getElementById("nombre").value = document.getElementById("nombre").value.trim();
+   document.getElementById("apellido").value = document.getElementById("apellido").value.trim();
+   document.getElementById("correo").value = document.getElementById("correo").value.trim();
+   document.getElementById("telefono").value = document.getElementById("telefono").value.trim();
+   document.getElementById("ambiente").value = document.getElementById("ambiente").value.trim();
 
     return true;
   }
-
   // Prevenir espacios al inicio mientras se escribe en los input  
 
   document.getElementById("nombre").addEventListener("input", function(e) {
@@ -35,7 +25,3 @@ function validarFormulario() {
   document.getElementById("ambiente").addEventListener("input", function(e) {
     this.value = this.value.replace(/^\s+/, '');
   });
-  document.getElementById("nombre_material").addEventListener("input", function(e) {
-    this.value = this.value.replace(/^\s+/, '');
-  });
-

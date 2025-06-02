@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/conexion.php';
+require_once __DIR__ . '/Conexion.php';
 $sql = "SELECT * FROM materiales";
 $result = $conexion->query($sql);
 

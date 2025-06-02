@@ -10,7 +10,7 @@ header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
 
 // Redirección con una salida limpia a la pagina de login
-header("Location: ../login.php?mensaje=cierre"); //mensaje de cierre esta en login.js
+header("Location: ../Login.php?mensaje=cierre"); //mensaje de cierre esta en login.js
 exit(); // Asegura que el script se detenga aquí
 ?>
   

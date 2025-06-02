@@ -191,4 +191,9 @@ body {
     align-items: center;
     }
   
-
+#icono {
+  font-size: 20px;
+  margin-top: 28px;
+  margin-right: -33px;
+  float: right;
+}
