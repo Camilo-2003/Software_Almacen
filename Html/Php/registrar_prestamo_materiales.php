@@ -49,8 +49,8 @@ $stmt_instructor->close();
 
 // Insertar préstamo con estado y fecha_prestamo
 $sql_insert = "INSERT INTO prestamo_materiales (
-    id_material, id_instructor, id_almacenista, cantidad, fecha_prestamo, fecha_devolucion, estado
-) VALUES (?, ?, ?, ?, NOW(), NOW(), 'pendiente')";
+    id_material, id_instructor, id_almacenista, tipo, cantidad, fecha_prestamo, fecha_devolucion, estado
+) VALUES (?, ?, ?, ?, ?, NOW(), NOW(), 'pendiente')";
 
 $stmt_insert = $conexion->prepare($sql_insert);
 $stmt_insert->bind_param("iiii", $id_material, $id_instructor, $id_almacenista, $cantidad);

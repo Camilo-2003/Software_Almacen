@@ -14,7 +14,7 @@ include("prohibirAcceso.php");
         <img src="Img/logo_sena.png" alt="Logo Sena" class="logo">
         <h1>Historial de Devolución de Materiales</h1>
         <div class="regresar">
-            <a href="Materiales.html" class="rgs" title="Haz clic para volver">Regresar</a>
+            <a href="Materiales.php" class="rgs" title="Haz clic para volver">Regresar</a>
         </div>
     </header>
 

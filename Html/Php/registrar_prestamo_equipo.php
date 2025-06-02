@@ -7,11 +7,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id_equipo = isset($_POST['tipo']) ? intval($_POST['tipo']) : 0;
     $id_instructor = isset($_POST['instructor']) ? intval($_POST['instructor']) : 0;
     $id_almacenista = isset($_POST['almacenista']) ? intval($_POST['almacenista']) : 0;
+    $marca = isset($_POST['marca']) ? trim($_POST['marca']) : '';
     $fecha = date("Y-m-d H:i:s");
 
-    // Validar que los IDs sean positivos
-    if ($id_equipo <= 0 || $id_instructor <= 0 || $id_almacenista <= 0) {
-        echo "❌ Error: IDs inválidos proporcionados.";
+    // Validar que los IDs sean positivos y que la marca no esté vacía
+    if ($id_equipo <= 0 || $id_instructor <= 0 || $id_almacenista <= 0 || empty($marca)) {
+        echo "❌ Error: Datos inválidos proporcionados.";
         exit;
     }
 
@@ -30,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $row = $resultado->fetch_assoc();
     if ($row['estado'] !== 'disponible') {
-        echo "❌ Error: El equipo con ID $id_equipo no está disponible para préstamo.";
+        echo "❌ Error: El equipo con ID $id_equipo no está disponible para préstamo. Estado actual: " . $row['estado'];
         $query->close();
         $conexion->close();
         exit;
@@ -42,18 +43,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     try {
         // Registrar el préstamo con estado 'pendiente'
-        $sql = "INSERT INTO prestamo_equipos (id_equipo, id_instructor, id_almacenista, fecha_prestamo, estado)
-                VALUES (?, ?, ?, ?, 'pendiente')";
+        $sql = "INSERT INTO prestamo_equipos (id_equipo, id_instructor, id_almacenista, marca, fecha_prestamo, estado)
+                VALUES (?, ?, ?, ?, ?, 'pendiente')";
         $stmt = $conexion->prepare($sql);
-        $stmt->bind_param("iiis", $id_equipo, $id_instructor, $id_almacenista, $fecha);
+        $stmt->bind_param("iiiss", $id_equipo, $id_instructor, $id_almacenista, $marca, $fecha);
 
         if (!$stmt->execute()) {
             throw new Exception("Error al registrar el préstamo: " . $stmt->error);
         }
 
+        // Actualizar el estado del equipo a 'prestado'
+        $update_sql = "UPDATE equipos SET estado = 'prestado' WHERE id_equipo = ?";
+        $update_stmt = $conexion->prepare($update_sql);
+        $update_stmt->bind_param("i", $id_equipo);
+        if (!$update_stmt->execute()) {
+            throw new Exception("Error al actualizar el estado del equipo: " . $update_stmt->error);
+        }
+
         // Confirmar transacción
         $conexion->commit();
-        echo "✅ Préstamo registrados exitosamente.";
+        echo "✅ Préstamo registrado exitosamente.";
     } catch (Exception $e) {
         // Revertir transacción en caso de error
         $conexion->rollback();
