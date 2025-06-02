@@ -37,10 +37,10 @@ $resultado = $conexion->query($sql);
         <input type="number" id="tipo" name="tipo" placeholder="Ingrese el id del equipo" required>
 
         <label>Id instructor</label>
-        <input type="number" name="instructor" placeholder="Ingrese el id del instructor" required>
+        <input type="number" id="instructor" name="instructor" placeholder="Ingrese el id del instructor" required>
 
         <label>Id almacenista</label>
-        <input type="number" name="almacenista" placeholder="Ingrese el id del almacenista" required>
+        <input type="number" id="almacenista" name="almacenista" placeholder="Ingrese el id del almacenista" required>
 
         <!-- <label>Marca</label>
         <select name="marca" required>
