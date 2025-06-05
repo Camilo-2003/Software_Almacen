@@ -53,48 +53,39 @@ include_once __DIR__ . '/Php/Hora_ingreso.php';
   </nav>
 
   <p class="panel">Panel de administrador</p>
+    <main class="main-content">
+        <div class="dashboard">
+            <a href="Administrador.php" class="card">
+                <i class="fa-solid fa-house"></i>
+                <div class="titulo">Inicio</div>
+                <div class="descripcion">Pagina principal</div>
+            </a>
+            <a href="Préstamos.php" class="card">
+                <i class="fas fa-exchange-alt"></i>
+                <div class="titulo">Préstamos</div>
+                <div class="descripcion">Registra, consulta o devuelve material o equipo.</div>
+            </a>
+            <a href="Inventario.php" class="card">
+                <i class="fas fa-box"></i>
+                <div class="titulo">Inventario</div>
+                <div class="descripcion">Administra materiales y equipos disponibles.</div>
+            </a>
+            <a href="Gestion_Usuarios.php" class="card">
+                <i class="fas fa-users"></i>
+                <div class="titulo">Usuarios</div>
+                <div class="descripcion">Registrar y administrar instructores.</div>
+            </a>
 
-  <main class="main-content">
-    <div class="dashboard">
-        <div class="card" onclick="cargarPagina('Administrador.php')">
-        <i class="fa-solid fa-house"></i>
-        <div class="titulo">Inicio</div>
-        <div class="descripcion">Pagina principal</div>
-    </div>
-      <div class="card" onclick="cargarPagina('Préstamos.php')">
-        <i class="fas fa-exchange-alt"></i>
-        <div class="titulo">Préstamos</div>
-        <div class="descripcion">Registra, consulta o devuelve material o equipo.</div>
-      </div>
-      <div class="card" onclick="cargarPagina('Inventario.php')">
-        <i class="fas fa-box"></i>   
-        <div class="titulo">Inventario</div>
-        <div class="descripcion">Administra materiales y equipos disponibles.</div>
-      </div>
-      <div class="card" onclick="cargarPagina('Gestion_Usuarios.php')">
-        <i class="fas fa-users"></i>
-        <div class="titulo">Usuarios</div>
-        <div class="descripcion">Registrar y administrar instructores.</div>
-      </div>
-      <div class="card" onclick="cargarPagina('Novedades.php')">
-        <i class="fas fa-chart-line"></i>
-        <div class="titulo">Novedades</div>
-        <div class="descripcion">Visualiza reportes de daños, pérdidas y otros eventos.</div>
-      </div>
-        <div class="card" onclick="cargarPagina('Aceptar_Usuarios.php')">
+        <a href="Aceptar_Usuarios.php" class="card">
         <i class="fa-solid fa-user-plus"></i>
         <div class="titulo">Aceptar Usuarios</div>
         <div class="descripcion">Administra solicitudes de ingreso de nuevos usuarios al sistema.</div>
-      </div>
+      </a>
     </div>
   </main>
+ <br>
+       <h2>Bienvenido</h2>
 
-  <main>
-    <section>
-      <h3>Bienvenido</h3>
-      <iframe id="contenido" src=""></iframe>
-    </section>
-  </main>
   <script src="Js/Administrador.js"></script>
 </body>
 </html>

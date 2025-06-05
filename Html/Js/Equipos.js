@@ -1,4 +1,4 @@
-function validarFormulario() {
+function validarFormulariio() {
  document.getElementById("tipo").value = document.getElementById("tipo").value.trim();
  document.getElementById("instructor").value = document.getElementById("instructor").value.trim();
  document.getElementById("almacenista").value = document.getElementById("almacenista").value.trim();
@@ -17,6 +17,18 @@ document.getElementById("instructor").addEventListener("input", function(e) {
   document.getElementById("almacenista").addEventListener("input", function(e) {
   this.value = this.value.replace(/^\s+/, '');
 });
+
+function validarFormulario() {
+    const equipo = document.getElementById('equipo_id').value;
+    const instructor = document.getElementById('instructor_id').value;
+
+    if (equipo === "" || instructor === "") {
+        alert("Por favor, seleccione un equipo y un instructor.");
+        return false; 
+    }
+    return true; 
+}
+
 
 
 

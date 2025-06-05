@@ -1,74 +1,89 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/Software_Almacen/Html/Conexion.php';
 session_start();
+// header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+// header("Cache-Control: post-check=0, pre-check=0", false);
+// header("Pragma: no-cache"); // These headers are more relevant for the page displaying, not the processing script.
+require_once $_SERVER['DOCUMENT_ROOT'] . '/Software_Almacen/Html/Conexion.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Obtener y validar entradas
-    $id_equipo = isset($_POST['tipo']) ? intval($_POST['tipo']) : 0;
-    $id_instructor = isset($_POST['instructor']) ? intval($_POST['instructor']) : 0;
-    $id_almacenista = isset($_POST['almacenista']) ? intval($_POST['almacenista']) : 0;
-    $marca = isset($_POST['marca']) ? trim($_POST['marca']) : '';
-    $fecha = date("Y-m-d H:i:s");
+    $equipo_id = isset($_POST['equipo_id']) ? intval($_POST['equipo_id']) : 0;
+    $instructor_id = isset($_POST['instructor']) ? intval($_POST['instructor']) : 0;
+    
+    // --- NUEVO: CAPTURAR LA MARCA ---
+    $marca = isset($_POST['marca']) ? htmlspecialchars($_POST['marca']) : ''; // Capture the 'marca' from POST
+    // --- FIN NUEVO ---
 
-    // Validar que los IDs sean positivos y que la marca no esté vacía
-    if ($id_equipo <= 0 || $id_instructor <= 0 || $id_almacenista <= 0 || empty($marca)) {
-        echo "❌ Error: Datos inválidos.";
-        exit;
+    $id_responsable = isset($_POST['id_responsable']) ? intval($_POST['id_responsable']) : 0;
+    $rol_responsable = isset($_POST['rol_responsable']) ? $_POST['rol_responsable'] : '';
+
+    // Validar que los campos necesarios no estén vacíos o inválidos
+    // Add marca to validation if it's strictly required
+    if ($equipo_id <= 0 || $instructor_id <= 0 || $id_responsable <= 0 || !in_array($rol_responsable, ['almacenista', 'administrador']) || empty($marca)) {
+        echo "<script>alert('❌ Error: Datos incompletos o inválidos para el préstamo. Asegúrese de seleccionar equipo, instructor, que su sesión sea válida y que la marca del equipo esté presente.'); window.location.href='../Equipos.php';</script>";
+        exit();
     }
 
-    // Verificar que el equipo exista y esté disponible
-    $query = $conexion->prepare("SELECT estado FROM equipos WHERE id_equipo = ?");
-    $query->bind_param("i", $id_equipo);
-    $query->execute();
-    $resultado = $query->get_result();
+    $fecha_prestamo = date("Y-m-d H:i:s");
+    $estado_prestamo = 'pendiente';
 
-    if ($resultado->num_rows === 0) {
-        echo "❌ Error: No se encontró el equipo con ID $id_equipo.";
-        $query->close();
-        $conexion->close();
-        exit;
-    }
-
-    $row = $resultado->fetch_assoc();
-    if ($row['estado'] !== 'disponible') {
-        echo "❌ Error: El equipo con ID $id_equipo no está disponible para préstamo. Estado actual: " . $row['estado'];
-        $query->close();
-        $conexion->close();
-        exit;
-    }
-    $query->close();
-
-    // Iniciar transacción
     $conexion->begin_transaction();
 
     try {
-        // Registrar el préstamo con estado 'pendiente'
-        $sql = "INSERT INTO prestamo_equipos (id_equipo, id_instructor, id_almacenista, marca, fecha_prestamo, estado)
-                VALUES (?, ?, ?, ?, ?, 'pendiente')";
-        $stmt = $conexion->prepare($sql);
-        $stmt->bind_param("iiiss", $id_equipo, $id_instructor, $id_almacenista, $marca, $fecha);
-
-        if (!$stmt->execute()) {
-            throw new Exception("Error al registrar el préstamo: " . $stmt->error);
+        // 1. Verificar si el equipo realmente está disponible
+        $check_disponibilidad_stmt = $conexion->prepare("SELECT estado FROM equipos WHERE id_equipo = ?");
+        if (!$check_disponibilidad_stmt) {
+            throw new Exception("Error preparando la consulta de disponibilidad: " . $conexion->error);
         }
-
-        // Actualizar el estado del equipo a 'prestado'
-        $update_sql = "UPDATE equipos SET estado = 'prestado' WHERE id_equipo = ?";
-        $update_stmt = $conexion->prepare($update_sql);
-        $update_stmt->bind_param("i", $id_equipo);
-        if (!$update_stmt->execute()) {
-            throw new Exception("Error al actualizar el estado del equipo: " . $update_stmt->error);
+        $check_disponibilidad_stmt->bind_param("i", $equipo_id);
+        $check_disponibilidad_stmt->execute();
+        $result_disponibilidad = $check_disponibilidad_stmt->get_result();
+        if ($result_disponibilidad->num_rows === 0 || $result_disponibilidad->fetch_assoc()['estado'] !== 'disponible') {
+            throw new Exception("El equipo seleccionado ya no está disponible o no existe.");
         }
+        $check_disponibilidad_stmt->close();
 
-        // Confirmar transacción
+        // 2. Preparar la inserción en la tabla prestamo_equipos
+        // --- MODIFICADO: AÑADIR 'marca' A LA SENTENCIA INSERT ---
+        $insert_prestamo_stmt = $conexion->prepare("INSERT INTO prestamo_equipos (id_equipo, id_instructor, id_responsable, rol_responsable, marca, fecha_prestamo, estado) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        if (!$insert_prestamo_stmt) {
+            throw new Exception("Error preparando el INSERT de prestamo_equipos: " . $conexion->error);
+        }
+        // --- MODIFICADO: AÑADIR 's' (para string) A bind_param Y PASAR $marca ---
+        // iiissss -> id_equipo (i), id_instructor (i), id_responsable (i), rol_responsable (s), marca (s), fecha_prestamo (s), estado (s)
+        $insert_prestamo_stmt->bind_param("iiissss", $equipo_id, $instructor_id, $id_responsable, $rol_responsable, $marca, $fecha_prestamo, $estado_prestamo);
+        // --- FIN MODIFICADO ---
+
+        if (!$insert_prestamo_stmt->execute()) {
+            throw new Exception("Error al registrar préstamo: " . $insert_prestamo_stmt->error);
+        }
+        $insert_prestamo_stmt->close();
+
+        // 3. Actualizar el estado del equipo
+        $update_equipo_stmt = $conexion->prepare("UPDATE equipos SET estado = 'prestado' WHERE id_equipo = ?");
+        if (!$update_equipo_stmt) {
+            throw new Exception("Error preparando el UPDATE de equipos: " . $conexion->error);
+        }
+        $update_equipo_stmt->bind_param("i", $equipo_id);
+        if (!$update_equipo_stmt->execute()) {
+            throw new Exception("Error al actualizar estado del equipo: " . $update_equipo_stmt->error);
+        }
+        $update_equipo_stmt->close();
+        
         $conexion->commit();
-        echo "✅ Préstamo registrado exitosamente.";
-    } catch (Exception $e) {
-        // Revertir transacción en caso de error
-        $conexion->rollback();
-        echo "❌ Transacción fallida: " . $e->getMessage();
-    }
+        echo "<script>alert('✅ Préstamo de equipo registrado exitosamente.'); window.location.href='../Equipos.php';</script>"; 
+        exit();
 
-    $conexion->close();
+    } catch (Exception $e) {
+        $conexion->rollback();
+        echo "<script>alert('❌ Error en la transacción de préstamo: " . htmlspecialchars($e->getMessage()) . "'); window.location.href='../Equipos.php';</script>"; 
+        exit();
+    } finally {
+        if ($conexion) {
+            $conexion->close();
+        }
+    }
+} else {
+    echo "<script>alert('❌ Acceso no válido al script de préstamo.'); window.location.href='../Equipos.php';</script>";
+    exit();
 }
 ?>

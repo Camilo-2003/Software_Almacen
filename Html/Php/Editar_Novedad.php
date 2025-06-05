@@ -36,10 +36,12 @@ $id = intval($_GET['id']);
     <input type="text" placeholder="Id instructor" name="id_instructor" id="id_instructor" value="<?php echo isset($novedad['id_instructor']) ? $novedad['id_instructor'] : ''; ?>" required><br>
     <label>Instructor</label><br>
     <input type="text" placeholder="Nombre instructor" name="instructor" id="instructor" value="<?php echo isset($novedad['nombre_instructor']) ? $novedad['nombre_instructor'] : ''; ?>" required><br>
-    <label>Id almacenista</label><br>
-    <input type="text" placeholder="Id almacenista" name="id_almacenista" id="id_almacenista" value="<?php echo isset($novedad['id_almacenista']) ? $novedad['id_almacenista'] : ''; ?>" required><br>
-    <label>Almacenista</label><br>
-    <input type="text" placeholder="Nombre almacenista" name="almacenista" id="almacenista" value="<?php echo isset($novedad['nombre_almacenista']) ? $novedad['nombre_almacenista'] : ''; ?>" required><br>
+    <label>Id responsable</label><br>
+    <input type="text" placeholder="Id Responsable" name="id_responsable" id="id_responsable" value="<?php echo isset($novedad['id_responsable']) ? $novedad['id_responsable'] : ''; ?>" required readonly><br>
+    <label>Rol</label><br>
+    <input type="text" placeholder="Rol Responsable" name="rol_responsable" id="responsable" value="<?php echo isset($novedad['rol_responsable']) ? $novedad['rol_responsable'] : ''; ?>" required readonly><br>
+    <label>Responsable</label><br>
+    <input type="text" placeholder="Nombre Responsable" name="nombre_responsable" id="responsable" value="<?php echo isset($novedad['nombre_responsable']) ? $novedad['nombre_responsable'] : ''; ?>" required readonly><br>
     <label>Observaciones adicionales</label><br>
     <input type="text" placeholder="Observaciones" name="observaciones" id="observaciones" value="<?php echo isset($novedad['observaciones']) ? $novedad['observaciones'] : '' ?>" required><br>
     <br>

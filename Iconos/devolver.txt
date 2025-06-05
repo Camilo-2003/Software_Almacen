@@ -22,4 +22,145 @@ REFRESCA LA URL Y EVITA LA VENTANA DE CONFIRMAR Y ENVIAR DATOS DUPLICADOS
           <a class='btn-eliminar' href="Php/Eliminar_Novedad.php?id=<?= $datos->id_novedad ?>" onclick='return confirmarEliminacion()'>🗑️Eliminar</a> 
           </td>
       </tr>
-    <?php } ?> 
+    <?php } ?>
+    
+
+    <i class="fas fa-laptop-code"></i>
+    <i class="fas fa-laptop"></i>
+    <i class="fas fa-undo-alt"></i>
+    <i class="fas fa-boxes"></i> 
+    <i class="fas fa-reply"></i>
+
+<?php include("ProhibirAcceso.php"); ?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gestión de Préstamos</title>
+  <link rel="stylesheet" href="Css/Préstamos.css">
+  <style>
+    .tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .tab-link {
+      padding: 6px 12px;
+      background-color: #237a39;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .tab-link.active {
+      background-color: #1c5f2c;
+    }
+    .tab-content {
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav class="tabs">
+      <button class="tab-link active" data-tab="Equipos.php">Préstamo Equipos</button>
+      <button class="tab-link" data-tab="Devolucion_Equipos.php">Devolución Equipos</button>
+      <button class="tab-link" data-tab="Materiales.php">Préstamo Materiales</button>
+      <button class="tab-link" data-tab="Devolucion_Materiales.php">Devolución Materiales</button>
+    </nav>
+
+    <div id="tab-content" class="tab-content">
+      <h2>Bienvenido</h2>
+      <p>Selecciona una opción para comenzar.</p>
+    </div>
+  </div>
+
+  <script>
+    const buttons = document.querySelectorAll('.tab-link');
+    const contentBox = document.getElementById('tab-content');
+
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        // Activar botón actual
+        buttons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+
+        // Obtener archivo PHP del botón
+        const tabFile = button.getAttribute('data-tab');
+
+        // Cargar contenido con AJAX
+        fetch(tabFile)
+          .then(response => {
+            if (!response.ok) throw new Error('Error al cargar contenido.');
+            return response.text();
+          })
+          .then(html => {
+            contentBox.innerHTML = html;
+          })
+          .catch(err => {
+            contentBox.innerHTML = `<p style="color:red;">Error al cargar el contenido.</p>`;
+            console.error(err);
+          });
+      });
+    });
+  </script>
+</body>
+</html>
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #f5f5f5;
+  display: flex;
+  justify-content: center;
+  padding: 40px;
+  margin: 0;
+}
+
+.container {
+  background: #fff;
+  padding: 20px;
+  width: 100%;
+  max-width: 3000px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+.tabs {
+width: 100%;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.tab-link {
+  background: #237a39;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.tab-link:hover {
+  background: #1c5f2c;
+}
+
+.tab-link.active {
+  background: #1c5f2c;
+}
+
+.tab-content {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}

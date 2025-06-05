@@ -3,6 +3,9 @@ margin: 0;
 font-family: sans-serif;
 background-color: #f5f5f5;
 } 
+h2 {
+  text-align: center;
+}
 nav {
 position: sticky;
 top: 0;
@@ -92,49 +95,45 @@ grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 gap: 13px;
 margin-top: -6px;
 }
+
 .card {
-background: white;
-border-radius: 12px;
-padding: 10px;
-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-text-align: center;
-transition: transform 0.3s, box-shadow 0.3s;
-cursor: pointer;
+    background: white;
+    border-radius: 12px;
+    padding: 14px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+.card:visited {
+    color: inherit;
 }
 .card:hover {
-transform: translateY(-5px);
-box-shadow: 0 5px 12px rgba(0, 0, 0);
-outline: 3px solid green;
+    transform: translateY(-5px);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
+    outline: 3px solid #0faa55;
 }
-/* 
-.card-icon {
-font-size: 35px;
-margin-bottom: 10px;
-} */
 .titulo {
-font-size: 18px;
-font-weight: bold;
-margin-bottom: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #000000;
 }
 .descripcion {
-font-size: 15px;
-color: #555;
+    font-size: 15px;
+    color: #555;
 }
 i {
 font-size: 35px;
 color: #0faa55;
 margin-bottom: 5px;
-}
-#contenido {
-margin: 7px auto;
-padding: 16px;
-width: 98%;
-max-width: 1314px;
-min-height: 728px;
-background-color: white;
-border: 1px solid #ccc;
-border-radius: 8px;
-box-shadow: 0 2px 5px rgba(0,0,0);
 }
 #close {
   font-size: 25px;
@@ -180,3 +179,4 @@ span {
   font-size: 28px;
   color: #0b3094;
 }
+ 

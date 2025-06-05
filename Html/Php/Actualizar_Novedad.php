@@ -15,11 +15,12 @@ $id = intval($_POST['id']);
     $descripcion = $_POST['descripcion'];
     $id_instructor = $_POST['id_instructor'];
     $instructor = $_POST['instructor'];
-    $id_almacenista = $_POST['id_almacenista'];
-    $almacenista = $_POST['almacenista'];
+    $id_responsable = $_POST['id_responsable'];
+    $responsable = $_POST['rol_responsable'];
+    $nombre_responsable = $_POST['nombre_responsable'];
     $observaciones = $_POST['observaciones'];
 
-    $sql = "UPDATE novedades SET tipo=?, descripcion=?, id_instructor=?, nombre_instructor=?, id_almacenista=?, nombre_almacenista=?, observaciones=? WHERE id_novedad=$id";
+    $sql = "UPDATE novedades SET tipo=?, descripcion=?, id_instructor=?, nombre_instructor=?, id_responsable=?, rol_responsable=?, nombre_responsable=?, observaciones=? WHERE id_novedad=$id";
     $stmt = $conexion->prepare($sql);
 
     if ($stmt === false) {
@@ -27,14 +28,14 @@ $id = intval($_POST['id']);
         exit();
     }
 
-    $stmt->bind_param("ssisiss", $tipo, $descripcion, $id_instructor, $instructor, $id_almacenista, $almacenista, $observaciones);
+    $stmt->bind_param("ssisisss", $tipo, $descripcion, $id_instructor, $instructor, $id_responsable, $responsable, $nombre_responsable, $observaciones);
 
     if ($stmt->execute()) {
 
-        echo "<script> alert('Novedad actualizada correctamente'); window.location.href=' ../Historial_Novedades.php';</script>";
+        echo "<script> alert('✅ Novedad actualizada correctamente'); window.location.href=' ../Historial_Novedades.php';</script>";
         exit();
     } else {
-        echo "Error al actualizar: " . $stmt->error;
+        echo "❌ Error al actualizar: " . $stmt->error;
     }
 
 

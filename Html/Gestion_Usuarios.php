@@ -10,9 +10,9 @@ include("ProhibirAcceso.php");
 <header>
 <img src="Img/logo_sena.png" alt="Logo Sena" class="logo">
 <h1>📤 Gestion de instructores</h1>
-<!-- <div class="contain">
+<div class="contain">
     <a href="<?php echo $pagina_regresar; ?>"  class="rgs" title="Haz clic para volver">Regresar</a>
-</div> -->
+</div>
 </header> 
 <div>              
 <a href="Instructores.php" class="option">📋 Ver Instructores Registrados</a>

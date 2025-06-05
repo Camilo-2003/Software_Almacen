@@ -10,9 +10,9 @@ include("ProhibirAcceso.php");
 <header>
     <!-- <img src="Img/logo_sena.png" alt="Logo Sena" class="logo"> -->
     <h1>📋 Registro de elementos</h1>
-    <!-- <div class="container-rgs">
+    <div class="container-rgs">
     <a href="<?php echo $pagina_regresar; ?>" class="rgs" title="Haz clic para volver">Regresar</a>
-    </div>  -->
+    </div>  
 </header>
 <div>
     <a href="Php/Historial_Inventario.php" class="historial">📋 Historial de inventario</a>

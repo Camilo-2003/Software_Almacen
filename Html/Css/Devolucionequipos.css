@@ -1,118 +1,108 @@
+/* General body and container styles */
 body {
-    overflow-x: hidden;
     font-family: Arial, sans-serif;
-    background: #f5f5f5;
-    text-align: center;
     margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    background-color: #f4f4f4;
+    padding: 20px;
 }
+
+.container {
+    max-width: 1200px; /* Wider for more columns */
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Header styles - Same as Equipos.css for consistency */
 header {
-    width: 100%;
-    height: 120px;
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    background-color: #ffffff;
-    color: rgb(17, 179, 57);
-    font-size: 1em;
-    box-shadow: 0 2px 3px rgb(8, 126, 43);
-    animation: slideDown 1s ease-in-out;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    margin-bottom: 20px;
+    border-radius: 8px;
 }
-h1 {
-    font-size: 40px;
-    font-family: Stencil;
-    animation:slideDown 2s ease-in-out;
+
+header .logo {
+    height: 50px;
+    margin-right: 15px;
 }
-.historial {
-   padding: 10px;
-   width: 25%;
-   background-color: green;
-   box-shadow: 10px 10px 10px black;
+
+header h1 {
+    margin: 0;
+    font-size: 1.8em;
+    flex-grow: 1;
 }
-.logo {
-    height: 100px;
-    margin-right: 20px;
-    animation:slideDown 2s ease-in-out;
+
+.regresar a.rgs {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
 }
+
+.regresar a.rgs:hover {
+    background-color: #0056b3;
+}
+
+/* Table styles */
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-    background: rgb(255, 255, 255);
 }
+
 th, td {
     border: 1px solid #ddd;
     padding: 10px;
-    text-align: center;
-}
-button {
-    background: rgb(0, 0, 0);
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    cursor: pointer;
-    border-radius: 5px; 
-}
-button:hover {
-    background: #00b31e;
-    transform: scale(1.1);
-    transition: 0.3s;
-}
-.encabezado {
-    background-color: rgb(35, 122, 57);
+    text-align: left;
 }
 
-.hist {
-    float: right;
-    display: inline;
-    margin: 20px;
-    padding: 15px;
-    font-size: 1.1em;
-    background: rgb(255, 255, 255);
-    color: rgb(0, 0, 0);
+th {
+    background-color: #f2f2f2;
+    color: #333;
     font-weight: bold;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: 0.3s;
-    margin-bottom: 10px;
-    justify-content: center;
-    justify-items: center;
-    box-shadow: 4px 4px 1px #157c34;
 }
-.hist:hover {
-    background: green;
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+    background-color: #e0e0e0;
+}
+
+/* Button styles for 'Devolver' */
+.btn-devolver {
+    background-color: #dc3545; /* Red for danger/return action */
     color: white;
-    transform: scale(1.1);
-    transition: 0.3s;
-    outline: 2px solid white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
 }
-.regresar {
-    animation: fadeIn 1.5s ease-in-out;
-    display:flex;
-    left: 5px;
-    top: 55px;
-    position: absolute;
-    float: left;
-    border-radius: 12px;
+
+.btn-devolver:hover {
+    background-color: #c82333;
 }
-.rgs {
-    float: left;
-    margin-top: 10px;
-    text-decoration: none;
-    border-radius: 10px;
-    background-color: rgb(255, 255, 255);
-    color: rgb(17, 179, 57);
-    width: auto;
-    padding: 15px;
-    font-size: 18px;
-    box-shadow: 2px 2px 7px #157c34;
-    text-shadow: 1px 1px 1px rgb(0, 0, 0);
+
+.status-returned {
+    color: #28a745; /* Green for returned status */
+    font-weight: bold;
 }
-.rgs:hover {
-    background-color: green;
-    color: white;
-    transform: scale(1.1);
-    transition: 0.3s;
-    outline: 2px solid white;
-}   
+
+h2 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}

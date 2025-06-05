@@ -1,6 +1,6 @@
 body {
    /* background: radial-gradient(circle, #4CAF50, #ffffff); */
-    background-image: url(../Img/ssena.avif);
+    background-image: url(../Img/sena1.jpg);
     background-size: cover;
     background-position: center;
     font-family: Arial, sans-serif;
@@ -24,7 +24,7 @@ form {
     border-radius: 10px;
     box-shadow: 3px 3px 15px rgb(0, 0, 0);
     width: 615px; /* Ajustado para que no genere scroll */
-    height: 95%;
+    height: 96%;
     max-width: 95%;
     box-sizing: border-box;
     margin-top: 17px;
@@ -36,7 +36,7 @@ form {
 
 label {
     display: block;
-    margin-bottom: 2px;
+    margin-bottom: -2px;
     color: #000000;
     font-weight: bold;
     font-size: 15px;

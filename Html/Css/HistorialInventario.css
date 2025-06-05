@@ -102,24 +102,23 @@ h2 {
   transition: 0.3s;
 }
 .regresar {
+  margin-top: -70px;
   float: left;
-  margin-top: -80px;
-  text-decoration: none;
-  border-radius: 10px;
-  background-color: rgb(255, 255, 255);
-  color: rgb(17, 179, 57);
-  width: auto;
-  padding: 15px;
-  font-size: 18px;
-  box-shadow: 2px 2px 7px #157c34;
-  text-shadow: 1px 1px 1px rgb(0, 0, 0);
+  left: 2px;
+     background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color var(--transition-speed), transform 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 .regresar:hover {
-  background-color: green;
-  color: white;
-  transform: scale(1.1);
-  transition: 0.3s;
-  outline: 2px solid white;
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
 #busquedaMateriales {
   font-size: 16px;

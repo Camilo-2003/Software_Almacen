@@ -16,7 +16,7 @@ body {
   margin: 0;
   padding: 0;
   min-height: 100v;
-  background: #e9e4e4;
+  background-color: rgb(35, 122, 57);
   width: 100%;
   overflow-x: hidden;
   padding-bottom: 80px;
@@ -34,6 +34,7 @@ h1 {
   text-shadow:none; 
 }
 h2 {
+  margin-top: -16px;
   text-shadow: 1px 2px 2px rgb(141, 143, 142);
 }
 h3 {
@@ -45,7 +46,7 @@ header {
   align-items: center;
   justify-content: space-between;
   padding: 3px;
-  background-color: #ffffff;
+  background-color: #f5f5f5;
   color: rgb(17, 179, 57);
   animation: slideDown 2s ease-in-out;
   box-shadow: 0 2px 3px rgb(8, 126, 43);
@@ -124,7 +125,7 @@ header {
 
 footer {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  background: #ffffff;
+  background: #f5f5f5;
   color: rgb(17, 179, 57);
   padding: 2px 6px;
   width: 99%;
@@ -155,7 +156,7 @@ footer {
   gap: 34px;
   display: flex;
   justify-content: space-around;
-  margin: 40px 0;
+  margin: 20px 0;
   color: rgb(17, 179, 57);
 }
 .feature {

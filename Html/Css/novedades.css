@@ -117,3 +117,29 @@ table tbody tr:last-child td:last-child {
   background: rgb(47, 146, 47);
   outline: 2px solid white;
 }
+.contain {
+  margin-top: 28px;
+  animation: fadeIn 1.5s ease-in-out;
+  display:flex;
+  left: 8px;
+  top: -12px;
+  position: absolute;
+  float: left;
+  border-radius: 12px;
+} 
+.rgs {
+     background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color var(--transition-speed), transform 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+.rgs:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}

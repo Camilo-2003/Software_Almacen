@@ -25,11 +25,11 @@
       <th>Tipo</th>
       <th>Descripcion</th>
       <th>Fecha</th>
-      <th>id_almacenista</th>
-      <th>Almacenista</th>
+      <th>Id_Responsable</th>
+      <th>Rol</th>
+      <th>Responsable</th>
       <th>Id_instructor</th>
       <th>Instructor</th>
-      <!-- <th>Observaciones</th> -->
       <th>Acciones</th>
       </tr>
         </thead>
@@ -45,8 +45,9 @@
         <td>{$datos['tipo']}</td>
         <td>{$datos['descripcion']}</td>
         <td>{$datos['fecha']}</td>
-        <td>{$datos['id_almacenista']}</td>
-        <td>{$datos['nombre_almacenista']}</td>
+        <td>{$datos['id_responsable']}</td>
+        <td>{$datos['rol_responsable']}</td>
+        <td>{$datos['nombre_responsable']}</td>
         <td>{$datos['id_instructor']}</td>
         <td>{$datos['nombre_instructor']}</td>
         <td class='acciones'>
