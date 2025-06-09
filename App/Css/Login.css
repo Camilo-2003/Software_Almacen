@@ -1,0 +1,186 @@
+body {
+font-family: Arial, sans-serif;
+text-align: center;
+margin: 0;
+padding: 0;
+background-image: url(../Img/sena1.jpg);
+background-size: cover;
+background-position: center;
+overflow: hidden;
+}
+h1 {
+font-size: 40px;
+font-family: Stencil;
+animation:slideDown 2s ease-in-out;
+}
+header {
+display: flex;
+align-items: center;
+justify-content: center;
+padding: 10px; 
+background-color: #ffffff;
+box-shadow: 0 2px 3px rgb(8, 126, 43);
+color: rgb(17, 179, 57);
+font-size: 1em;
+animation: slideDown 2s ease-in-out;
+} 
+@keyframes slideDown {
+from { transform: translateY(-100px); opacity: 0; }
+to { transform: translateY(0); opacity: 1; }
+}
+.logo {
+height: 100px;
+margin-right: 20px; 
+animation:slideDown 2s ease-in-out;
+}
+.container {
+background:  rgba(255, 255, 255, 0.5); 
+padding: 48px;
+border-radius: 15px; 
+box-shadow: 10px 10px 55px rgb(0, 0, 0);
+max-width: 400px;
+margin: 40px auto;
+animation: fadeIn 1.5s ease-in-out;
+}
+@keyframes fadeIn {
+from { opacity: 0; transform: translateY(20px); }
+to { opacity: 1; transform: translateY(0); }
+}
+.container h3 {
+margin-top: -48px;
+font-size: 1.5em;
+}
+label {
+font-weight: bold;
+float: left;
+padding: 5px;
+font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+font-size: 17px;
+}
+.container input {
+width: 93%;
+padding: 12px;
+margin: 12px 0;
+border: 1px solid #ccc;
+border-radius: 8px;
+font-size: 1em;
+transition: box-shadow 0.3s ease-in-out;
+}
+.container input:focus {
+box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+outline: none;
+}
+.container button {
+width: 100%;
+padding: 12px;
+background: rgb(8, 100, 31);
+color: white;
+border: none;
+border-radius: 8px;
+cursor: pointer;
+font-size: 1.2em;
+transition: transform 0.2s ease-in-out;
+}
+.container button:hover {
+background: rgb(17, 179, 57); 
+transform: scale(1.05);
+}
+.regist {
+text-decoration: none; 
+color: #000; 
+font-weight: bold;
+font-size: 17px;
+transition: color 0.3s ease;
+border-bottom: 2px solid transparent; 
+position: relative;
+}
+.regist::after{
+content: "";
+width: 0;
+height: 4px;
+position: absolute;
+background: blue;
+left: 0;
+bottom: -8px;
+transition: width 0.5s ease;
+}
+.regist:hover {
+color: blue;  
+}
+.regist:hover::after {
+width: 100%;
+}
+.btn {
+animation: fadeIn 1.5s ease-in-out;
+display:flex;
+margin-left: 1px;
+left: 0;
+font-weight: bold;
+top: 70px;
+position: absolute;
+float: left;
+border-radius: 12px;
+}
+.btnn {
+text-decoration: none;
+border-radius: 10px;
+background-color: rgb(255, 255, 255);
+color: rgb(17, 179, 57);
+width: auto;
+font-size: 19px;
+padding: 15px;
+text-shadow: 1px 1px 1px rgb(0, 0, 0);
+box-shadow: 2px 2px 7px #157c34;
+}
+.btnn:hover {
+background-color: green;
+color: white;
+transform: scale(1.1);
+transition: 0.3s;
+outline: 2px solid white;
+}
+#loader {
+position: fixed;
+top: 0; left: 0;
+width: 100vw; height: 100vh;
+background: rgba(255,255,255,0.9);
+z-index: 9999;
+display: flex;
+justify-content: center;
+align-items: center;
+animation: fadeOut 0s ease 0.5s forwards;
+}
+.spinner {
+width: 60px;
+height: 60px;
+border: 6px solid #ccc;
+border-top: 6px solid #3498db;
+border-radius: 50%;
+animation: spin 1s linear infinite;
+}
+@keyframes spin {
+0% { transform: rotate(0deg); }
+100% { transform: rotate(360deg); }
+}
+@keyframes fadeOut {
+to {
+opacity: 0;
+visibility: hidden;
+}
+}
+.loader-text {
+text-align: center;
+color: green;
+font-weight: bold;
+position: fixed;
+top: 370px; left: 645px;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+#icono {
+font-size: 20px;
+margin-top: 28px;
+margin-right: -33px;
+float: right;
+}
