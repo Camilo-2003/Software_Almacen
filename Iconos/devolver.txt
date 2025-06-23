@@ -22,4 +22,5 @@ REFRESCA LA URL Y EVITA LA VENTANA DE CONFIRMAR Y ENVIAR DATOS DUPLICADOS
           <a class='btn-eliminar' href="Php/Eliminar_Novedad.php?id=<?= $datos->id_novedad ?>" onclick='return confirmarEliminacion()'>🗑️Eliminar</a> 
           </td>
       </tr>
-    <?php } ?> 
+    <?php } ?>
+    

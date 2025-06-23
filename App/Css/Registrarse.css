@@ -1,0 +1,195 @@
+body {
+background-image: url(../Img/sena1.jpg);
+background-size: cover;
+background-position: center;
+font-family: Arial, sans-serif;
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100vh;
+margin: 0;
+padding: 0;
+overflow: hidden;
+}
+h2 {
+text-align: center;
+margin-top: -40px;
+}
+form {
+background: rgba(255, 255, 255, 0.6); 
+padding: 50px;
+border-radius: 10px;
+box-shadow: 3px 3px 15px rgb(0, 0, 0);
+width: 615px; 
+height: 96%;
+max-width: 95%;
+box-sizing: border-box;
+margin-top: 17px;
+}
+.contain {
+margin: 30px auto;
+height: 100%;
+}
+label {
+display: block;
+margin-bottom: -2px;
+color: #000000;
+font-weight: bold;
+font-size: 15px;
+padding: 5px;
+}
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="password"],
+input[type="date"] {
+width: 100%;
+padding: 8px;
+margin-bottom: 10px;
+border: 2px solid #000000;
+border-radius: 6px;
+box-sizing: border-box;
+transition: border-color 0.3s;
+font-size: 14px;
+}
+input:focus {
+border-color: #007bff;
+outline: none;
+}
+.botones {
+display: flex;
+justify-content: space-between; 
+margin-top: 10px;
+}
+button {
+width: 48%;
+padding: 8px;
+border: none;
+border-radius: 6px;
+cursor: pointer;
+font-weight: bold;
+font-size: 14px;
+}
+button[type="submit"] {
+background-color: blue;
+color: white;
+}
+button[type="submit"]:hover {
+background-color: #0056b3;
+transform: scale(1.03);
+}
+button[type="button"] {
+background-color: red;
+color: white;
+}
+button[type="button"]:hover {
+background-color: #e60b20;
+transform: scale(1.03);
+}
+@media (max-width: 400px) {
+form {
+width: 95%;
+}
+.botones {
+flex-direction: column;
+}
+button {
+width: 100%;
+margin-bottom: 8px;
+}
+}
+#loader {
+position: fixed;
+top: 0; left: 0;
+width: 100vw; height: 100vh;
+background: rgba(255,255,255,0.9);
+z-index: 9999;
+display: flex;
+justify-content: center;
+align-items: center;
+animation: fadeOut 0s ease 0.5s forwards; 
+}
+.spinner {
+width: 60px;
+height: 60px;
+border: 6px solid #ccc;
+border-top: 6px solid #3498db;
+border-radius: 50%;
+animation: spin 1s linear infinite;
+}
+@keyframes spin {
+0% { transform: rotate(0deg); }
+100% { transform: rotate(360deg); }
+}
+@keyframes fadeOut {
+to {
+opacity: 0;
+visibility: hidden;
+}
+}
+.loader-text {
+text-align: center;
+color: green;
+font-weight: bold;
+position: fixed;
+top: 370px; left: 645px;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+.regist {
+color: #df1428;
+text-decoration: none;
+font-weight: bold;
+font-size: 17px;
+transition: color 0.3s ease;
+border-bottom: 2px solid transparent; 
+position: relative;
+}
+.regist::after{
+content: "";
+width: 0;
+height: 4px;
+position: absolute;
+background: blue;
+left: 0;
+bottom: -8px;
+transition: width 0.5s ease;
+}
+.regist:hover {
+color: blue;  
+}
+.regist:hover::after {
+width: 100%;
+}
+.ingresar {
+text-align: center;
+}
+.btn {
+display:flex;
+margin-left: 8px;
+left: 0;
+font-weight: bold;
+top: 6px;
+position: absolute;
+float: left;
+border-radius: 12px;
+}
+.btnn {
+text-decoration: none;
+border-radius: 10px;
+background-color: rgb(255, 255, 255);    
+color:  rgb(17, 179, 57);
+width: auto;
+font-size: 19px;
+padding: 15px;
+text-shadow: 1px 1px 1px rgb(0, 0, 0);
+box-shadow: 2px 2px 7px #157c34;
+}
+.btnn:hover {
+background-color: green;
+color: white;
+transform: scale(1.1);
+transition: 0.3s;
+outline: 2px solid white;
+}
