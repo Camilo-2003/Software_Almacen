@@ -1,20 +1,47 @@
 body {
   font-family: Arial, sans-serif;
-  background: radial-gradient(circle, #4CAF50, #ffffff);
+  background: #f5f5f5;
   text-align: center;
   margin: 0;
   padding: 0;
 }
+
+header {
+  width: 98%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(35, 122, 57);
+  padding: 11px;
+  margin: 0;
+  color: rgb(0, 0, 0);
+  font-size: 1em; 
+  box-shadow: 0 2px 3px rgb(8, 126, 43);
+  /*animation: slideDown 2s ease-in-out;*/
+}
+h1 {
+    font-size: 35px;
+    font-family: Stencil;
+    /*animation: slideDown 2s ease-in-out;*/
+}
+
+.logo {
+    height: 100px;
+    margin-right: 20px;
+    /*animation: slideDown 2s ease-in-out;*/
+}
+
 h2 {
   color: #000000;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   padding: 10px;
   width: 50%;
   margin: 10px auto;
-  background-color: green;
+  background-color: rgb(35, 122, 57);
   box-shadow: 10px 10px 10px black;
   margin-top: 1px;
-}
+} 
 .list {
   padding: 10px; 
   width: 25%;
@@ -82,6 +109,8 @@ td {
   background-color: green;
 }
 .option {
+  display: inline;
+  margin-top: 4px; 
   padding: 20px 30px;
   font-size: 1em;
   background:rgb(255, 255, 255);
@@ -90,6 +119,7 @@ td {
   text-decoration: none;
   border-radius: 5px;
   float: right;
+  margin: 15px;
   box-shadow: 5px 5px 1px #157c34;
 }
 .option:hover {
@@ -98,11 +128,17 @@ td {
   outline: 2px solid white;
 }
 .contain {
+  margin-top: 58px;
+  animation: fadeIn 1.5s ease-in-out;
   display:flex;
-  margin-top: 10px;
-  margin-left: 12px;
-}
+  left: 5px;
+  top: -12px;
+  position: absolute;
+  float: left;
+  border-radius: 12px;
+} 
 .rgs {
+  float: left;
   text-decoration: none;
   border-radius: 10px;
   background-color: rgb(255, 255, 255);

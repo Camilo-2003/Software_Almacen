@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
     cargarInventario();
-
     // Manejar el envío del formulario
     document.getElementById("formularioInventario").addEventListener("submit", function (event) {
         event.preventDefault(); // Evitar el envío predeterminado del formulario
@@ -9,7 +8,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
-
 function agregarInventario() {
     let tipoRegistro = document.getElementById("tipo_registro").value;
 
@@ -29,16 +27,18 @@ function agregarInventario() {
         let marca = document.getElementById("marca").value.trim();
         let serial = document.getElementById("serial").value.trim();
         let estado = document.getElementById("estado").value;
+        let stock = document.getElementById("stock_equipo").value;
+
 
         formData.append("marca", marca);
         formData.append("serial", serial);
         formData.append("estado", estado);
+        formData.append("stock_equipo", stock);
     }
-
     console.log([...formData]); // Para depuración
 
-    fetch("Php/agregar_material.php", {
-        method: "POST",
+    fetch("Php/Agregar_Al_Inventario.php", {
+        method: "POST", 
         body: formData
     })
     .then(response => response.text())
@@ -58,9 +58,8 @@ function agregarInventario() {
         alert("⚠️ Error al conectar con el servidor.");
     });
 }
-
 function cargarInventario() {
-    fetch("Php/cargar_inventario.php")
+    fetch("Php/Cargar_inventario.php")
     .then(response => response.json())
     .then(data => {
         let tbody = document.getElementById("inventario");
@@ -77,7 +76,6 @@ function cargarInventario() {
     })
     .catch(error => console.error("Error:", error));
 }
-
 function mostrarCampos() {
     let tipoRegistro = document.getElementById("tipo_registro").value;
     let materialFields = document.getElementById("materialFields");
@@ -99,7 +97,7 @@ function mostrarCampos() {
     }
 }
 
-function limpiarFormulario() {
+function limpiarFormulario() { 
     document.getElementById("nombre_material").value = "";
     document.getElementById("stock_material").value = "1";
     document.getElementById("marca").value = "";
@@ -107,7 +105,6 @@ function limpiarFormulario() {
     document.getElementById("tipo_registro").value = "";
     mostrarCampos(); // Actualizar visibilidad de campos
 }
-
 function validarFormulario() {
     let tipoRegistro = document.getElementById("tipo_registro").value;
 
@@ -119,7 +116,6 @@ function validarFormulario() {
     if (tipoRegistro === "Material") {
         let nombreMaterial = document.getElementById("nombre_material").value.trim();
         let stockMaterial = document.getElementById("stock_material").value;
-
         // Limpiar espacios iniciales
         document.getElementById("nombre_material").value = nombreMaterial;
 
@@ -134,7 +130,6 @@ function validarFormulario() {
     } else if (tipoRegistro === "Equipo") {
         let marca = document.getElementById("marca").value.trim();
         let serial = document.getElementById("serial").value.trim();
-
         // Limpiar espacios iniciales
         document.getElementById("serial").value = serial;
 
@@ -147,10 +142,8 @@ function validarFormulario() {
             return false;
         }
     }
-
     return true;
 }
-
 // Prevenir espacios al inicio mientras se escribe en los inputs
 document.getElementById("nombre_material").addEventListener("input", function(e) {
     this.value = this.value.replace(/^\s+/, '');
@@ -159,5 +152,5 @@ document.getElementById("nombre_material").addEventListener("input", function(e)
 document.getElementById("serial").addEventListener("input", function(e) {
     this.value = this.value.replace(/^\s+/, '');
 });
-
+ 
   

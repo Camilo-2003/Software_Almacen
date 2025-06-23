@@ -1,6 +1,6 @@
 <?php
 // Conexión a la base de datos
-require_once $_SERVER['DOCUMENT_ROOT'] . '/Software_Almacen/Html/conexion.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/Software_Almacen/Html/Conexion.php';
 
 // Consulta para obtener los equipos disponibles
 $sql = "SELECT id_equipo, marca, serial FROM equipos WHERE estado = 'disponible'";
@@ -12,7 +12,7 @@ $resultado = $conexion->query($sql);
 <head>
     <meta charset="UTF-8">
     <title>Equipos Disponibles</title>
-    <link rel="stylesheet" href="css/consultar_equipos.css">
+    <link rel="stylesheet" href="Css/Consultar_equipos.css">
 </head>
     <b>
     <header>

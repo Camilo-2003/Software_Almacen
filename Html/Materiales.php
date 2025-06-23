@@ -1,5 +1,5 @@
 <?php
-include("prohibirAcceso.php");
+include("ProhibirAcceso.php");
 ?>
 
 <!DOCTYPE html>
@@ -14,36 +14,36 @@ include("prohibirAcceso.php");
         <img src="Img/logo_sena.png" alt="Logo Sena" class="logo">
         <h1>Préstamo de Materiales</h1>
         <div class="regresar">
-            <a href="préstamos.php" class="rgs" title="Haz clic para volver ">Regresar</a>
+            <a href="Préstamos.php" class="rgs" title="Haz clic para volver ">Regresar</a>
         </div>
     </header>
 
     <div>
-        <a href="HistorialDevMaterial.php" class="hist">Historial De Devolución</a>
+        <a href="Historial_Devolucion_Material.php" class="hist">Historial De Devolución</a>
     </div>
 
-    <form action="Php/registrar_prestamo_materiales.php" method="post" onsubmit="return validarFormulario()">
+    <form action="Php/Registrar_prestamo_materiales.php" method="post" onsubmit="return validarFormulario()">
         <div class="container">
             <h2>Registrar Préstamo</h2>
 
-            <label for="Tipo">Tipo de Préstamo:</label>
-            <select id="Tipo" name="Tipo" required>
+            <label for="tipo">Tipo de Préstamo:</label>
+            <select id="tipo" name="Tipo" required>
                 <option value="">Seleccionar</option>
-                <option value="consumible" style="text-transform: none;">consumible</option>
-                <option value="no consumible " style="text-transform: none;">no Consumible</option>
+                <option value="consumible">Consumible</option>
+                <option value="no_consumible">No Consumible</option>
             </select>
             <br><br>
 
-            <label for="Material">Material:</label>
-            <input id="Material" name="Material" type="text" placeholder="Nombre del material" required>
+            <label for="material">Material:</label>
+            <input id="material" name="material" type="text" placeholder="Nombre del material" required>
             <br><br>
 
-            <label for="Cantidad">Cantidad:</label>
-            <input type="number" id="Cantidad" name="Cantidad" min="1" required>
+            <label for="cantidad">Cantidad:</label>
+            <input type="number" id="cantidad" name="Cantidad" min="1" required placeholder="Cantidad de materiales">
             <br><br>
 
-            <label for="Instructor">Instructor:</label>
-            <input type="text" id="Instructor" name="Instructor" placeholder="Nombre del Instructor" required>
+            <label for="instructor">Instructor:</label>
+            <input type="text" id="instructor" name="Instructor" placeholder="Nombre del Instructor" required>
             <br><br>
 
             <button type="submit">Prestar</button>

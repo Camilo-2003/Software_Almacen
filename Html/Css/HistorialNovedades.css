@@ -1,0 +1,129 @@
+body {
+font-family: Arial, sans-serif;
+background: #f5f5f5;
+text-align: center;
+}
+
+h2 {
+text-align: center;
+font-size: 30px;
+margin: 10px auto;
+background-color: rgb(35, 122, 57);
+width: 80%;
+padding: 8px;
+border: 1px solid black;
+}
+.container { 
+  width: 99%; 
+  margin: auto; 
+  background-color: rgb(35, 122, 57);
+  color: white;
+  border-radius: 20px;
+  padding: -10px;
+  overflow: hidden;
+}
+
+table { 
+  width: 100%;  
+  border-collapse: separate;
+  border-spacing: 0;          
+  margin-top: 0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+th{ 
+border: 1px solid black; 
+padding: 7px;
+color: black;
+}
+td {
+text-align: center;
+color: white;
+border: 1px solid black; 
+background-color:  rgb(35, 122, 57);
+padding: 15px;
+}
+
+th { 
+background-color: rgb(255, 255, 255); 
+color: black;
+}
+table thead tr:first-child th:first-child {
+border-top-left-radius: 10px;
+}
+table thead tr:first-child th:last-child {
+border-top-right-radius: 10px;
+}
+table tbody tr:last-child td:first-child {
+border-bottom-left-radius: 10px;
+}
+table tbody tr:last-child td:last-child {
+border-bottom-right-radius: 10px;
+}
+
+.regresar {
+float: left;
+margin-top: -80px;
+text-decoration: none;
+border-radius: 10px;
+background-color: rgb(255, 255, 255);
+color: rgb(17, 179, 57);
+width: auto;
+padding: 15px;
+font-size: 18px;
+box-shadow: 2px 2px 7px #157c34;
+text-shadow: 1px 1px 1px rgb(0, 0, 0);
+}
+.regresar:hover {
+background-color: green;
+color: white;
+transform: scale(1.1);
+transition: 0.3s;
+outline: 2px solid white;
+}
+td.obs {
+  font-size: 15px;
+  align-items: center;
+  width: 14px;
+}
+td.acciones {
+ 
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  min-width: 140px;
+}
+
+.btn-editar,
+.btn-eliminar {
+  width: 75px;
+  padding: 8px 0;
+  font-size: 15px;
+  text-align: center;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: 0.3s;
+  white-space: nowrap;
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
+.btn-editar {
+  background-color: orange;
+  color: white;
+}
+
+.btn-editar:hover {
+  background-color: rgb(170, 102, 19);
+  transform: scale(1.05);
+}
+
+.btn-eliminar {
+  background-color: #ec051d;
+  color: white;
+}
+
+.btn-eliminar:hover {
+  background-color: #9e0d1b;
+  transform: scale(1.05);
+}

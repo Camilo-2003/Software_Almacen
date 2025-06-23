@@ -6,7 +6,7 @@ function validarFormulario() {
     var telefono = document.getElementById("telefono").value;
 
     // Validar longitud mínima de nombre y apellido
-    if (nombre.length < 6 || apellido.length < 6) {
+    if (nombre.length < 2 || apellido.length < 2) {
         alert("El nombre y el apellido deben tener al menos  letras.");
         return false;
     } 
@@ -34,25 +34,22 @@ function validarFormulario() {
 // redirección 
 function cancelarFormulario() {
     if (confirm("¿Estás seguro de que deseas cancelar el registro?")) {
-        window.location.href = "login.php";   
+        window.location.href = "Login.php";   
     }
 }
 
 
-// Prevenir que el espacio sea el primer carácter en nombre
+//PREVENIR QUE EL ESPACIO SEA EL PRIMER CARÁCTER EN LOS INPUT
 document.getElementById("nombre").addEventListener("input", function(e) {
     if (this.value.startsWith(" ")) {
         this.value = this.value.trimStart();
     }
 });
-
-// Prevenir que el espacio sea el primer carácter en el apellido
 document.getElementById("apellido").addEventListener("input", function(e) {
     if (this.value.startsWith(" ")) {
         this.value = this.value.trimStart();
     }
 });
-
 // Restringir el campo teléfono a solo números
 document.getElementById("telefono").addEventListener("input", function(e) {
     this.value = this.value.replace(/[^0-9]/g, '');
@@ -60,17 +57,13 @@ document.getElementById("telefono").addEventListener("input", function(e) {
         this.value = this.value.slice(0, 10);
     }
 });
-
-//evita insertar espacios al crear la contraseña
 document.getElementById("password").addEventListener("input", function(e) {
-    this.value = this.value.replace(/^\s+/, '');
+    this.value = this.value.replace(/^\s+|\s+$/g, '');
   });
-
-  document.getElementById("confirm-password").addEventListener("input", function(e) {
-    this.value = this.value.replace(/^\s+/, '');
+document.getElementById("confirm-password").addEventListener("input", function(e) {
+    this.value = this.value.replace(/^\s+|\s+$/g, '');
   });
-//evita insertar espacios al ingresar el correo
-  document.getElementById("correo").addEventListener("input", function(e) {
+document.getElementById("correo").addEventListener("input", function(e) {
     this.value = this.value.replace(/^\s+/, '');
   });
 

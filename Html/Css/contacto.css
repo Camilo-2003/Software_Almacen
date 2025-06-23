@@ -3,36 +3,95 @@ body {
   text-align: center;
   margin: 0;
   padding: 0;
-  background: radial-gradient(circle, #4CAF50, #ffffff);
+  background: #f5f5f5;
 }
 h1 {
   font-size: 40px;
   font-family: Stencil;
   animation:slideDown 2s ease-in-out;
 }
-
-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 3px;
-  background-color: #ffffff;
-  box-shadow: 0 2px 3px rgb(8, 126, 43);
-  font-size: 1em;
-  color: rgb(17, 179, 57);
-  animation: slideDown 2s ease-in-out;
+ header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px; 
+    background-color: #ffffff;
+    box-shadow: 0 2px 3px rgb(8, 126, 43);
+    color: rgb(17, 179, 57);
+    font-size: 1em;
+    animation: slideDown 2s ease-in-out;
+    
+  } 
+  button {
+    background: rgb(0, 0, 0);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 5px; 
 }
-
-@keyframes slideDown {
-  from { transform: translateY(-100px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+button:hover {
+    background: #00b31e;
+    transform: scale(1.1);
+    transition: 0.3s;
 }
-
-  .logo {
-    height: 100px;
-    margin-right: 20px;
-    animation:slideDown 2s ease-in-out;
-  }
+.encabezado {
+    background-color: rgb(35, 122, 57);
+}
+.hist {
+    float: right;
+    display: inline;
+    margin: 20px;
+    padding: 15px;
+    font-size: 1.1em;
+    background: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: 0.3s;
+    margin-bottom: 10px;
+    justify-content: center;
+    justify-items: center;
+    box-shadow: 4px 4px 1px #157c34;
+}
+.hist:hover {
+    background: green;
+    color: white;
+    transform: scale(1.1);
+    transition: 0.3s;
+    outline: 2px solid white;
+}
+.regresar {
+    animation: fadeIn 1.5s ease-in-out;
+    display:flex;
+    left: 5px;
+    top: 55px;
+    position: absolute;
+    float: left;
+    border-radius: 12px;
+}
+.rgs {
+    float: left;
+    margin-top: 10px;
+    text-decoration: none;
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(17, 179, 57);
+    width: auto;
+    padding: 15px;
+    font-size: 18px;
+    box-shadow: 2px 2px 7px #157c34;
+    text-shadow: 1px 1px 1px rgb(0, 0, 0);
+}
+.rgs:hover {
+    background-color: green;
+    color: white;
+    transform: scale(1.1);
+    transition: 0.3s;
+    outline: 2px solid white;
+}   
+ 
   h2 {
       font-size: 20px;
       font-family: stencil;

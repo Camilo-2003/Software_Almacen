@@ -16,7 +16,7 @@ body {
   margin: 0;
   padding: 0;
   min-height: 100v;
-  background: radial-gradient(circle, #4CAF50, #ffffff);
+  background: #e9e4e4;
   width: 100%;
   overflow-x: hidden;
   padding-bottom: 80px;
@@ -109,7 +109,7 @@ header {
  transition: width 0.5s ease;
 }
 .span:hover {
-  color: white;
+  color: rgb(116, 66, 66);
 }
 
 .span:hover::after {
@@ -134,7 +134,7 @@ footer {
   justify-content: center;
   flex-wrap: wrap;
   position: relative;
-  bottom: 0;
+  bottom: 0;  
   gap: 65px;
   z-index: 10;
   height: 85px;
@@ -159,18 +159,19 @@ footer {
   color: rgb(17, 179, 57);
 }
 .feature {
-  border-right: 1px solid rgb(0, 0, 0);
-  border-bottom: 1px solid rgb(0, 0, 0);
+  /* border-right: 1px solid rgb(0, 0, 0);
+  border-bottom: 1px solid rgb(0, 0, 0); */
   box-shadow: 20px 15px 3px rgb(51, 49, 49);
   width: 25%;
   background: rgb(255, 255, 255);
   padding: 20px;
   border-radius: 8px;
   transition: transform 0.7s;
-  transition-delay: 0.3s; /*esecifica el tiempo de inicio*/
+  transition-delay: 0.3s; /*especifica el tiempo de inicio*/
 }
 .feature:hover {
   transform: translateY(-25px);
+  outline: 3px solid green;
   /*rotar    transform: rotate(360deg);*/
 }
 .prf {

@@ -3,7 +3,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 session_start();
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/Software_Almacen/Html/conexion.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/Software_Almacen/Html/Conexion.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $correo = trim($_POST["correo"]);
@@ -15,12 +15,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $usuarios = [
         "administradores" => [
             "id" => "id_administrador",
-            "redirect" => "../administrador.php",
+            "redirect" => "../Administrador.php",
             "rol" => "administrador"
         ],
         "almacenistas" => [
             "id" => "id_almacenista",
-            "redirect" => "../almacenista.php",
+            "redirect" => "../Almacenista.php",
             "rol" => "almacenista"
         ]
     ];
@@ -64,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             } else {
                 $stmt->close();
                 $conexion->close();
-                header("Location: ../login.php?error=incorrect_password");
+                echo "<script>alert('🚨 Contraseña incorrecta.'); window.location.href='../Login.php';</script>";
                 exit();
             }
         }
@@ -73,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $conexion->close();
-    echo "<script>alert('🚨 No estás registrado. Por favor, regístrate.'); window.location.href='/Software_Almacen/Html/registrarse.html';</script>";
+    echo "<script>alert('🚨 No estás registrado. Por favor, regístrate.'); window.location.href='/Software_Almacen/Html/Registrarse.html';</script>";
     exit();
 }
 ?>

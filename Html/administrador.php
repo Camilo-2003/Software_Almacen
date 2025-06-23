@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/conexion.php';
+require_once __DIR__ . '/Conexion.php';
 
 session_start();
 if (!isset($_SESSION["rol"])) {
@@ -19,46 +19,8 @@ header("Pragma: no-cache");
 
 // session_destroy();
 // // header("Location: ../Error.php");
-function obtenerFechaOrganizada($fechaHora){
-    date_default_timezone_set('America/Bogota');
 
-    $dias = [
-        "Sunday" => "Domingo",
-        "Monday" => "Lunes",
-        "Tuesday" => "Martes",
-        "Wednesday" => "Miércoles",
-        "Thursday" => "Jueves",
-        "Friday" => "Viernes",
-        "Saturday" => "Sábado"
-    ];
-    $meses = [
-        "01" => "enero", "02" => "febrero", "03" => "marzo", "04" => "abril", 
-        "05" => "mayo", "06" => "junio", "07" => "julio", "08" => "agosto",
-        "09" => "septiembre", "10" => "octubre", "11" => "noviembre", "12" => "diciembre"  
-    ];
-    $timestamp = strtotime($fechaHora);
-    $diaSemana = $dias[date("l", $timestamp)];
-    $dia = date("d", $timestamp);
-    $mes = $meses[date("m", $timestamp)];
-    $año = date("Y", $timestamp);
-    $hora = date("h:i A", $timestamp);
-
-    return "<b class='fecha'>🗓 Fecha:</b><b class='vv'>$diaSemana, $dia de $mes de $año.</b>".'<br>' ."<b class='hora'>🕒 Hora de ingreso:</b> <b class='vvv'> $hora</b>";
-}
-
-$hora_ingreso = '';
-$correo = $_SESSION["correo"] ?? null;
-if ($correo) {
-    $sql = "SELECT hora_ingreso FROM administradores WHERE correo = ?";
-    $stmt = $conexion->prepare($sql);
-    if ($stmt) {
-        $stmt->bind_param("s", $correo);
-        $stmt->execute();
-        $stmt->bind_result($hora_ingreso);
-        $stmt->fetch();
-        $stmt->close();
-    }
-}
+include_once __DIR__ . '/Php/Hora_ingreso.php';
 ?>
 
 <!DOCTYPE html>
@@ -68,36 +30,71 @@ if ($correo) {
     <title>Bienvenido Administrador</title>
     <link rel="icon" href="Img/logo_sena.png" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="Css/administrador.css">
+    <link rel="stylesheet" href="Css/Administrador.css">
+    <link rel="stylesheet" href="vendor/fontawesome/css/all.min.css">
 </head>
 <body>
-    <header>
-      <h1>¿Qué deseas hacer hoy?</h1>
-    </header>
-    <br>
-    <div class="sidebar">
-        <h1 class="panel">Panel de Administrador</h1>
-        <img src="Img/logo_sena.png" alt="Logo Sena" class="logo">
-        <p class="username">👋 Hola, <?php echo $_SESSION["nombres"] . ' ' . $_SESSION["apellidos"]; ?></p>
-        <nav class="nav-menu">
-            <a class="aa" href="administrador.php">🏡 Principal</a>
-            <a href="#" class="aa" onclick="cargarPagina('préstamos.php')">📤 Registrar Préstamos</a>
-            <a href="#" class="aa" onclick="cargarPagina('Inventario.php')">📋 Gestionar Inventario</a>
-            <a href="#" class="aa" onclick="cargarPagina('GestionUsuarios.php')">👨‍🏫 Gestión de Instructores</a>
-            <a href="#" class="aa" onclick="cargarPagina('Novedades.php')">🛠️ Novedades</a>
-            <a href="#" class="aa" onclick="cargarPagina('aceptarUsuarios.php')">✍️ Aceptar Almacenistas Nuevos</a>
-            <a href="Php/logout.php" class="logout">🏃 Cerrar Sesión</a>
-            <p class="hora"><strong><?php echo obtenerFechaOrganizada($_SESSION["hora_ingreso"] ?? ''); ?></strong></p>
-        </nav>
+  <nav>
+<div class="fecha-hora">
+<?php echo obtenerFechaOrganizada($_SESSION["hora_ingreso"] ?? ''); ?>
+</div>
+    <div class="user-info">
+      <i class="fa-solid fa-circle-user" id="user"></i> 
+      <span><?php echo $_SESSION["nombres"] . ' ' . $_SESSION["apellidos"]; ?></span>
     </div>
-    <br>
-    <br> 
-    <main class="main-content">
-        <section>
-            <iframe id="contenido" src=""></iframe>
-        </section>
-    </main>
-  <script src="Js/administrador.js"></script>
-    
+    <div class="header-right">
+      <details>
+        <summary><i class="fa-solid fa-arrow-right-from-bracket" id="close"></i> </summary>
+        <div class="dropdown-content">
+          <a href="Php/Logout.php">🏃 Cerrar Sesión</a>
+        </div>
+      </details>
+    </div>
+  </nav>
+
+  <p class="panel">Panel de administrador</p>
+
+  <main class="main-content">
+    <div class="dashboard">
+        <div class="card" onclick="cargarPagina('Administrador.php')">
+        <i class="fa-solid fa-house"></i>
+        <div class="titulo">Inicio</div>
+        <div class="descripcion">Pagina principal</div>
+    </div>
+      <div class="card" onclick="cargarPagina('Préstamos.php')">
+        <i class="fas fa-exchange-alt"></i>
+        <div class="titulo">Préstamos</div>
+        <div class="descripcion">Registra, consulta o devuelve material o equipo.</div>
+      </div>
+      <div class="card" onclick="cargarPagina('Inventario.php')">
+        <i class="fas fa-box"></i>   
+        <div class="titulo">Inventario</div>
+        <div class="descripcion">Administra materiales y equipos disponibles.</div>
+      </div>
+      <div class="card" onclick="cargarPagina('Gestion_Usuarios.php')">
+        <i class="fas fa-users"></i>
+        <div class="titulo">Usuarios</div>
+        <div class="descripcion">Registrar y administrar instructores.</div>
+      </div>
+      <div class="card" onclick="cargarPagina('Novedades.php')">
+        <i class="fas fa-chart-line"></i>
+        <div class="titulo">Novedades</div>
+        <div class="descripcion">Visualiza reportes de daños, pérdidas y otros eventos.</div>
+      </div>
+        <div class="card" onclick="cargarPagina('Aceptar_Usuarios.php')">
+        <i class="fa-solid fa-user-plus"></i>
+        <div class="titulo">Aceptar Usuarios</div>
+        <div class="descripcion">Administra solicitudes de ingreso de nuevos usuarios al sistema.</div>
+      </div>
+    </div>
+  </main>
+
+  <main>
+    <section>
+      <h3>Bienvenido</h3>
+      <iframe id="contenido" src=""></iframe>
+    </section>
+  </main>
+  <script src="Js/Administrador.js"></script>
 </body>
 </html>

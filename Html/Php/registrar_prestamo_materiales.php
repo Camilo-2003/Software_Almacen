@@ -1,5 +1,5 @@
 <?php
-require_once '/xampp/htdocs/Software_Almacen/Html/conexion.php';
+require_once '/xampp/htdocs/Software_Almacen/Html/Conexion.php';
 
 // Recoger datos del formulario
 $material_nombre = $_POST['Material'];
@@ -64,7 +64,7 @@ if ($stmt_insert->execute()) {
     $stmt_update->execute();
     $stmt_update->close();
 
-    echo "<script>alert('Préstamo registrado correctamente'); window.location.href='../Materiales.html';</script>";
+    echo "<script>alert('Préstamo registrado correctamente'); window.location.href='../Materiales.php';</script>";
 } else {
     echo "Error al registrar el préstamo: " . $stmt_insert->error;
 }

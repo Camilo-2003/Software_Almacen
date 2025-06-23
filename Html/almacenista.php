@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/conexion.php';
+require_once __DIR__ . '/Conexion.php';
 
 session_start();
 // Verificar si el usuario está autenticado si no lo redirecciona
@@ -19,6 +19,8 @@ header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
 
+include_once __DIR__ . '/Php/Hora_ingreso.php';
+
 ?> 
 
 <!DOCTYPE html>
@@ -28,98 +30,67 @@ header("Pragma: no-cache");
     <link rel="icon" href="Img/logo_sena.png" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bienvenido Almacenista</title>
-    <link rel="stylesheet" href="Css/almacenista.css">
+    <link rel="stylesheet" href="Css/Almacenista.css"> 
+    <link rel="stylesheet" href="vendor/fontawesome/css/all.min.css">
 </head>
-<body> 
-    <header>
-        <img src="Img\logo_sena.png" alt="Logo Sena" class="logo">
-        <h1>Opciones Generales</h1>
-        <nav>
-        <a href="Php/logout.php" class="access-button">🏃  Cerrar Sesión</a>
-        </nav> 
-    </header>
-    <P class="rol">Panel de Almacenista</P>
-
-    <main class="container">
-    <h2>Bienvenido, <?php echo $_SESSION["nombres"] . ' ' . $_SESSION["apellidos"]; ?> 👋</h2> <!--linea 53 login.php-->
-        <h3>¿Qué deseas hacer hoy?</h3>
-        <div class="options">
-            <a href="préstamos.php" class="option">📤 Registrar Préstamos</a>
-            <a href="Inventario.php" class="option">📋 Gestionar Inventario</a>
-            <a href="GestionUsuarios.php" class="option">👨‍🏫 Gestión de Instructores</a>
-            <a href="Novedades.php" class="option">🛠️ Novedades</a>
-        </div>
-</main>
-    
-   <script src="Js/almacenista.js"></script> 
-</body>
-</html>
-
-<!-- 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <link rel="icon" href="Img/logo_sena.png" type="image/x-icon">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bienvenido Almacenista</title>
-  <link rel="stylesheet" href="Css/almacenista.css">
-  <style>
-    #contenido {
-      margin-top: 20px;
-      padding: 20px;
-      border: 2px solid #ccc;
-      background-color: #f5f5f5;
-      min-height: 300px;
-    }
-    .option {
-      cursor: pointer;
-    }
-  </style>
-</head>
-<body> 
-  <header>
-    <img src="Img/logo_sena.png" alt="Logo Sena" class="logo">
-    <h1>Opciones Generales</h1>
-    <nav>
-      <a href="Php/logout.php" class="access-button">🏃 Cerrar Sesión</a>
-    </nav> 
-  </header>
-
-  <p class="rol">Panel de Almacenista</p>
-
-  <main class="container">
-    <h2>Bienvenido, <?php echo $_SESSION["nombres"] . ' ' . $_SESSION["apellidos"]; ?> 👋</h2>
-    <h3>¿Qué deseas hacer hoy?</h3>
-
-    <div class="options">
-      <a onclick="mostrar('préstamos.php')" class="option">📤 Registrar Préstamos</a>
-      <a onclick="mostrar('Inventario.php')" class="option">📋 Gestionar Inventario</a>
-      <a onclick="mostrar('GestionUsuarios.php')" class="option">👨‍🏫 Gestión de Instructores</a>
-      <a onclick="mostrar('Novedades.php')" class="option">🛠️ Novedades</a>
+<body>  
+  <nav>
+<div class="fecha-hora">
+<?php echo obtenerFechaOrganizada($_SESSION["hora_ingreso"] ?? ''); ?>
+</div>
+    <div class="user-info">
+      <i class="fa-solid fa-circle-user" id="user"></i> 
+      <span><?php echo $_SESSION["nombres"] . ' ' . $_SESSION["apellidos"]; ?></span>
     </div>
+    <div class="header-right">
+      <details>
+        <summary><i class="fa-solid fa-arrow-right-from-bracket" id="close"></i> </summary>
+        <div class="dropdown-content">
+          <a href="Php/Logout.php">🏃 Cerrar Sesión</a>
+        </div>
+      </details>
+    </div>
+  </nav>
 
-    <div id="contenido">
-      <p>Selecciona una opción para ver el contenido aquí.</p>
+  <p class="panel">Panel de almacenista</p>
+
+  <main class="main-content">
+    <div class="dashboard">
+        <div class="card" onclick="cargarPagina('Almacenista.php')">
+        <i class="fa-solid fa-house"></i>
+        <div class="titulo">Inicio</div>
+        <div class="descripcion">Pagina principal</div>
+    </div>
+      <div class="card" onclick="cargarPagina('Préstamos.php')">
+        <i class="fas fa-exchange-alt"></i>
+        <div class="titulo">Préstamos</div>
+        <div class="descripcion">Registra, consulta o devuelve material o equipo.</div>
+      </div>
+      <div class="card" onclick="cargarPagina('Inventario.php')">
+        <i class="fas fa-box"></i>   
+        <div class="titulo">Inventario</div>
+        <div class="descripcion">Administra materiales y equipos disponibles.</div>
+      </div>
+      <div class="card" onclick="cargarPagina('Gestion_Usuarios.php')">
+        <i class="fas fa-users"></i>
+        <div class="titulo">Usuarios</div>
+        <div class="descripcion">Registrar y administrar instructores.</div>
+      </div>
+      <div class="card" onclick="cargarPagina('Novedades.php')">
+        <i class="fas fa-chart-line"></i>
+        <div class="titulo">Novedades</div>
+        <div class="descripcion">Visualiza reportes de daños, pérdidas y otros eventos.</div>
+      </div>
     </div>
   </main>
 
-  <script>
-    function mostrar(pagina) {
-      fetch(pagina)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error("No se pudo cargar la página: " + response.status);
-          }
-          return response.text();
-        })
-        .then(html => {
-          document.getElementById("contenido").innerHTML = html;
-        })
-        .catch(error => {
-          document.getElementById("contenido").innerHTML = "<p style='color:red;'>Error: " + error.message + "</p>";
-        });
-    }
-  </script>
+  <main>
+    <section>
+      <h3>Bienvenido</h3>
+      <iframe id="contenido" src=""></iframe>
+    </section>
+  </main>
+   <script src="Js/Almacenista.js"></script> 
 </body>
-</html> -->
+</html>
+

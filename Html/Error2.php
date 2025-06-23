@@ -9,6 +9,6 @@
     <img src="Img/5203299.jpg" alt="imagen not found">
     <h1>404</h1>
     <p>Tu sesión ha finalizado. Ya no tienes acceso a esta página.</p>
-    <a href="login.php">Volver a Iniciar Sesión</a>
+    <a href="Login.php">Volver a Iniciar Sesión</a>
 </body>
 </html>

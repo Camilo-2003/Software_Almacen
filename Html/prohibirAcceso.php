@@ -10,10 +10,10 @@ if (!isset($_SESSION["rol"]) || ($_SESSION["rol"] !== "almacenista" && $_SESSION
 $pagina_regresar = '';
 
 if ($_SESSION["rol"] === "almacenista") {
-    $pagina_regresar = "almacenista.php";
+    $pagina_regresar = "Almacenista.php";
 } elseif ($_SESSION["rol"] === "administrador") {
-    $pagina_regresar = "administrador.php";
+    $pagina_regresar = "Administrador.php";
 } else {
-    $pagina_regresar = "Error.php"; // Opcional por si hay un rol no permitido
+    $pagina_regresar = "Error.php";
 }
 ?>

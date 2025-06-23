@@ -3,7 +3,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 session_start();
-require_once $_SERVER['DOCUMENT_ROOT'] . '/Software_Almacen/Html/conexion.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/Software_Almacen/Html/Conexion.php';
 
 
 
@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($row_count["total"] == 0) {
         // Si no esta registrado, redirigir a registrarse.html de inmediato
-        header("Location: ../registrarse.html");
+        header("Location: ../Registrarse.html");
         exit();
     }
 
@@ -55,19 +55,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $stmt->close();
             $conexion->close();
-            header("Location: ../almacenista.php");
+            header("Location: ../Almacenista.php");
             exit();
         } else {
             $stmt->close();
             $conexion->close();
-            header("Location: ../login.php?error=incorrect_password");
+            header("Location: ../Login.php?error=incorrect_password");
             exit();
         }
     } else {
         // Si el correo no está registrado, redirigir al registro
         $stmt->close();
         $conexion->close();
-        echo "<script>alert('🚨 No estás registrado. Por favor, regístrate.'); window.location.href='/Software_Almacen/Html/registrarse.html';</script>";
+        echo "<script>alert('🚨 No estás registrado. Por favor, regístrate.'); window.location.href='/Software_Almacen/Html/Registrarse.html';</script>";
         //header("Location: ../registrarse.html");
         exit();
     }

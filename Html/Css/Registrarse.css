@@ -44,7 +44,7 @@ label {
 }
 
 input[type="text"],
-input[type="tel"],
+input[type="number"],
 input[type="email"],
 input[type="password"],
 input[type="date"] {
@@ -125,7 +125,6 @@ button[type="button"]:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-
     animation: fadeOut 0s ease 0.5s forwards; /* ← Aquí defines duración */
   }
   .spinner {

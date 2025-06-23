@@ -1,5 +1,5 @@
 <?php
-include '../conexion.php';
+include '../Conexion.php';
 
 $sql = "SELECT marca, serial, estado FROM equipos ORDER BY marca ASC";
 $result = $conexion->query($sql);
