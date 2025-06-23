@@ -1,0 +1,134 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: auto;
+    background-color: #f4f4f4;
+    color: #333;
+    transition: background 0.3s, color 0.3s;
+  }
+  
+  header {
+    display: flex;
+    align-items: left;
+    justify-content: left;
+    padding: 3px;
+    background-color: #ffffff;
+    border-bottom: 3px solid #28a745;
+    box-shadow: 0 2px 3px rgb(8, 126, 43);
+    font-size: 1em;
+    color: rgb(17, 179, 57);
+
+  }
+  
+  .contenedor-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .logo {
+    height: 100px;
+    margin-left: 20px;
+  }
+  
+  h1, h2 {
+    color: #28a745;
+    font-size: 40px;
+    font-family: Stencil;
+  }
+  
+  main.contenido {
+    padding: 20px;
+    max-width: 900px;
+    margin: auto;
+    animation: fadeIn 1s ease-in-out;
+  }
+  
+  .intro p {
+    font-size: 16px;
+    margin-bottom: 30px;
+  }
+  
+  .temas {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 30px;
+  }
+
+  .tarjeta {
+    background-color: #e7f9eb;
+    border-left: 5px solid #137e2b;
+    padding: 15px;
+    border-radius: 6px;
+    font-size: 16px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.171);
+  }
+  
+  .ayuda ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .ayuda ul li {
+    background: #e8f5e9;
+    margin: 8px 0;
+    padding: 10px;
+    border-left: 5px solid #28a745;
+    border-radius: 4px;
+  }
+  
+  .btn-contacto {
+    display: inline-block;
+    margin-top: 15px;
+    background-color: #28a745;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 20px;
+    transition: background 0.3s;
+    width: fit-content;
+    font-weight: bold;
+  }
+  
+  .btn-contacto:hover {
+    background-color: #218838;
+  }
+  
+  .pasos ol {
+    padding-left: 20px;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  
+  .faq details {
+    margin: 10px 0;
+    background: #f0f0f0;
+    padding: 10px;
+    border-left: 4px solid #28a745;
+    border-radius: 4px;
+  }
+  
+  footer {
+    background-color: #e0e0e0;
+    text-align: center;
+    padding: 20px 10px;
+    margin-top: 30px;
+    font-size: 0.9em;
+  }
+  
+  .enlaces-footer a {
+    color: #28a745;
+    text-decoration: none;
+    margin: 0 8px;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .enlaces-footer a:hover {
+    text-decoration: underline;
+  }
