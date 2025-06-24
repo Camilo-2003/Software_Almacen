@@ -65,7 +65,7 @@ include_once __DIR__ . '/Php/Hora_ingreso.php';
                 <div class="titulo">Inventario</div>
                 <div class="descripcion">Administra materiales y equipos disponibles.</div>
             </a>
-            <a href="Gestion_Usuarios.php" class="card">
+            <a href="Gestion_Instructores.php" class="card">
                 <i class="fas fa-users"></i>
                 <div class="titulo">Instructores</div>
                 <div class="descripcion">Registrar y administrar instructores.</div>
@@ -77,8 +77,6 @@ include_once __DIR__ . '/Php/Hora_ingreso.php';
             </a>
         </div>
     </main>
-    <br>
-    <h2>Bienvenido</h2>
     <script src="Js/Almacenista.js"></script>
     </body>
 </html>

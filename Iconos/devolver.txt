@@ -4,23 +4,26 @@ window.history.replaceState(null, null, window.location.pathname);
 
 REFRESCA LA URL Y EVITA LA VENTANA DE CONFIRMAR Y ENVIAR DATOS DUPLICADOS
 
-      <?php
-     $novedades = $conexion->query( " SELECT * FROM novedades WHERE id_novedad;");
-     while($datos = $novedades->fetch_object()) { ?>
-      <tr>
-        <td><?= $datos->id_novedad ?></td>
-        <td><?= $datos->tipo?></td>
-        <td><?= $datos->descripcion ?></td>
-        <td><?= $datos->fecha ?></td>
-        <td><?= $datos->id_almacenista ?></td>
-        <td><?= $datos->nombre_almacenista ?></td>
-        <td><?= $datos->id_instructor ?></td>
-        <td><?= $datos->nombre_instructor ?></td>
-        <!-- <td class="obs"><?= $datos->observaciones ?></td> -->
-           <td class="acciones">
-          <a class='btn-editar' href="Php/Editar_Novedad.php?id=<?= $datos->id_novedad ?>">✏️Editar</a>
-          <a class='btn-eliminar' href="Php/Eliminar_Novedad.php?id=<?= $datos->id_novedad ?>" onclick='return confirmarEliminacion()'>🗑️Eliminar</a> 
-          </td>
-      </tr>
-    <?php } ?>
-    
+ <div class="tab-buttons">
+                <button class="tab-button" data-tab-content="registrar-prestamo">
+                    <i class="fa-solid fa-file-circle-plus"></i> Registrar Préstamo
+                </button>
+                <button class="tab-button" data-tab-content="devoluciones-pendientes">
+                    <i class="fa-solid fa-clock-rotate-left"></i> Devoluciones Pendientes
+                </button>
+                <button class="tab-button" data-tab-content="historial-prestamos">
+                    <i class="fa-solid fa-clipboard-list"></i> Historial de Préstamos
+                </button>
+                <button class="tab-button" data-tab-content="materiales-disponibles">
+                    <i class="fa-solid fa-boxes-stacked"></i> Materiales Disponibles
+                </button>
+                <button class="tab-button" data-tab-content="total-materiales">
+                    <i class="fa-solid fa-list-ol"></i> Total de Materiales
+                </button>
+                <button class="tab-button" data-tab-content="observaciones-materiales">
+                    <i class="fa-solid fa-comment-dots"></i> Observaciones
+                </button>
+            </div>
+
+
+showFloatingMessage  (ALERTAS)

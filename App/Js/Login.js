@@ -1,3 +1,26 @@
+function showFloatingMessage(message, isError = false) {
+    let messageDiv = document.getElementById('floatingMessage');
+    if (!messageDiv) {
+        messageDiv = document.createElement('div');
+        messageDiv.id = 'floatingMessage';
+        document.body.appendChild(messageDiv);
+    }
+
+    messageDiv.textContent = message;
+    messageDiv.className = 'floating-message';
+    messageDiv.classList.add(isError ? 'error' : 'success');
+
+    messageDiv.style.display = 'block';
+    messageDiv.style.opacity = '1';
+
+    setTimeout(() => {
+        messageDiv.style.opacity = '0';
+        setTimeout(() => {
+            messageDiv.style.display = 'none';
+        }, 400);
+    }, 4000);
+}
+
 function validarFormulario() {
     var correoInput = document.getElementById("correo");
     var passwordInput = document.getElementById("password");
@@ -9,13 +32,13 @@ function validarFormulario() {
 
     // Verificar si el correo quedó vacío después de limpiar
     if (correoInput.value === "") {
-      alert("El correo no puede estar vacío o contener espacios al inicio.");
+      showFloatingMessage("El correo no puede estar vacío o contener espacios al inicio.", true);
       return false;
     }
 
     // Verificar si la contraseña quedó vacía después de limpiar 
     if (passwordInput.value === "") {
-      alert("La contraseña no puede estar vacía o contener espacios al inicio.");
+      showFloatingMessage("La contraseña no puede estar vacía o contener espacios al inicio.", true);
       return false;
     }
 
@@ -36,7 +59,9 @@ const params = new URLSearchParams(window.location.search);
 
 // Verificar si viene el mensaje de cierre
 if (params.get("mensaje") === "cierre") {
-    alert("✅¡Has cerrado sesión correctamente!");
+    showFloatingMessage("✅ ¡Has cerrado sesión correctamente!");
+    const nuevaUrl = window.location.origin + window.location.pathname;
+    window.history.replaceState({}, document.title, nuevaUrl);
 }
  
 // ver y ocultar password

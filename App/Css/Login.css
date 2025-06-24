@@ -3,43 +3,56 @@ font-family: Arial, sans-serif;
 text-align: center;
 margin: 0;
 padding: 0;
-background-image: url(../Img/sena1.jpg);
-background-size: cover;
-background-position: center;
+background-color:  #28a745;
+/* background-size: cover;
+background-position: center;  */
 overflow: hidden;
 }
 h1 {
-font-size: 40px;
-font-family: Stencil;
-animation:slideDown 2s ease-in-out;
+margin: 0;
+font-size: 1.8em;
+font-weight: 700;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+color: white;
+text-align: center;
 }
 header {
+background: #28a745;
+color: white;
+padding: -5px 30px;
 display: flex;
 align-items: center;
 justify-content: center;
-padding: 10px; 
-background-color: #ffffff;
-box-shadow: 0 2px 3px rgb(8, 126, 43);
-color: rgb(17, 179, 57);
-font-size: 1em;
-animation: slideDown 2s ease-in-out;
-} 
+box-shadow: 0 2px 8px rgba(0,0,0);
+margin-bottom: 0;
+border-radius: 0;
+position: sticky;
+top: 0; 
+z-index: 1000;
+}
+header .logo {
+height: 50px;
+filter: brightness(0) invert(1);
+transition: transform 0.3s ease;
+margin-right: 0;
+}
+header .logo:hover {
+transform: scale(1.05);
+}
+
 @keyframes slideDown {
 from { transform: translateY(-100px); opacity: 0; }
 to { transform: translateY(0); opacity: 1; }
 }
-.logo {
-height: 100px;
-margin-right: 20px; 
-animation:slideDown 2s ease-in-out;
-}
 .container {
-background:  rgba(255, 255, 255, 0.5); 
-padding: 48px;
+background:  rgb(255, 255, 255); 
+padding: 54px;
 border-radius: 15px; 
 box-shadow: 10px 10px 55px rgb(0, 0, 0);
-max-width: 400px;
-margin: 40px auto;
+max-width: 410px;
+margin: 50px auto;
 animation: fadeIn 1.5s ease-in-out;
 }
 @keyframes fadeIn {
@@ -73,13 +86,14 @@ outline: none;
 .container button {
 width: 100%;
 padding: 12px;
-background: rgb(8, 100, 31);
+background: #28a745;
 color: white;
 border: none;
 border-radius: 8px;
 cursor: pointer;
 font-size: 1.2em;
 transition: transform 0.2s ease-in-out;
+box-shadow: 0 2px 5px rgba(0,0,0);
 }
 .container button:hover {
 background: rgb(17, 179, 57); 
@@ -111,33 +125,29 @@ color: blue;
 width: 100%;
 }
 .btn {
-animation: fadeIn 1.5s ease-in-out;
 display:flex;
-margin-left: 1px;
-left: 0;
-font-weight: bold;
-top: 70px;
+left: 8px;
+top: 4px;
 position: absolute;
 float: left;
 border-radius: 12px;
+padding: 1px;
 }
 .btnn {
+background-color: rgba(255, 255, 255, 0.2);
+color: white;
+padding: 10px 20px;
+border-radius: 25px;
 text-decoration: none;
-border-radius: 10px;
-background-color: rgb(255, 255, 255);
-color: rgb(17, 179, 57);
-width: auto;
-font-size: 19px;
-padding: 15px;
-text-shadow: 1px 1px 1px rgb(0, 0, 0);
-box-shadow: 2px 2px 7px #157c34;
+font-weight: 600;
+transition: background-color var(--transition-speed), transform 0.2s ease;
+border: 1px solid rgba(255, 255, 255, 0.4);
+box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 .btnn:hover {
-background-color: green;
-color: white;
-transform: scale(1.1);
-transition: 0.3s;
-outline: 2px solid white;
+background-color: rgba(255, 255, 255, 0.3);
+transform: translateY(-2px);
+box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
 #loader {
 position: fixed;
@@ -183,4 +193,26 @@ font-size: 20px;
 margin-top: 28px;
 margin-right: -33px;
 float: right;
+}
+.floating-message {
+position: fixed;
+top: 55px;
+right: 510px;
+background-color: #333;
+color: white;
+padding: 8px 20px;
+border-radius: 10px;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+font-weight: bold;
+z-index: 1000;
+opacity: 1;
+transition: opacity 0.5s ease;
+}
+.floating-message.success {
+background-color:rgb(255, 255, 255);
+color: black;
+}
+
+.floating-message.error {
+background-color: red;
 }

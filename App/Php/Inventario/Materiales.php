@@ -27,11 +27,11 @@ switch ($method) {
         exit;
 }
 function handleGetMateriales($conn) {
-    $sql = "SELECT * FROM materiales";
+    $sql = "SELECT id_material, nombre, tipo, stock, estado_material FROM materiales";
     $result = $conn->query($sql);
 
     $materiales = [];
-    if ($result && $result->num_rows > 0) { 
+    if ($result && $result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
             $materiales[] = $row;
         }
@@ -48,6 +48,7 @@ function handlePostMaterial($conn) {
     $nombre = trim($data['nombre']);
     $tipo = $data['tipo'];
     $stock = $data['stock'];
+    $estado_material = $data['estado_material'];
 
     $check_sql = "SELECT COUNT(*) FROM materiales WHERE nombre = ?";
     $check_stmt = $conn->prepare($check_sql);
@@ -68,14 +69,14 @@ function handlePostMaterial($conn) {
         echo json_encode(['message' => 'Error: Ya existe un material con este nombre.']);
         exit;
     }
-    $sql = "INSERT INTO materiales (nombre, tipo, stock) VALUES (?, ?, ?)";
+    $sql = "INSERT INTO materiales (nombre, tipo, stock, estado_material) VALUES (?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
     if ($stmt === false) {
         http_response_code(500);
         echo json_encode(['message' => 'Error al preparar la consulta de inserción: ' . $conn->error]);
         exit;
     }
-    $stmt->bind_param("ssi", $nombre, $tipo, $stock);
+    $stmt->bind_param("ssis", $nombre, $tipo, $stock, $estado_material);
 
     if ($stmt->execute()) {
         echo json_encode(['message' => 'Material creado con éxito', 'id' => $conn->insert_id]);
@@ -89,15 +90,16 @@ function handlePostMaterial($conn) {
 function handlePutMaterial($conn) {
     $id_material = isset($_GET['id']) ? (int)$_GET['id'] : 0;
     if ($id_material === 0) {
-        http_response_code(400); // Bad Request
+        http_response_code(400); 
         echo json_encode(['message' => 'ID de material no proporcionado para la actualización.']);
         exit; 
     }
 
     $data = json_decode(file_get_contents('php://input'), true);
-    $nombre = trim($data['nombre']); // Trim whitespace
+    $nombre = trim($data['nombre']); 
     $tipo = $data['tipo'];
     $stock = $data['stock'];
+    $estado_material = $data['estado_material'];
 
     $check_sql = "SELECT COUNT(*) FROM materiales WHERE nombre = ? AND id_material != ?";
     $check_stmt = $conn->prepare($check_sql);
@@ -118,15 +120,14 @@ function handlePutMaterial($conn) {
         echo json_encode(['message' => 'Error: Ya existe otro material con este nombre.']);
         exit;
     }
-
-    $sql = "UPDATE materiales SET nombre = ?, tipo = ?, stock = ? WHERE id_material = ?";
+    $sql = "UPDATE materiales SET nombre = ?, tipo = ?, stock = ?, estado_material = ? WHERE id_material = ?";
     $stmt = $conn->prepare($sql);
     if ($stmt === false) {
         http_response_code(500);
         echo json_encode(['message' => 'Error al preparar la consulta de actualización: ' . $conn->error]);
         exit;
     }
-    $stmt->bind_param("ssii", $nombre, $tipo, $stock, $id_material);
+    $stmt->bind_param("ssisi", $nombre, $tipo, $stock, $estado_material, $id_material);
 
     if ($stmt->execute()) {
         if ($stmt->affected_rows > 0) {

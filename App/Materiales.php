@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 include("ProhibirAcceso.php");
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Cache-Control: post-check=0, pre-check=0", false);
@@ -42,51 +45,9 @@ if ($resultadoInstructores) {
 }
 ob_start(); 
 ?>
-<form action="Php/Registrar_prestamo_materiales.php" method="post" onsubmit="return validarFormulario()">
-    <h2>Registrar Nuevo Préstamo de Material</h2>
-    <div class="form-group">
-        <label for="material_id">Material:</label>
-        <select name="material_id" id="material_id" class="select2-enhanced" required>
-            <option value="">Seleccione el material</option>
-            <?php foreach ($materialesData as $material): ?>
-                <option 
-                    value='<?= htmlspecialchars($material['id_material']) ?>' 
-                    data-nombre="<?= htmlspecialchars($material['nombre']) ?>"
-                    data-tipo="<?= htmlspecialchars($material['tipo']) ?>"
-                    data-stock-actual="<?= htmlspecialchars($material['stock']) ?>"
-                >
-                    <?= htmlspecialchars($material['nombre']) ?> - (TIPO: <?= htmlspecialchars($material['tipo']) ?> ) - (ID: <?= htmlspecialchars($material['id_material']) ?>) - (STOCK: <?= htmlspecialchars($material['stock']) ?>)
-                </option>
-            <?php endforeach; ?>
-        </select>
-    </div>
 
-    <input type="hidden" name="material_tipo" id="material_tipo_hidden">
-    <input type="hidden" name="material_stock_actual" id="material_stock_actual_hidden">
-
-    <label>Cantidad a Prestar:</label> <input type="number" name="cantidad_prestamo" id="cantidad_prestamo" placeholder="Cantidad a Prestar" min="1" required>
-    <br><br>
-    <div class="form-group">
-        <label for="instructor_id">Instructor:</label>
-        <select name="instructor" id="instructor_id" class="select2-enhanced" required>
-            <option value="">Seleccione un instructor</option>
-            <?php foreach ($instructoresData as $instructor): ?>
-                <option value='<?= htmlspecialchars($instructor['id_instructor']) ?>'>
-                    <?= htmlspecialchars($instructor['nombre']) ?> <?= htmlspecialchars($instructor['apellido']) ?> (ID: <?= htmlspecialchars($instructor['id_instructor']) ?>)
-                </option>
-            <?php endforeach; ?>
-        </select>
-    </div>
-    <div class="form-group">
-        <label>Responsable del Préstamo:</label>
-        <input type="text" value="<?php echo $nombre_responsable_completo . ' (Rol: ' . $rol_responsable_session . ')'; ?>" readonly>
-        <input type="hidden" name="id_responsable" value="<?= $id_responsable_session ?>">
-        <input type="hidden" name="rol_responsable" value="<?= $rol_responsable_session ?>">
-    </div>
-    <button type="submit"><i class="fa-solid fa-handshake" id="icon"></i> Prestar Material</button>
-</form>
 <?php
-$formHtml = ob_get_clean();
+$formHtml = '';
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -94,10 +55,10 @@ $formHtml = ob_get_clean();
     <meta charset="UTF-8">
     <link rel="icon" href="Img/logo_sena.png" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Materiales</title>
+    <title>Gestión de Materiales | SENA</title>
     <script src="Js/jquery-3.7.1.min.js"></script>
     <link href="Css/select2.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="Css/Materiales.css">
+    <link rel="stylesheet" href="Css/Materiales_prestamo.css">
     <link rel="stylesheet" href="vendor/fontawesome/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -111,6 +72,18 @@ $formHtml = ob_get_clean();
         <h1>Gestión de Materiales</h1>
     </div>
 </header>
+
+<div class="alert-container-main"> 
+    <div id="alert-area-vencidos" style="display: none;">
+        <h3><i class="fas fa-bell"></i> Alertas de Préstamos Vencidos</h3>
+        <div id="contenido-alertas-vencidas"></div>
+    </div>
+    <div id="alert-area-stock" style="display: none;">
+         <h3><i class="fas fa-box-open"></i> Alertas de Inventario</h3>
+        <div id="contenido-alerta-stock-bajo"></div>
+    </div>
+</div>
+
 <div class="container">
     <div class="content-area"> 
         <div class="tabs-container">
@@ -132,11 +105,12 @@ $formHtml = ob_get_clean();
     <div class="modal-content">
         <span class="close-button">&times;</span>
         <h2>Registrar Devolución</h2>
-        <form id="formDevolverMaterial" action="Php/Registrar_Devolucion_Materiales.php" method="POST">
+        <form id="formDevolverMaterial" action="Php/Préstamo_Materiales/Registrar_Devolucion_Materiales.php" method="POST">
             <input type="hidden" id="modal_id_prestamo_material" name="id_prestamo_material">
             
             <input type="hidden" name="id_responsable" value="<?= $id_responsable_session ?>">
             <input type="hidden" name="rol_responsable" value="<?= $rol_responsable_session ?>">
+            <input type="hidden" name="responsable" value="<?= $nombre_responsable_completo ?>">
 
             <div class="form-group">
                 <label for="modal_estado_devolucion">Estado del Material:</label>
@@ -146,228 +120,93 @@ $formHtml = ob_get_clean();
                     <option value="regular">Regular</option>
                     <option value="malo">Malo</option>
                 </select>
-            </div>      
+            </div>       
             <div class="form-group">
                 <label for="modal_observaciones">Observaciones (Opcional):</label>
-                <textarea id="modal_observaciones" name="observaciones" rows="4"></textarea>
+                <textarea id="modal_observaciones" name="observaciones" rows="4" placeholder="Ingresar observación"></textarea>
             </div>          
             <button type="submit"><i class="fa-regular fa-circle-check"></i> Confirmar Devolución</button>
         </form>
     </div>
 </div>
+
+<!-- Modal para devolución múltiple -->
+<div id="devolverMaterialModalMultiple" class="modal">
+    <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h2>Registrar Devolución de Materiales Seleccionados</h2>
+        <form id="formDevolverMaterialMultiple" method="POST">
+            <input type="hidden" id="modal_id_prestamo_material_multiple" name="id_prestamo_material">
+            
+            <input type="hidden" name="id_responsable" value="<?= $id_responsable_session ?>">
+            <input type="hidden" name="rol_responsable" value="<?= $rol_responsable_session ?>">
+            <input type="hidden" name="responsable" value="<?= $nombre_responsable_completo ?>">
+
+            <div class="form-group">
+                <label for="modal_estado_devolucion_multiple">Estado de los Materiales a Devolver:</label>
+                <select id="modal_estado_devolucion_multiple" name="estado_devolucion" required>
+                    <option value="">Seleccione el estado</option>
+                    <option value="bueno">Bueno</option>
+                    <option value="regular">Regular</option> 
+                    <option value="malo">Malo</option> 
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="modal_observaciones_multiple">Observaciones para estos materiales (Opcional):</label>
+                <textarea id="modal_observaciones_multiple" name="observaciones" rows="4" placeholder="Observaciones generales para los materiales seleccionados..."></textarea>
+            </div>
+
+            <button type="submit"><i class="fa-regular fa-circle-check"></i> Registrar Devoluciones</button>
+        </form>
+    </div>
+</div>
+
+<!-- Modal para editar PRÉSTAMO COMPLETO -->
+<div id="editarPrestamoCompletoModal" class="modal">
+    <div class="modal-content large-modal">
+        <span class="close-button">&times;</span>
+        <h2>Editar Préstamo Completo</h2>
+        <form id="formEditarPrestamoCompleto" method="POST">
+            <input type="hidden" name="id_prestamo_material" id="edit_modal_id_prestamo_material_completo">
+            
+            <div class="loan-summary">
+                <p><strong>Instructor:</strong> <span id="edit_modal_instructor_info"></span></p>
+                <p><strong>Fecha Préstamo:</strong> <span id="edit_modal_fecha_prestamo_info"></span></p>
+                <hr>
+            </div>
+
+            <h3>Materiales en este Préstamo:</h3>
+            <div id="current_loaned_equipment" class="equipment-list">
+                </div>
+
+            <h3 style="margin-top: 20px;">Añadir Materiales Adicionales:</h3>
+            <div class="form-group">
+                <label for="add_material_id_to_loan">Seleccionar Materiales Disponibles:</label>
+                <select id="add_material_id_to_loan" class="select2-enhanced" multiple="multiple"></select>
+            </div>
+
+            <!--NUEV0 DEL RESTO TODO IGUAL-->
+            <div id="items_to_add_quantities" class="cantidad-fields-container" style="display: none;"></div>
+            
+            <div id="items_to_add_quantities" class="equipment-list" style="margin-top:15px;">
+                </div>
+            
+            <button type="submit" style="margin-top:20px;"><i class="fa-solid fa-save"></i> Guardar Cambios del Préstamo</button>
+        </form>
+    </div>
+</div>
+
+    <input type="hidden" id="id_responsable_session" value="<?= htmlspecialchars($id_responsable_session) ?>">
+    <input type="hidden" id="rol_responsable_session" value="<?= htmlspecialchars($rol_responsable_session) ?>">
+    <input type="hidden" id="nombre_responsable_completo" value="<?= htmlspecialchars($nombre_responsable_completo) ?>">
+    <input type="hidden" id="initial_tab_loaded" value="<?= htmlspecialchars($_GET['tab'] ?? 'historial-prestamos') ?>">
+
 <script src="Js/Materiales.js"></script>
 <script src="Js/select2.min.js"></script>
-
 <script>
-    const formHtmlContent = `<?= addslashes($formHtml) ?>`;
-
-    $(document).ready(function() {
-        const devolverModal = $('#devolverMaterialModal');
-        const closeButton = devolverModal.find('.close-button');
-        const modalPrestamoId = $('#modal_id_prestamo_material');
-        const modalEstadoDevolucion = $('#modal_estado_devolucion');
-        const modalObservaciones = $('#modal_observaciones');
-
-        function loadTabContent(tabName) {
-            $('#tab-content-area').html('<p style="text-align: center; color: var(--neutral-text-medium); padding: 20px;">Cargando...</p>');
-
-            let url = '';
-            if (tabName === 'registrar-prestamo') {
-                $('#tab-content-area').html(formHtmlContent);
-
-                // Inicializar Select2 para ambos selectores
-                const $materialSelect = $('#material_id').select2({
-                    theme: "default",
-                    width: '100%',
-                    placeholder: "Seleccione el material",
-                    allowClear: true,
-                    matcher: function(params, data) {
-                        if ($.trim(params.term) === '') {
-                            return data;
-                        }
-                        if (data.id === '') {
-                            return null;
-                        }
-                        const term = $.trim(params.term).toLowerCase();
-                        const text = $.trim(data.text).toLowerCase();
-                        if (text.indexOf(term) > -1) {
-                            return data;
-                        }
-                        return null;
-                    }
-                });
-
-                const $instructorSelect = $('#instructor_id').select2({
-                    theme: "default",
-                    width: '100%',
-                    placeholder: "Seleccione un instructor",
-                    allowClear: true,
-                    matcher: function(params, data) {
-                        if ($.trim(params.term) === '') {
-                            return data;
-                        }
-                        if (data.id === '') {
-                            return null;
-                        }
-                        const term = $.trim(params.term).toLowerCase();
-                        const text = $.trim(data.text).toLowerCase();
-                        if (text.indexOf(term) > -1) {
-                            return data;
-                        }
-                        return null;
-                    }
-                });
-
-
-                // *** MEJORA PARA ATACAR EL INPUT DE BÚSQUEDA DE SELECT2 ***
-                // Select2 crea su campo de búsqueda dinámicamente. 
-                // Debemos apuntar al campo de búsqueda dentro del contenedor de Select2.
-                // Usamos .on('select2:open') para adjuntar el evento cuando el dropdown se abre
-                // y el campo de búsqueda ya existe.
-                $materialSelect.on('select2:open', function() {
-                    $('.select2-search__field').on('input', function() {
-                        const oldValue = $(this).val();
-                        const newValue = oldValue.replace(/^\s+/, '');
-                        if (oldValue !== newValue) {
-                            $(this).val(newValue).trigger('change');
-                            // console.log('Material search field trimmed:', newValue); // Depuración
-                        }
-                    });
-                });
-
-                $instructorSelect.on('select2:open', function() {
-                    $('.select2-search__field').on('input', function() {
-                        const oldValue = $(this).val();
-                        const newValue = oldValue.replace(/^\s+/, '');
-                        if (oldValue !== newValue) {
-                            $(this).val(newValue).trigger('change');
-                            // console.log('Instructor search field trimmed:', newValue); // Depuración
-                        }
-                    });
-                });
-                // *** FIN DE LA MEJORA ***
-
-
-                $('#material_id').on('change', function() {
-                    const selectedOption = $(this).find('option:selected');
-                    const tipo = selectedOption.data('tipo');
-                    const stockActual = selectedOption.data('stock-actual');
-
-                    $('#material_tipo_hidden').val(tipo);
-                    $('#material_stock_actual_hidden').val(stockActual);
-
-                    const cantidadInput = $('#cantidad_prestamo');
-                    cantidadInput.attr({
-                        "max": stockActual,
-                        "placeholder": `Cantidad a Prestar (Max: ${stockActual})`
-                    });
-                    if (parseInt(cantidadInput.val()) > stockActual) {
-                        cantidadInput.val(stockActual);
-                    }
-                });
-                $('#material_id').trigger('change');
-
-            } else {
-                // Destruir Select2 antes de cargar nuevo contenido para evitar duplicados
-                // y asegurar que se inicializa correctamente la próxima vez.
-                if ($('#material_id').data('select2')) {
-                    $('#material_id').select2('destroy');
-                }
-                if ($('#instructor_id').data('select2')) {
-                    $('#instructor_id').select2('destroy');
-                }
-
-
-                if (tabName === 'devoluciones-pendientes') {
-                    url = 'Php/Get_devoluciones_pendientes_materiales.php';
-                } else if (tabName === 'historial-prestamos') {
-                    url = 'Php/Get_historial_prestamos_materiales.php';
-                } else if (tabName === 'equipos-disponibles') {
-                    url = 'Php/Get_materiales_disponibles.php';
-                } else if (tabName === 'total-equipos') {
-                    url = 'Php/Get_total_materiales.php';
-                } else if (tabName === 'observaciones') {
-                    url = 'Php/Get_observaciones_materiales.php';
-                }
-
-                if (url) {
-                    $.ajax({
-                        url: url,
-                        type: 'GET',
-                        success: function(data) {
-                            $('#tab-content-area').html(data);
-                            attachDevolverButtonListeners();
-                        },
-                        error: function(xhr, status, error) {
-                            $('#tab-content-area').html('<p style="text-align: center; color: #dc3545; padding: 20px;">Error al cargar el contenido: ' + error + '</p>');
-                            console.error("AJAX Error: ", status, error, xhr.responseText); // Log error
-                        }
-                    });
-                }
-            }
-        }
-
-        function attachDevolverButtonListeners() {
-            $('#tab-content-area').off('click', '.open-devolver-modal').on('click', '.open-devolver-modal', function() {
-                const prestamoId = $(this).data('id-prestamo');
-                modalPrestamoId.val(prestamoId);
-                modalEstadoDevolucion.val('');
-                modalObservaciones.val('');
-                devolverModal.css('display', 'flex');
-            });
-        }
-
-        closeButton.on('click', function() {
-            devolverModal.css('display', 'none');
-            loadTabContent('devoluciones-pendientes');
-            $('.tab-button[data-tab-content="devoluciones-pendientes"]').addClass('active').siblings().removeClass('active');
-        });
-
-        $(window).on('click', function(event) {
-            if ($(event.target).is(devolverModal)) {
-                devolverModal.css('display', 'none');
-                loadTabContent('devoluciones-pendientes');
-                $('.tab-button[data-tab-content="devoluciones-pendientes"]').addClass('active').siblings().removeClass('active');
-            }
-        });
-
-        // Initial load: Check URL parameter for active tab
-        const urlParams = new URLSearchParams(window.location.search);
-        const requestedTab = urlParams.get('tab');
-
-        if (requestedTab) {
-            $('.tab-button[data-tab-content="' + requestedTab + '"]').addClass('active').siblings().removeClass('active');
-            loadTabContent(requestedTab);
-        } else {
-            loadTabContent('registrar-prestamo');
-        }
-
-        $('.tab-button').on('click', function() {
-            $('.tab-button').removeClass('active');
-            $(this).addClass('active');
-            const tabName = $(this).data('tab-content');
-            loadTabContent(tabName);
-        });
-    });
-
-    function validarFormulario() {
-        const materialId = document.getElementById('material_id').value;
-        const instructorId = document.getElementById('instructor_id').value;
-        const cantidadPrestamo = parseInt(document.getElementById('cantidad_prestamo').value);
-        const materialStockActual = parseInt(document.getElementById('material_stock_actual_hidden').value);
-
-        if (materialId === "" || instructorId === "" || isNaN(cantidadPrestamo) || cantidadPrestamo <= 0) {
-            alert("Por favor, complete todos los campos requeridos para el préstamo y asegúrese de que la cantidad sea un número válido y mayor a cero.");
-            return false;
-        }
-
-        if (cantidadPrestamo > materialStockActual) {
-            alert("La cantidad a prestar excede el stock disponible (" + materialStockActual + ").");
-            return false;
-        }
-        
-        return true;
-    }
+    var formHtmlContent = '<?php echo addslashes(json_encode($formHtml)); ?>';
+    formHtmlContent = JSON.parse(formHtmlContent);
 </script>
 
 </body>

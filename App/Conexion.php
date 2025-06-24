@@ -4,7 +4,6 @@ $user = "root";
 $password = "";
 $db = "almacen";
 
-
 $conexion = new mysqli($host, $user, $password, $db);
 
 if ($conexion->connect_error) {
@@ -12,5 +11,3 @@ if ($conexion->connect_error) {
 } 
 
 $conexion->set_charset("utf8mb4");
-?>
-  
