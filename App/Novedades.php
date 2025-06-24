@@ -40,61 +40,59 @@ if ($res) {
 ?>
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8">
-    <link rel="icon" href="Img/logo_sena.png" type="image/x-icon">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrar Novedades</title>
-    <link rel="stylesheet" href="Css/Novedades.css">
+<meta charset="UTF-8">
+<link rel="icon" href="Img/logo_sena.png" type="image/x-icon">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Registrar Novedades</title>
+<link rel="stylesheet" href="Css/Novedades.css">
 </head>
-
 <body>
-    <header>
-        <div class="contain">
-            <a href="<?php echo $pagina_regresar; ?>" class="rgs" title="Haz clic para volver">Regresar</a>
-        </div>
-        <h1>Registrar Novedades</h1>
-    </header>
+<header>
+  <div class="contain">
+    <a href="<?php echo $pagina_regresar; ?>" class="rgs" title="Haz clic para volver">Regresar</a>
+  </div>
+  <h1>Registrar Novedades</h1>
+</header>
 
-    <a href="Php/Historial_Novedades.php" class="historial">Historial de novedades</a>
+<a href="Php/Historial_Novedades.php" class="historial">Historial de novedades</a>
 
-    <div class="container">
-        <form action="Procesar_novedades.php" method="post" enctype="multipart/form-data" onsubmit="return validarFormulario()">
-            <h2>Registrar Novedad</h2>
-            <input type="hidden" name="id_responsable" value="<?= $id_responsable ?>">
-            <input type="hidden" name="rol_responsable" value="<?= $rol_responsable ?>">
+<div class="container">
+  <form action="Procesar_novedades.php" method="post" enctype="multipart/form-data" onsubmit="return validarFormulario()">
+    <h2>Registrar Novedad</h2>
+    <input type="hidden" name="id_responsable" value="<?= $id_responsable ?>">
+    <input type="hidden" name="rol_responsable" value="<?= $rol_responsable ?>">
 
-            <label>Tipo de novedad</label>
-            <select name="tipoNovedad" required>
-                <option value="">Seleccione</option>
-                <option value="devolucion_material">Novedad Material</option>
-                <option value="devolucion_equipo">Novedad Equipo</option>
-            </select>
+    <label>Tipo de novedad</label>
+    <select name="tipoNovedad" required>
+      <option value="">Seleccione</option>
+      <option value="devolucion_material">Novedad Material</option>
+      <option value="devolucion_equipo">Novedad Equipo</option>
+    </select>
 
-            <label>Descripción</label>
-            <input type="text" name="descripcion" id="descripcion" placeholder="Descripción" required autocomplete="off">
+    <label>Descripción</label>
+    <input type="text" name="descripcion" id="descripcion" placeholder="Descripción" required autocomplete="off">
 
-            <label for="instructor">Instructor</label>
-            <select name="instructor_id" id="instructor" required>
-                <option value="">Selecciona un instructor</option>
-                <?= $instructor_options_html; ?>
-            </select>
+    <label for="instructor">Instructor</label>
+    <select name="instructor_id" id="instructor" required>
+      <option value="">Selecciona un instructor</option>
+      <?= $instructor_options_html; ?>
+    </select>
 
-            <label>Observaciones Adicionales</label>
-            <input type="text" name="observaciones" id="observaciones" placeholder="Observaciones" required autocomplete="off">
+    <label>Observaciones Adicionales</label>
+    <input type="text" name="observaciones" id="observaciones" placeholder="Observaciones" required autocomplete="off">
 
-            <label>Adjuntar imagen</label>
-            <input type="file" name="imagen" id="imagen" accept="image/*">
+    <label>Adjuntar imagen</label>
+    <input type="file" name="imagen" id="imagen" accept="image/*">
 
-            <label>Responsable de registrar novedad</label>
-            <input type="text" name="nombre_responsable" value="<?= htmlspecialchars($nombre_responsable) ?>" readonly>
+    <label>Responsable de registrar novedad</label>
+    <input type="text" name="nombre_responsable" value="<?= htmlspecialchars($nombre_responsable) ?>" readonly>
 
-            <br>
-            <button type="submit" name="btnIngresar" value="Ok">Enviar</button>
-        </form>
-    </div>
-    <script src="Js/Novedades.js"></script>
+    <br>
+    <button type="submit" name="btnIngresar" value="Ok">Enviar</button>
+  </form>
+</div>
+
+<script src="Js/Novedades.js"></script>
 </body>
-
 </html>

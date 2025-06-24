@@ -24,9 +24,8 @@ switch ($method) {
     default:
         http_response_code(405);
         echo json_encode(['message' => 'Method not supported']);
-        exit; // Important to exit after sending response
+        exit;
 }
-
 function handleGetEquipos($conn) {
     $sql = "SELECT * FROM equipos";
     $result = $conn->query($sql);
@@ -39,16 +38,14 @@ function handleGetEquipos($conn) {
     }
 
     echo json_encode($equipos);
-    exit; // Important to exit after sending response
+    exit; 
 }
-
 function handlePostEquipo($conn) {
     $data = json_decode(file_get_contents('php://input'), true);
     $marca = $data['marca'];
     $serial = $data['serial'];
     $estado = $data['estado'];
 
-    // Check for duplicate serial before inserting
     $check_sql = "SELECT COUNT(*) FROM equipos WHERE serial = ?";
     $check_stmt = $conn->prepare($check_sql);
     if ($check_stmt === false) {
@@ -66,7 +63,7 @@ function handlePostEquipo($conn) {
     if ($count > 0) {
         http_response_code(409);
         echo json_encode(['message' => 'Error: Ya existe un equipo con este número de serie.']);
-        exit; // Important to exit after sending response
+        exit;
     }
 
     $sql = "INSERT INTO equipos (marca, serial, estado) VALUES (?, ?, ?)";
@@ -82,7 +79,6 @@ function handlePostEquipo($conn) {
         echo json_encode(['message' => 'Equipo creado con éxito', 'id' => $conn->insert_id]);
     } else {
         http_response_code(500);
-        // Specifically check for duplicate entry error from MySQL (error code 1062)
         if ($conn->errno == 1062) {
             echo json_encode(['message' => 'Error: El número de serie ya existe.']);
         } else {
@@ -90,15 +86,14 @@ function handlePostEquipo($conn) {
         }
     }
     $stmt->close();
-    exit; // Important to exit after sending response
+    exit; 
 }
-
 function handlePutEquipo($conn) {
     $id_equipo = isset($_GET['id']) ? (int)$_GET['id'] : 0;
     if ($id_equipo === 0) {
         http_response_code(400);
         echo json_encode(['message' => 'ID de equipo no proporcionado para la actualización.']);
-        exit; // Important to exit after sending response
+        exit; 
     }
 
     $data = json_decode(file_get_contents('php://input'), true);
@@ -106,7 +101,6 @@ function handlePutEquipo($conn) {
     $serial = $data['serial'];
     $estado = $data['estado'];
 
-    // Check for duplicate serial, excluding the current equipment being updated
     $check_sql = "SELECT COUNT(*) FROM equipos WHERE serial = ? AND id_equipo != ?";
     $check_stmt = $conn->prepare($check_sql);
     if ($check_stmt === false) {
@@ -124,7 +118,7 @@ function handlePutEquipo($conn) {
     if ($count > 0) {
         http_response_code(409);
         echo json_encode(['message' => 'Error: Ya existe otro equipo con este número de serie.']);
-        exit; // Important to exit after sending response
+        exit; 
     }
 
     $sql = "UPDATE equipos SET marca = ?, serial = ?, estado = ? WHERE id_equipo = ?";
@@ -147,7 +141,7 @@ function handlePutEquipo($conn) {
         echo json_encode(['message' => 'Error al actualizar equipo: ' . $stmt->error]);
     }
     $stmt->close();
-    exit; // Important to exit after sending response
+    exit; 
 }
 
 function handleDeleteEquipo($conn) {
@@ -155,7 +149,7 @@ function handleDeleteEquipo($conn) {
     if ($id_equipo === 0) {
         http_response_code(400);
         echo json_encode(['message' => 'ID de equipo no proporcionado para la eliminación.']);
-        exit; // Important to exit after sending response
+        exit; 
     }
 
     $sql = "DELETE FROM equipos WHERE id_equipo = ?";

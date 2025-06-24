@@ -43,6 +43,7 @@ include_once __DIR__ . '/Php/Hora_ingreso.php';
         <summary><i class="fa-solid fa-arrow-right-from-bracket" id="close"></i> </summary>
         <div class="dropdown-content">
           <a href="Php/Logout.php">🏃 Cerrar Sesión</a>
+          <!-- <a href="Cambiar_contraseña.php" class="cambiarcontrasena">🔑 Cambiar Contraseña</a> -->
         </div>
       </details>
     </div>
@@ -66,7 +67,7 @@ include_once __DIR__ . '/Php/Hora_ingreso.php';
                 <div class="titulo">Inventario</div>
                 <div class="descripcion">Administra materiales y equipos disponibles.</div>
             </a>
-            <a href="Gestion_Usuarios.php" class="card">
+            <a href="Gestion_Instructores.php" class="card">
                 <i class="fas fa-users"></i>
                 <div class="titulo">Instructores</div>
                 <div class="descripcion">Registrar y administrar instructores.</div>
@@ -76,16 +77,23 @@ include_once __DIR__ . '/Php/Hora_ingreso.php';
                 <div class="titulo">Novedades</div>
                 <div class="descripcion">Visualiza reportes de daños, pérdidas y otros eventos.</div>
             </a>
-        <a href="Aceptar_Usuarios.php" class="card">
+        <a href="Usuarios.php" class="card">
         <i class="fa-solid fa-user-plus"></i>
-        <div class="titulo">Aceptar Usuarios</div>
-        <div class="descripcion">Administra solicitudes de ingreso de nuevos usuarios al sistema.</div>
+        <div class="titulo">Administrar Usuarios</div>
+        <div class="descripcion">Registrar y administrar nuevos usuarios para que puedan tener acceso al sistema.</div>
+      </a>
+        <a href="Historial_Sesiones.php" class="card2">
+        <i class="fa-solid fa-hourglass-start"></i>
+        <div class="titulo2">Historial Sesiones</div>
+        <div class="descripcion2">Ver el historial de acceso al sistema de cada usuario.</div>
+      </a>
+        <a href="Historial_Sesiones.php" class="card2">
+        <i class="fa-solid fa-hourglass-start"></i>
+        <div class="titulo2">Mas opciones</div>
+        <div class="descripcion2">Accede para ver el historial de acceso al sistema de cada usuario.</div>
       </a>
     </div>
-  </main>
- <br>
-       <h2>Bienvenido</h2>
-
+  </main> 
   <script src="Js/Administrador.js"></script>
 </body>
 </html>

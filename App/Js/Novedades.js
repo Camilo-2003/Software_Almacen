@@ -1,8 +1,7 @@
 function validarFormulario() {
     document.getElementById("descripcion").value = document.getElementById("descripcion").value.trim();
-    document.getElementById("id_instructor").value = document.getElementById("id_instructor").value.trim();
-    document.getElementById("instructor").value = document.getElementById("instructor").value.trim();
     document.getElementById("observaciones").value = document.getElementById("observaciones").value.trim();
+    document.getElementById("busquedaNovedades").value = document.getElementById("busquedaNovedades").value.trim();
 
     return true;
 }
@@ -11,18 +10,13 @@ document.getElementById("descripcion").addEventListener("input", function(e) {
     this.value = this.value.replace(/^\s+/, '');
 });
 
-// Prevenir que el espacio sea el primer carácter y tambien al final en el id_instructor
-document.getElementById("id_instructor").addEventListener("input", function(e) {
-    this.value = this.value.replace(/^\s+|\s+$/g, ''); 
-});
-
-//evita insertar espacios al ingresar al campo instructor
-document.getElementById("instructor").addEventListener("input", function(e) {
+// Prevenir que el espacio sea el primer carácter en observaciones
+document.getElementById("observaciones").addEventListener("input", function(e) {
     this.value = this.value.replace(/^\s+/, '');
 });
 
-//evita insertar espacios al ingresar al campo observaciones
-  document.getElementById("observaciones").addEventListener("input", function(e) {
+//evita insertar espacios al ingresar al campo instructor
+document.getElementById("busquedaNovedades").addEventListener("input", function(e) {
     this.value = this.value.replace(/^\s+/, '');
 });
 

@@ -14,15 +14,23 @@ text-align: center;
 margin: 0;
 padding: 0;
 min-height: 100v;
-background-color: rgb(35, 122, 57);
+background-color: rgb(255, 255, 255,0.4);
 width: 100%;
 overflow-x: hidden;
 padding-bottom: 80px;
+overflow-y: scroll;
+}
+body::-webkit-scrollbar {
+display: none;
 }
 h1 {
-font-size: 40px;
-font-family: Stencil;
-animation: slideDown 2s ease-in-out;
+margin: 0;
+font-size: 2em;
+font-weight: 700;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+color: white;
 text-shadow: 0 2px 2px #ffffff, 0 2px 2px rgb(0, 0, 0);
 }
 .sis {
@@ -30,36 +38,54 @@ color: black;
 }
 .icon {
 text-shadow:none; 
+width: 55px;
 }
 h2 {
 margin-top: -16px;
 text-shadow: 1px 2px 2px rgb(141, 143, 142);
 }
 h3 {
-text-shadow: 2px 2px 2px rgb(0, 0, 0);
+text-shadow: 1px 1px 1px rgb(0, 0, 0);
 }
 header {
+height: 54px;
 position: sticky;
 display: flex;
 align-items: center;
-justify-content: space-between;
-padding: 3px;
-background-color: #f5f5f5;
-color: rgb(17, 179, 57);
+justify-content: center;
+padding: 3px 30px;
+background-color: #28a745;
+color: rgb(255, 255, 255);
 animation: slideDown 2s ease-in-out;
 box-shadow: 0 2px 3px rgb(8, 126, 43);
+top: 0;
+margin-bottom: 0;
+border-radius: 0;
+z-index: 1000;
 } 
 @keyframes slideDown {
 from { transform: translateY(-100px); opacity: 0; }
 to { transform: translateY(0); opacity: 1; }
+}
+i {
+font-size: 27px;
+}
+#ii {
+font-size: 32px;
+color: #000000;
 }
 .left-section {
 display: flex;
 align-items: center;
 }
 .logo {
-height: 90px;
-margin-right: 20px;
+height: 50px;
+filter: brightness(0) invert(1);
+transition: transform 0.3s ease;
+margin-right: 0;
+}
+.logo:hover {
+transform: scale(1.05);
 }
 .container {
 max-width: 900px;
@@ -107,15 +133,15 @@ bottom: -8px;
 transition: width 0.5s ease;
 }
 .span:hover {
-color: rgb(116, 66, 66);
+color: blue;
 }
 .span:hover::after {
 width: 100%;
 }
 footer {
 font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-background: #f5f5f5;
-color: rgb(17, 179, 57);
+background-color: #28a745;
+color: rgb(243, 243, 243);
 padding: 2px 6px;
 width: 99%;
 text-align: center;
@@ -133,9 +159,14 @@ text-shadow: 1px 1px 1px rgb(0, 0, 0);
 font-size: 18px;
 }
 .log {
-width: 90px;
-height: 80px;
+height: 50px;
+filter: brightness(0) invert(1);
+transition: transform 0.3s ease;
 animation: rotateLogo 7s infinite linear;
+margin-right: 0;
+}
+.log:hover {
+transform: scale(1.05);
 }
 @keyframes rotateLogo {
 0% { transform: rotateY(0deg); }
@@ -146,12 +177,12 @@ gap: 34px;
 display: flex;
 justify-content: space-around;
 margin: 20px 0;
-color: rgb(17, 179, 57);
+color: rgb(253, 253, 253);
 }
 .feature {
 box-shadow: 20px 15px 3px rgb(51, 49, 49);
 width: 25%;
-background: rgb(255, 255, 255);
+background-color: #28a745;
 padding: 20px;
 border-radius: 8px;
 transition: transform 0.7s;
@@ -159,7 +190,6 @@ transition-delay: 0.3s;
 }
 .feature:hover {
 transform: translateY(-25px);
-outline: 3px solid green;
 }
 .prf {
 font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -172,15 +202,16 @@ top: 0;
 z-index: 1001;
 height: 0;
 float: right;
+right: -483px;
 }
 .menu-button {
 position: absolute;
-top: -9px;
+top: -22px;
 right: 0;
 text-shadow: 2px 2px 2px rgb(0, 0, 0);
-background: rgb(255, 255, 255);
-color: rgb(17, 179, 57);
-padding: 20px 20px;
+background-color: rgba(255, 255, 255, 0.2);
+color: rgb(255, 255, 255);
+padding: 10px 18px;
 border: none;
 cursor: pointer;
 border-radius: 8px;
@@ -193,8 +224,7 @@ z-index: 1001;
 box-shadow: 2px 2px 4px rgb(27, 27, 27);
 }
 .menu-button:hover {
-background: #0c7927;
-color: white;
+background-color: rgba(255, 255, 255, 0.3);
 transform: scale(1.05);
 }
 .menu-icon {
@@ -210,12 +240,12 @@ margin: 0;
 .line {
 width: 100%;
 height: 3px;
-background-color: rgb(27, 156, 10);
+background-color: rgb(255, 255, 255);
 border-radius: 2px;
 transition: background 0.3s;
 }
 .menu-button:hover .line {
-background-color: white;
+background-color: rgb(0, 0, 0);
 }
 .menu-text {
 font-weight: bold;
@@ -236,7 +266,7 @@ top: 0;
 right: -300px;
 width: 250px;
 height: 100vh;
-background: rgb(255, 255, 255);
+background-color: #28a745;
 padding-top: 60px;
 transition: right 0.3s ease;
 text-align: left;
@@ -257,8 +287,8 @@ margin: 10px;
 border-bottom: 1px solid black;
 }
 .menu-list a:hover {
-background: green;
+background: rgb(40, 85, 55);
 color: white;
-box-shadow: 12px 12px 7px rgb(94, 93, 93);
+box-shadow: 12px 12px 7px rgb(19, 18, 18);
 transform: scale(1.01);
 }

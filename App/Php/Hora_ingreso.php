@@ -1,7 +1,6 @@
 <?php
 function obtenerFechaOrganizada($fechaHora){
     date_default_timezone_set('America/Bogota');
-
     $dias = [
         "Sunday" => "Domingo",
         "Monday" => "Lunes",
@@ -25,7 +24,6 @@ function obtenerFechaOrganizada($fechaHora){
 
     return "<b class='fecha'> <i class='fa-solid fa-calendar-days' id='icon'></i> Fecha:</b><strong class='vv'> $diaSemana, $dia de $mes de $año.</strong>"."<b class='hora'><i class='fa-solid fa-clock' id='icon'></i> Hora de ingreso:</b> <b class='vvv'> $hora</b>";
 }
-
 $hora_ingreso = '';
 $correo = $_SESSION["correo"] ?? null;
 if ($correo) {

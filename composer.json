@@ -1,8 +1,0 @@
-{
-  "name": "usuario/software-almacen",
-  "description": "Sistema de gestión de almacén",
-  "require": {},
-  "scripts": {
-    "start": "php -S 0.0.0.0:$PORT -t ."
-  }
-}

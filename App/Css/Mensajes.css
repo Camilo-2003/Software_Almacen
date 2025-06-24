@@ -1,0 +1,21 @@
+.floating-message {
+    position: fixed;
+    top: 50px;
+    right: 510px;
+    background-color: #333;
+    color: white;
+    padding: 5px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-weight: bold;
+    z-index: 99999;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+.floating-message.success {
+    background-color: #4CAF50;
+}
+
+.floating-message.error {
+    background-color: #f44336;
+}

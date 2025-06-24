@@ -1,0 +1,226 @@
+body {
+/* background-image: url(../Img/sena1.jpg); */
+/* background-size: cover;
+background-position: center; */
+background-color: #28a745;
+font-family: Arial, sans-serif;
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100vh;
+margin: 0;
+padding: 0;
+overflow: hidden;
+}
+h2 {
+text-align: center;
+margin-top: -40px;
+}
+header {
+text-align: center;
+margin-left: 4px;
+}
+form {
+background: rgba(255, 255, 255); 
+padding: 50px;
+border-radius: 10px;
+box-shadow: 10px 10px 55px rgb(0, 0, 0);
+width: 615px; 
+height: 96%;
+max-width: 95%;
+box-sizing: border-box;
+margin-top: 17px;
+}
+.contain {
+margin: 30px auto;
+height: 100%;
+margin-left: 210px;
+}
+label {
+display: block;
+margin-bottom: -2px;
+color: #000000;
+font-weight: bold;
+font-size: 15px;
+padding: 5px;
+}
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="password"],
+input[type="date"] {
+width: 100%;
+padding: 8px;
+margin-bottom: 10px;
+border: 2px solid #000000;
+border-radius: 6px;
+box-sizing: border-box;
+transition: border-color 0.3s;
+font-size: 14px;
+}
+input:focus {
+border-color: #007bff;
+outline: none;
+}
+.botones {
+display: flex;
+justify-content: space-between; 
+margin-top: 1px;
+}
+button {
+width: 48%;
+padding: 8px;
+border: none;
+border-radius: 6px;
+cursor: pointer;
+font-weight: bold;
+font-size: 14px;
+}
+button[type="submit"] {
+background-color: blue;
+color: white;
+}
+button[type="submit"]:hover {
+background-color: #0056b3;
+transform: scale(1.03);
+}
+button[type="button"] {
+background-color: red;
+color: white;
+}
+button[type="button"]:hover {
+background-color: #e60b20;
+transform: scale(1.03);
+}
+@media (max-width: 400px) {
+form {
+width: 95%;
+}
+.botones {
+flex-direction: column;
+}
+button {
+width: 100%;
+margin-top: -4px;
+}
+}
+#loader {
+position: fixed;
+top: 0; left: 0;
+width: 100vw; height: 100vh;
+background: rgba(255,255,255,0.9);
+z-index: 9999;
+display: flex;
+justify-content: center;
+align-items: center;
+animation: fadeOut 0s ease 0.5s forwards; 
+}
+.spinner {
+width: 60px;
+height: 60px;
+border: 6px solid #ccc;
+border-top: 6px solid #3498db;
+border-radius: 50%;
+animation: spin 1s linear infinite;
+}
+@keyframes spin {
+0% { transform: rotate(0deg); }
+100% { transform: rotate(360deg); }
+}
+@keyframes fadeOut {
+to {
+opacity: 0;
+visibility: hidden;
+}
+}
+.loader-text {
+text-align: center;
+color: green;
+font-weight: bold;
+position: fixed;
+top: 370px; left: 645px;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+.regist {
+color: #df1428;
+text-decoration: none;
+font-weight: bold;
+font-size: 17px;
+transition: color 0.3s ease;
+border-bottom: 2px solid transparent; 
+position: relative;
+}
+.regist::after{
+content: "";
+width: 0;
+height: 4px;
+position: absolute;
+background: blue;
+left: 0;
+bottom: -8px;
+transition: width 0.5s ease;
+}
+.regist:hover {
+color: blue;  
+}
+.regist:hover::after {
+width: 100%;
+}
+.ingresar {
+text-align: center;
+}
+.regresar {
+margin-top: -290px;
+margin-right: 35px;
+float: right; 
+padding: auto;
+}
+.regresar:hover {
+transform: translateY(-2px);
+}
+.rgs {
+background-color: rgba(255, 255, 255, 0.2);
+color: white;
+padding: 12px 20px;
+border-radius: 25px;
+text-decoration: none;
+font-weight: 600;
+transition: background-color var(--transition-speed), transform 0.2s ease;
+border: 1px solid rgba(255, 255, 255, 0.4);
+box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+/* .users {
+float: right;
+margin-top: -290px;
+margin-right: -1180px;
+float: right; 
+padding: auto;
+}
+.users:hover {
+transform: translateY(-2px);
+}
+.user {
+background-color: rgba(255, 255, 255, 0.2);
+color: white;
+padding: 12px 20px;
+border-radius: 25px;
+text-decoration: none;
+font-weight: 600;
+transition: background-color var(--transition-speed), transform 0.2s ease;
+border: 1px solid rgba(255, 255, 255, 0.4);
+box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+} */
+select {
+width: 100%;
+height: 35px;
+border-radius: 15px;
+border: 2px solid black;
+}
+select:focus {
+border-color: #007bff;
+}
+i {
+font-size: 25px;
+}

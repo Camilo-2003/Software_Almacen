@@ -14,6 +14,7 @@
         <ul>
             <li>Haber iniciado sesión con una cuenta válida.</li>
             <li>Verificar que la URL sea correcta.</li>
+            <li>Valida los permisos asociados a tu cuenta.</li>
         </ul>
 </div><br>
     <a href="Login.php">Iniciar Sesión</a>

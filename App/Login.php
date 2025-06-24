@@ -7,10 +7,8 @@
   <title>Iniciar Sesión</title>
   <link rel="stylesheet" href="Css/Login.css">
   <link rel="stylesheet" href="vendor/fontawesome/css/all.min.css">
-
 </head>
 <body>
-
   <div id="loader">
     <div class="spinner"></div>
     <div class="loader-text">Cargando...</div>
@@ -18,9 +16,9 @@
 
   <header>
     <img src="Img/logo_sena.png" alt="Logo Sena" class="logo">
-    <h1>📦 Sistema de Almacén</h1>
+    <h1>Sistema de Almacén</h1>
     <div class="btn">
-      <a href="index.html" class="btnn">Regresar</a>
+      <a href="index.html" class="btnn"><i class="fas fa-reply"></i> Regresar</a>
   </div>
   </header>
  
@@ -34,10 +32,9 @@
       <span id="ver"><i id="icono" class="fas fa-eye"></i></span>
       <button type="submit">Ingresar</button>
   </form>
-  
-  <p>¿No tienes cuenta? <a href="Registrarse.html" class="regist">Regístrate aquí</a></p>
+  <p>¿Olvidaste tu Contraseña? <a href="Php/Contraseña/Recuperar_Password.php" class="regist">Ingresa aquí</a></p>
+  <!-- <p>¿No tienes cuenta? <a href="Registrarse.html" class="regist">Regístrate aquí</a></p> -->
   </div>
-
   <script src="Js/Login.js"></script>
  
 </body>

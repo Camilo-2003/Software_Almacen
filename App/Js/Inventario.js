@@ -1,4 +1,3 @@
-// Funcionalidad de pestañas principales
 function openTab(event, tabId) {
     const tabContents = document.querySelectorAll('.tab-content');
     tabContents.forEach(content => content.classList.remove('active'));
@@ -31,122 +30,88 @@ function showFloatingMessage(message, isError = false) {
         }, 500); 
     }, 5000);
 }
+// SECCIÓN DE EQUIPOS 
 async function loadEquipos() {
     try {
         const response = await fetch('../../Php/Inventario/Equipos.php');
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const equipos = await response.json();
-
         const equiposTableBody = document.getElementById('equiposTableBody');
         equiposTableBody.innerHTML = '';
-
         equipos.forEach(equipo => {
             const row = equiposTableBody.insertRow();
-
             row.insertCell().textContent = equipo.id_equipo;
             row.insertCell().textContent = equipo.marca;
             row.insertCell().textContent = equipo.serial;
             row.insertCell().textContent = equipo.estado;
-
-            // Celda para los botones de acción
             const actionsCell = row.insertCell();
             actionsCell.classList.add('action-buttons');
-
-            // Botón Editar
             const editButton = document.createElement('button');
             editButton.innerHTML = '<i class="fa-solid fa-pen-to-square" id="ii"></i>' + ' Editar';
             editButton.onclick = () => editEquipo(equipo);
             actionsCell.appendChild(editButton);
-
-            // Botón Eliminar
             const deleteButton = document.createElement('button');
             deleteButton.innerHTML = '<i class="fa-solid fa-trash" id="ii"></i>' + ' Eliminar';
             deleteButton.classList.add('delete-button');
             deleteButton.onclick = () => deleteEquipo(equipo.id_equipo);
             actionsCell.appendChild(deleteButton);
         });
-
     } catch (error) {
         console.error('Error al cargar equipos:', error);
         showFloatingMessage('Error al cargar equipos: ' + error.message, true);
     }
 }
-
-// Guardar Equipo (Registrar/Modificar)
 async function saveEquipo() {
     const id = document.getElementById('equipoId').value;
     const marca = document.getElementById('equipoMarca').value;
     const serial = document.getElementById('equipoSerial').value.trim();
     const estado = document.getElementById('equipoEstado').value;
-
     if (!marca || marca === 'default' || !serial) {
         showFloatingMessage('Por favor selecciona una marca válida y completa el serial.', true);
         return;
     }
-
     const data = { marca, serial, estado };
     let url = '../../Php/Inventario/Equipos.php';
     let method = 'POST';
-
-    if (id) { // Si hay un ID, es una modificación
+    if (id) {
         url = `../../Php/Inventario/Equipos.php?id=${id}`;
         method = 'PUT';
     }
-
     try {
         const response = await fetch(url, {
             method,
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data),
         });
         const result = await response.json();
-
         if (response.ok) {
             showFloatingMessage(result.message);
             loadEquipos();
             clearEquipoForm();
         } else {
-            if (response.status === 409) {
-                showFloatingMessage(result.message, true);
-            } else {
-                showFloatingMessage(result.message || 'Error desconocido al guardar equipo.', true);
-            }
+            showFloatingMessage(result.message || 'Error desconocido', true);
         }
     } catch (error) {
         console.error('Error en la conexión al guardar equipo:', error);
         showFloatingMessage('Error de conexión o servidor al guardar equipo.', true);
     }
 }
-// Editar equipo
 function editEquipo(equipo) {
     document.getElementById('equipoId').value = equipo.id_equipo;
     document.getElementById('equipoMarca').value = equipo.marca;  
     document.getElementById('equipoSerial').value = equipo.serial;
     document.getElementById('equipoEstado').value = equipo.estado;
 }
-
-// Eliminar equipo
 async function deleteEquipo(id) {
     if (confirm(`¿Estás seguro de que quieres eliminar el equipo con ID ${id}?`)) {
         try {
-            // Envía el ID como parámetro de consulta para DELETE
-            const response = await fetch(`../../Php/Inventario/Equipos.php?id=${id}`, {
-                method: 'DELETE',
-            });
-
+            const response = await fetch(`../../Php/Inventario/Equipos.php?id=${id}`, { method: 'DELETE' });
             const result = await response.json();
-
             if (response.ok) {
                 showFloatingMessage(result.message);
                 loadEquipos();
             } else {
-                showFloatingMessage(result.message || 'Error desconocido al eliminar equipo.', true);
+                showFloatingMessage(result.message || 'Error desconocido', true);
             }
         } catch (error) {
             console.error('Error en la conexión al eliminar equipo:', error);
@@ -154,23 +119,18 @@ async function deleteEquipo(id) {
         }
     }
 }
-
-// Limpiar formulario de equipo
 function clearEquipoForm() {
     document.getElementById('equipoId').value = '';
-    document.getElementById('equipoMarca').value = 'default';  // Valor por defecto del select
+    document.getElementById('equipoMarca').value = 'default';
     document.getElementById('equipoSerial').value = '';
-    document.getElementById('equipoEstado').value = 'disponible';
+    document.getElementById('equipoEstado').value = '';
 }
-// Cargar materiales
+// SECCIÓN DE MATERIALES 
 async function loadMateriales() {
     try {
         const response = await fetch('/Software_Almacen/App/Php/Inventario/Materiales.php');
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const materiales = await response.json();
-
         const materialesTableBody = document.getElementById('materialesTableBody');
         materialesTableBody.innerHTML = '';
 
@@ -180,15 +140,13 @@ async function loadMateriales() {
             row.insertCell().textContent = material.nombre;
             row.insertCell().textContent = material.tipo;
             row.insertCell().textContent = material.stock;
-            // row.insertCell().textContent = ''; // Columna vacía para "Descripción"
+            row.insertCell().textContent = material.estado_material; 
             const actionsCell = row.insertCell();
             actionsCell.classList.add('action-buttons');
-
             const editButton = document.createElement('button');
             editButton.innerHTML = '<i class="fa-solid fa-pen-to-square" id="ii"></i>' + ' Editar';
             editButton.onclick = () => editMaterial(material);
             actionsCell.appendChild(editButton);
-
             const deleteButton = document.createElement('button');
             deleteButton.innerHTML = '<i class="fa-solid fa-trash" id="ii"></i>' + ' Eliminar';
             deleteButton.classList.add('delete-button');
@@ -200,24 +158,23 @@ async function loadMateriales() {
         showFloatingMessage('Error al cargar materiales.', true);
     }
 }
-
-// Guardar Material (Registrar/Modificar)
 async function saveMaterial() {
     const id = document.getElementById('materialId').value;
-    const nombre = document.getElementById('materialNombre').value.trim(); // Trim whitespace
+    const nombre = document.getElementById('materialNombre').value.trim();
     const tipo = document.getElementById('materialTipo').value;
     const stock = document.getElementById('materialStock').value;
+    const estado_material = document.getElementById('estadoMaterial').value;
 
-    if (!nombre || stock === '') {
-        showFloatingMessage('Nombre y Stock son campos obligatorios para materiales.', true);
+    if (!nombre || !tipo || stock === '' || !estado_material) {
+        showFloatingMessage('Todos los campos son obligatorios para materiales.', true);
         return;
-    }
+    } 
     if (parseInt(stock) < 0) {
         showFloatingMessage('El stock no puede ser negativo.', true);
         return;
     }
 
-    const data = { nombre, tipo, stock: parseInt(stock) };
+    const data = { nombre, tipo, stock, estado_material };
     let url = '../../Php/Inventario/Materiales.php';
     let method = 'POST';
 
@@ -229,54 +186,38 @@ async function saveMaterial() {
     try {
         const response = await fetch(url, {
             method: method,
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data),
         });
-
         const result = await response.json();
-
         if (response.ok) {
             showFloatingMessage(result.message);
-            loadMateriales();
-            clearMaterialForm();
+            loadMateriales(); 
         } else {
-            if (response.status === 409) { 
-                showFloatingMessage(result.message, true);
-            } else {
-                showFloatingMessage(result.message || 'Error desconocido al guardar material.', true);
-            }
+            showFloatingMessage(result.message || 'Error desconocido', true);
         }
     } catch (error) {
         console.error('Error en la conexión al guardar material:', error);
         showFloatingMessage('Error de conexión o servidor al guardar material.', true);
     }
 }
-
-// Editar material
 function editMaterial(material) {
     document.getElementById('materialId').value = material.id_material;
     document.getElementById('materialNombre').value = material.nombre;
     document.getElementById('materialTipo').value = material.tipo;
     document.getElementById('materialStock').value = material.stock;
+    document.getElementById('estadoMaterial').value = material.estado_material; 
 }
-
-// Eliminar material
 async function deleteMaterial(id, nombre) { 
     if (confirm(`¿Estás seguro de que quieres eliminar el material '${nombre}' con ID ${id}?`)) {
         try {
-            const response = await fetch(`../../Php/Inventario/Materiales.php?id=${id}`, {
-                method: 'DELETE',
-            });
-
+            const response = await fetch(`../../Php/Inventario/Materiales.php?id=${id}`, { method: 'DELETE' });
             const result = await response.json();
-
             if (response.ok) {
                 showFloatingMessage(result.message);
                 loadMateriales();
             } else {
-                showFloatingMessage(result.message || 'Error desconocido al eliminar material.', true);
+                showFloatingMessage(result.message || 'Error desconocido', true);
             }
         } catch (error) {
             console.error('Error en la conexión al eliminar material:', error);
@@ -284,18 +225,15 @@ async function deleteMaterial(id, nombre) {
         }
     }
 }
-
-// Limpiar formulario de material
 function clearMaterialForm() {
     document.getElementById('materialId').value = '';
     document.getElementById('materialNombre').value = '';
-    document.getElementById('materialTipo').value = 'consumible';
-    document.getElementById('materialStock').value = '0';
+    document.getElementById('materialTipo').value = '';
+    document.getElementById('materialStock').value = '1';
+    document.getElementById('estadoMaterial').value = 'disponible'; 
 }
-
-// Inicializar la aplicación
 document.addEventListener('DOMContentLoaded', () => {
     loadEquipos();
     loadMateriales();
-    document.querySelector('.tab-button.active').click();
-});  
+    document.querySelector('.tab-button').click();
+});
