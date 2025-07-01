@@ -25,8 +25,6 @@ function validarFormulario() {
     var correoInput = document.getElementById("correo");
     var passwordInput = document.getElementById("password");
 
-     // .replace Método que reemplaza parte del texto
-    // Limpiar espacios iniciales
     correoInput.value = correoInput.value.replace(/^\s+/, '');
     passwordInput.value = passwordInput.value.replace(/^\s+/, '');
 
@@ -44,7 +42,6 @@ function validarFormulario() {
 
     return true;
   }
-
   // Prevenir espacios al inicio mientras escribe
   document.getElementById("correo").addEventListener("input", function(e) {
     this.value = this.value.replace(/^\s+/, '');
@@ -60,6 +57,14 @@ const params = new URLSearchParams(window.location.search);
 // Verificar si viene el mensaje de cierre
 if (params.get("mensaje") === "cierre") {
     showFloatingMessage("✅ ¡Has cerrado sesión correctamente!");
+    const nuevaUrl = window.location.origin + window.location.pathname;
+    window.history.replaceState({}, document.title, nuevaUrl);
+}else if (params.get("mensaje") === "error") {
+    showFloatingMessage("❌No estás registrado. Por favor, comunicate con el administrador del sistema.", true);
+    const nuevaUrl = window.location.origin + window.location.pathname;
+    window.history.replaceState({}, document.title, nuevaUrl);
+}else if (params.get("mensaje") === "password") {
+    showFloatingMessage("❌La contraseña es incorrecta. Por favor, intentalo de nuevo.", true);
     const nuevaUrl = window.location.origin + window.location.pathname;
     window.history.replaceState({}, document.title, nuevaUrl);
 }

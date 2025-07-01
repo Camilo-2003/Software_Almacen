@@ -75,14 +75,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             } else {
                 $stmt->close();
                 $conexion->close();
-                echo "<script>alert('🚨 Contraseña incorrecta.'); window.location.href='../Login.php';</script>";
+                header("Location: ../Login.php?mensaje=password");
                 exit();
             }
         }
         $stmt->close();
     }
     $conexion->close();
-    echo "<script>alert('🚨 No estás registrado. Por favor, regístrate.'); window.location.href='/Software_Almacen/App/Registrarse.html';</script>";
+    header("Location: ../Login.php?mensaje=error");
     exit();
 }
 ?>

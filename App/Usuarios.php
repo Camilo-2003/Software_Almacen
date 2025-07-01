@@ -2,6 +2,12 @@
 include("ProhibirAcceso.php");
 require_once $_SERVER['DOCUMENT_ROOT'] . '/Software_Almacen/App/Conexion.php';
 
+function sendJsonResponse($message, $type) {
+    header('Content-Type: application/json');
+    echo json_encode(['message' => $message, 'type' => $type]);
+    exit();
+}
+
 if ($_SESSION["rol"] !== "administrador") {
     header("Location: Error.php");
     exit();
@@ -11,7 +17,7 @@ if ($_SESSION["rol"] !== "administrador") {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'delete_user') {
     $id = intval($_POST['id_to_delete']);
     $rol = $_POST['rol_to_delete'];
-
+    $stmt = null;
     if ($rol === 'administrador') {
         $stmt = $conexion->prepare("DELETE FROM administradores WHERE id_administrador = ?");
     } elseif ($rol === 'almacenista') {
@@ -20,12 +26,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 
     if ($stmt) {
         $stmt->bind_param("i", $id);
-        $stmt->execute();
+        if ($stmt->execute()) {
+            sendJsonResponse('✅ Usuario eliminado correctamente.', 'success');
+        } else {
+            sendJsonResponse('🚨 Error al eliminar el usuario.', 'error');
+        }
         $stmt->close();
+    } else {
+        sendJsonResponse('🚨 Rol de usuario no válido.', 'error');
     }
-
-    header("Location: Usuarios.php");
-    exit();
+    $conexion->close();
 }
 
 // Procesar edición
@@ -36,6 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     $apellidos = $_POST['apellidos'];
     $correo = $_POST['correo'];
     $telefono = $_POST['telefono'];
+    $stmt = null;
 
     if ($rol === 'administrador') {
         $stmt = $conexion->prepare("UPDATE administradores SET nombres=?, apellidos=?, correo=?, telefono=? WHERE id_administrador=?");
@@ -45,14 +56,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 
     if ($stmt) {
         $stmt->bind_param("ssssi", $nombres, $apellidos, $correo, $telefono, $id);
-        $stmt->execute();
+        if ($stmt->execute()) {
+            sendJsonResponse('✅ Usuario actualizado correctamente.', 'success');
+        } else {
+            sendJsonResponse('🚨 Error al actualizar el usuario.', 'error');
+        }
         $stmt->close();
+    } else {
+        sendJsonResponse('🚨 Rol de usuario no válido.', 'error');
     }
-
-    header("Location: Usuarios.php");
-    exit();
+    $conexion->close();
 }
-
 // Obtener usuario a editar si hay parámetro ?edit
 $editar_usuario = null;
 if (isset($_GET['edit']) && isset($_GET['rol'])) {
@@ -104,6 +118,7 @@ $conexion->close();
 <title>Gestión de Usuarios | SENA</title>
 <link rel="stylesheet" href="vendor/fontawesome/css/all.min.css">
 <link rel="stylesheet" href="Css/Usuarios.css"> 
+<script src="Js/Mensajes.js" defer></script>
 </head>
 <body>
 <header>
@@ -172,7 +187,7 @@ $conexion->close();
                         <td class='text-center'><?php echo htmlspecialchars($admin['telefono']); ?></td>
                         <td class='action-buttons'>
                             <a href='Usuarios.php?edit=<?php echo $admin['id_administrador']; ?>&rol=administrador' class='btn btn-edit'><i class='fas fa-edit'></i> Editar</a>
-                            <form action='Usuarios.php' method='POST' class="inline-form" onsubmit='return confirm("¿Estás seguro que deseas eliminar este administrador?");'>
+                            <form action='Usuarios.php' method='POST' class="inline-form">
                                 <input type='hidden' name='action' value='delete_user'>
                                 <input type='hidden' name='id_to_delete' value='<?php echo $admin['id_administrador']; ?>'>
                                 <input type='hidden' name='rol_to_delete' value='administrador'>
@@ -230,5 +245,7 @@ $conexion->close();
         </div>
     </div>
 </div>
+<br>
+<script src="Js/Usuarios.js"></script>
 </body>
 </html>

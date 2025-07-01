@@ -1,5 +1,10 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/Software_Almacen/App/Conexion.php';
+
+function sendJsonResponse($message, $type) {
+    echo json_encode(['message' => $message, 'type' => $type]);
+    exit(); 
+}
 //Garantiza que las variables tengan un valor 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $rol = $_POST['rol'] ?? ''; 
@@ -11,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password_hashed = password_hash($password, PASSWORD_DEFAULT); // Se encriptar la contraseña
 
     if (!in_array($rol, ['almacenista', 'administrador'])) {
-        echo "<script>alert('🚨 Rol no válido.'); window.location.href='../Registrar_Usuarios.php';</script>";
+        sendJsonResponse('🚨 Rol no válido.', 'error');
         exit();
     }
     $nombre_tabla = '';
@@ -27,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql_check = "SELECT $id_columna FROM $nombre_tabla WHERE correo = ?";
     $stmt_check = $conexion->prepare($sql_check);
     if (!$stmt_check) {
-        echo "<script>alert('🚨 Error en la preparación de la consulta de verificación: " . $conexion->error . "'); window.location.href='../Registrar_Usuarios.php';</script>";
+        sendJsonResponse('🚨 Error en la preparación de la consulta de verificación: ' . $conexion->error, 'error');
         $conexion->close();
         exit();
     }
@@ -36,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt_check->store_result();
 
     if ($stmt_check->num_rows > 0) {
-        echo "<script>alert('⚠️ El correo ya está registrado. Usa otro.'); window.location.href='../Registrar_Usuarios.php';</script>";
+        sendJsonResponse('⚠️ El correo ya está registrado. Usa otro.', 'error');
         $stmt_check->close();
         $conexion->close();
         exit();
@@ -46,23 +51,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql_insertar = "INSERT INTO $nombre_tabla (nombres, apellidos, correo, telefono, password) VALUES (?, ?, ?, ?, ?)";
     $stmt_insertar = $conexion->prepare($sql_insertar);
     if (!$stmt_insertar) {
-        echo "<script>alert('🚨 Error en la preparación de la consulta de inserción: " . $conexion->error . "'); window.location.href='../Registrar_Usuarios.php';</script>";
+        sendJsonResponse('🚨 Error en la preparación de la consulta de inserción: ' . $conexion->error, 'error');
         $conexion->close();
         exit();
     }
     $stmt_insertar->bind_param("sssss", $nombres, $apellidos, $correo, $telefono, $password_hashed);
 
     if ($stmt_insertar->execute()) {
-        echo "<script>alert('✅ Registro exitoso. Este usuario ya puede acceder al sistema.'); window.location.href='../Registrar_Usuarios.php';</script>";
+        sendJsonResponse('✅ Registro exitoso. Este usuario ya puede acceder al sistema.', 'success');
     } else {
-        echo "<script>alert('🚨 Error al registrar. Inténtalo de nuevo: " . $stmt_insertar->error . "'); window.location.href='../Registrar_Usuarios.php';</script>";
+        sendJsonResponse('🚨 Error al registrar. Inténtalo de nuevo: ' . $stmt_insertar->error, 'error');
     }
 
     $stmt_insertar->close();
     $conexion->close();
     exit();
 } else {
-    echo "<script>alert('Acceso no autorizado. Por favor, envía el formulario correctamente.'); window.location.href='../Registrar_Usuarios.php';</script>";
+    sendJsonResponse('Acceso no autorizado. Por favor, envía el formulario correctamente.', 'error');
     exit();
 }
 ?>

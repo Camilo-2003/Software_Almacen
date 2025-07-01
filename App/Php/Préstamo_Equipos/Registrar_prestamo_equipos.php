@@ -1,6 +1,12 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
 require_once $_SERVER['DOCUMENT_ROOT'] . '/Software_Almacen/App/Conexion.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/Software_Almacen/App/ProhibirAcceso.php';
+
+if (!isset($_SESSION["rol"]) || ($_SESSION["rol"] !== "almacenista" && $_SESSION["rol"] !== "administrador")) {
+    header("Location: /Software_Almacen/App/Error.php");
+    exit();
+}
 
 $response = ['success' => false, 'message' => ''];
 
@@ -16,7 +22,7 @@ try {
     $rol_responsable = $datos['rol_responsable'];
     $responsable = $datos['responsable'];
     date_default_timezone_set('America/Bogota');
-    $fecha_prestamo = date("Y-m-d h:i:s A");
+    $fecha_prestamo = date("Y-m-d H:i:s"); //Formato 24h 
 
     $conexion->begin_transaction();
 
@@ -31,12 +37,16 @@ try {
     $id_prestamo = $conexion->insert_id;
     $stmt_insert_prestamo->close();
 
-    $stmt_insert_detalle = $conexion->prepare("INSERT INTO prestamo_equipos_detalle (id_prestamo_equipo, id_equipo, estado_item_prestamo, fecha_vencimiento_item) VALUES (?, ?, 'prestado', DATE_FORMAT(DATE_ADD(NOW(), INTERVAL 6 HOUR), '%Y-%m-%d %h:%i:%s %p'))");
+    $stmt_insert_detalle = $conexion->prepare("INSERT INTO prestamo_equipos_detalle (id_prestamo_equipo, id_equipo, estado_item_prestamo, fecha_vencimiento_item) VALUES (?, ?, 'prestado', DATE_ADD(NOW(), INTERVAL 6 HOUR))");
     $stmt_update_equipo = $conexion->prepare("UPDATE equipos SET estado = 'prestado' WHERE id_equipo = ?");
 
     if (!$stmt_insert_detalle || !$stmt_update_equipo) {
         throw new Exception("Error al preparar las sentencias de detalle o equipo: " . $conexion->error);
     }
+
+    // Depuración de la fecha
+    $fecha_vencimiento_log = $conexion->query("SELECT DATE_ADD(NOW(), INTERVAL 6 HOUR) AS fecha_vencimiento")->fetch_assoc()['fecha_vencimiento'];
+    error_log("Fecha de vencimiento calculada: " . $fecha_vencimiento_log);
 
     foreach ($equipo_ids as $id_equipo) {
         $stmt_insert_detalle->bind_param("ii", $id_prestamo, $id_equipo);
@@ -51,7 +61,6 @@ try {
     $stmt_insert_detalle->close();
     $stmt_update_equipo->close();
 
-    // Actualizar disponibilidad del instructor
     $stmt_update_disponibilidad = $conexion->prepare("UPDATE instructores SET disponibilidad_prestamo = 'no_disponible' WHERE id_instructor = ?");
     if (!$stmt_update_disponibilidad) {
         throw new Exception("Error al preparar la sentencia de actualización de disponibilidad: " . $conexion->error);
@@ -65,7 +74,7 @@ try {
     $conexion->commit();
 
     $response['success'] = true;
-    $response['message'] = 'Préstamo registrado exitosamente.';
+    $response['message'] = '✅ Préstamo registrado exitosamente.';
 
 } catch (Exception $e) {
     $conexion->rollback();

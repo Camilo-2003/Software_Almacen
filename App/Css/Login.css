@@ -106,7 +106,7 @@ font-weight: bold;
 font-size: 17px;
 transition: color 0.3s ease;
 border-bottom: 2px solid transparent; 
-position: relative;
+position: relative; 
 }
 .regist::after{
 content: "";
@@ -149,25 +149,7 @@ background-color: rgba(255, 255, 255, 0.3);
 transform: translateY(-2px);
 box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
-#loader {
-position: fixed;
-top: 0; left: 0;
-width: 100vw; height: 100vh;
-background: rgba(255,255,255,0.9);
-z-index: 9999;
-display: flex;
-justify-content: center;
-align-items: center;
-animation: fadeOut 0s ease 0.5s forwards;
-}
-.spinner {
-width: 60px;
-height: 60px;
-border: 6px solid #ccc;
-border-top: 6px solid #3498db;
-border-radius: 50%;
-animation: spin 1s linear infinite;
-}
+
 @keyframes spin {
 0% { transform: rotate(0deg); }
 100% { transform: rotate(360deg); }
@@ -178,16 +160,6 @@ opacity: 0;
 visibility: hidden;
 }
 }
-.loader-text {
-text-align: center;
-color: green;
-font-weight: bold;
-position: fixed;
-top: 370px; left: 645px;
-display: flex;
-justify-content: center;
-align-items: center;
-}
 #icono {
 font-size: 20px;
 margin-top: 28px;
@@ -197,7 +169,8 @@ float: right;
 .floating-message {
 position: fixed;
 top: 55px;
-right: 510px;
+left: 50%;
+transform: translateX(-50%); 
 background-color: #333;
 color: white;
 padding: 8px 20px;
@@ -209,10 +182,93 @@ opacity: 1;
 transition: opacity 0.5s ease;
 }
 .floating-message.success {
-background-color:rgb(255, 255, 255);
-color: black;
+background-color: transparent;
+color: rgb(252, 252, 252);
+}
+.floating-message.error {
+background-color: transparent;
+color: rgb(165, 19, 19);
+}
+@media (max-width: 767px) {
+header {
+flex-direction: row; 
+height: auto; 
+padding: 8px 10px; 
+justify-content: space-between; 
+align-items: center; 
+flex-wrap: wrap; 
 }
 
-.floating-message.error {
-background-color: red;
+header .logo {
+margin-right: 0; 
+height: 40px; 
+}
+.header-center-content {
+order: 0; 
+flex-grow: 1; 
+justify-content: center; 
+margin: 0; 
+}
+
+h1 {
+font-size: 1.1em; 
+white-space: normal;
+overflow: visible; 
+text-overflow: clip; 
+margin: 0; 
+text-align: center; 
+}
+
+.btn {
+position: static; 
+left: auto;
+top: auto;
+float: none;
+width: auto; 
+padding: 0; 
+order: -1; 
+flex-shrink: 0; 
+}
+
+.btnn {
+padding: 6px 12px; 
+font-size: 0.8em; 
+width: auto; 
+box-sizing: border-box;  
+justify-content: flex-start; 
+}
+
+.container {
+padding: 30px; 
+margin: 20px auto;
+}
+
+.container h3 {
+font-size: 1.2em; 
+margin-top: -30px; 
+}
+
+label {
+font-size: 15px; 
+}
+
+.container input {
+padding: 10px; 
+font-size: 0.9em;
+}
+
+.container button {
+padding: 10px; 
+font-size: 1em;
+}
+
+.regist {
+font-size: 15px; 
+}
+
+#icono {
+margin-top: 15px; 
+margin-right: -25px;
+font-size: 18px; 
+}
 }

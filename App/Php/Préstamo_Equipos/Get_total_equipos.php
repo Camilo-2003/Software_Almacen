@@ -1,9 +1,9 @@
 <?php
-session_start();
 require_once $_SERVER['DOCUMENT_ROOT'] . '/Software_Almacen/App/Conexion.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/Software_Almacen/App/ProhibirAcceso.php';
 
 if (!isset($_SESSION["rol"]) || ($_SESSION["rol"] !== "almacenista" && $_SESSION["rol"] !== "administrador")) {
-    echo "<p style='color: red;'>Acceso denegado. No tiene permisos para ver este contenido.</p>";
+    header("Location: /Software_Almacen/App/Error.php");
     exit();
 }
 $sqlTotalEquipos = "SELECT id_equipo, marca, serial, estado FROM equipos ORDER BY marca, serial"; 
@@ -16,10 +16,10 @@ if ($resultadoTotalEquipos) {
 }
 ?>
 <h2 class='txt'>Listado Completo de Equipos</h2>
-<p>Aquí puedes ver todos los equipos registrados en el sistema, con su estado actual.</p>
-<p><strong>Total de equipos: <?= htmlspecialchars($totalEquiposCount) ?></strong></p>
+<p class="texto">Aquí puedes ver todos los equipos registrados en el sistema.<p class="texto1"><b>Total de equipos:<?= htmlspecialchars($totalEquiposCount) ?></b></p></p>
 
 <?php if ($resultadoTotalEquipos->num_rows > 0): ?>
+    <div class="table-responsivee">
     <table>
         <thead>
             <tr>
@@ -39,6 +39,7 @@ if ($resultadoTotalEquipos) {
             <?php endwhile; ?>
         </tbody>
     </table>
+    </div>
 <?php else: ?>
     <p>No hay equipos registrados en el sistema.</p>
 <?php endif; ?>

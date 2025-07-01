@@ -1,6 +1,12 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
 require_once $_SERVER['DOCUMENT_ROOT'] . '/Software_Almacen/App/Conexion.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/Software_Almacen/App/ProhibirAcceso.php';
+
+if (!isset($_SESSION["rol"]) || ($_SESSION["rol"] !== "almacenista" && $_SESSION["rol"] !== "administrador")) {
+    header("Location: /Software_Almacen/App/Error.php");
+    exit();
+}
 
 $response = ['success' => false, 'message' => ''];
 
@@ -31,7 +37,7 @@ try {
 
     $conexion->begin_transaction();
     date_default_timezone_set('America/Bogota'); 
-    $fecha_devolucion_item = date("Y-m-d h:i:s A");
+    $fecha_devolucion_item = date("Y-m-d H:i:s");
 
     //Sentencia para actualizar detalles de préstamo
     $stmt_update_detalle = $conexion->prepare("UPDATE prestamo_equipos_detalle SET estado_item_prestamo = 'devuelto', fecha_devolucion_item = ? WHERE id_prestamo_equipo_detalle = ?");

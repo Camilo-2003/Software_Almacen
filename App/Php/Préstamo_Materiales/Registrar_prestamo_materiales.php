@@ -7,8 +7,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/Software_Almacen/App/Conexion.php';
 require_once "../../ProhibirAcceso.php";
 
 if (!isset($_SESSION["rol"]) || ($_SESSION["rol"] !== "almacenista" && $_SESSION["rol"] !== "administrador")) {
-    header('Content-Type: application/json');
-    echo json_encode(['success' => false, 'message' => 'Acceso no autorizado.']);
+    header("Location: /Software_Almacen/App/Error.php");
     exit();
 }
 
@@ -63,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt_actualizar_stock->close();
 
             date_default_timezone_set('America/Bogota');
-            $fecha_prestamo = date('Y-m-d h:i:s A');
+            $fecha_prestamo = date('Y-m-d H:i:s');
             $fecha_limite_devolucion = null;
             $estado_prestamo = '';
 
@@ -71,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $estado_prestamo = 'consumido'; // Se marca como devuelto directamente
             } else { // 'no consumible'
                 $estado_prestamo = 'pendiente';
-                $fecha_limite_devolucion = date('Y-m-d h:i:s A', strtotime('+6 hours'));
+                $fecha_limite_devolucion = $conexion->query("SELECT DATE_ADD(NOW(), INTERVAL 6 HOUR) AS fecha_vencimiento")->fetch_assoc()['fecha_vencimiento'];
                 $hay_material_no_consumible = true;
             }
 
@@ -81,14 +80,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt_insertar_prestamo->execute();
             $prestamo_id = $conexion->insert_id;
             $stmt_insertar_prestamo->close();
-            $fecha_devolucion_consumible = date("Y-m-d h:i:s A");
+            $fecha_devolucion_consumible = date("Y-m-d H:i:s");
 
             if ($material_data['tipo'] === 'consumible') {
-                $insert_devolucion_sql = "INSERT INTO devolucion_materiales (id_prestamo_material, id_responsable, rol_responsable, responsable, estado_devolucion, fecha_devolucion, observaciones) VALUES (?, ?, ?, ?, 'consumido', ?, 'Material consumible registrado automáticamente.')";
-                $stmt_insert_devolucion = $conexion->prepare($insert_devolucion_sql);
-                $stmt_insert_devolucion->bind_param("issss", $prestamo_id, $id_responsable, $rol_responsable, $responsable, $fecha_devolucion_consumible);
-                $stmt_insert_devolucion->execute();
-                $stmt_insert_devolucion->close();
+            $insert_devolucion_sql = "INSERT INTO devolucion_materiales (id_prestamo_material, id_responsable, rol_responsable, responsable, cantidad, estado_devolucion, fecha_devolucion, observaciones) VALUES (?, ?, ?, ?, ?, 'consumido', ?, 'Material consumible registrado automáticamente.')";
+            $stmt_insert_devolucion = $conexion->prepare($insert_devolucion_sql);
+            $stmt_insert_devolucion->bind_param("iissis", $prestamo_id, $id_responsable, $rol_responsable, $responsable, $cantidad, $fecha_devolucion_consumible);
+            $stmt_insert_devolucion->execute();
+            $stmt_insert_devolucion->close();
             }
         }
 

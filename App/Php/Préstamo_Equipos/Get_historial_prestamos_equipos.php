@@ -1,6 +1,6 @@
 <?php
-session_start();
 require_once $_SERVER['DOCUMENT_ROOT'] . '/Software_Almacen/App/Conexion.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/Software_Almacen/App/ProhibirAcceso.php';
 
 if (!isset($_SESSION["rol"]) || ($_SESSION["rol"] !== "almacenista" && $_SESSION["rol"] !== "administrador")) {
     http_response_code(403);
@@ -41,17 +41,25 @@ $sql = "
 $resultado = $conexion->query($sql);
 
 if ($resultado && $resultado->num_rows > 0) {
-    echo '<h2 class="txt">Historial de Préstamos de Equipos</h2>';
+    echo '
+    <h2 class="txt">Historial de Préstamos de Equipos
+     <a href="Reportes/Exportar_Historial_Prestamos_Equipos_CSV.php" class="export-button-excel" title="EXPORTAR A EXCEL">
+        Exportar a Excel <i class="fas fa-file-excel"></i> 
+        </a>
+        <a href="Reportes/Exportar_Historial_Prestamos_Equipos_PDF.php" class="export-button-pdf" title="EXPORTAR A PDF">
+        Exportar a PDF <i class="fas fa-file-pdf"></i>
+        </a>
+    </h2>';
     echo '<div class="table-responsivee"><table>';
     echo '<thead>
         <tr>
-            <th>ID Detalle</th>
+            <th>ID</th>
             <th>Equipo</th>
             <th>Instructor</th>
-            <th>Responsable</th>
             <th>Fecha Préstamo</th>
             <th>Vencimiento</th>
-            <th>Devolución</th>
+            <th>Fecha Devolución</th>
+            <th>Responsable</th>
             <th>Estado Ítem</th>
             <!--<th>Observaciones</th>-->
         </tr>
@@ -62,10 +70,10 @@ if ($resultado && $resultado->num_rows > 0) {
         echo '<td>' . htmlspecialchars($row['id_prestamo_equipo_detalle']) . '</td>';
         echo '<td>' . htmlspecialchars($row['equipo']) . '</td>';
         echo '<td>' . htmlspecialchars($row['nombre_instructor'] . ' ' . $row['apellido_instructor']) . '</td>';
-        echo '<td>' . htmlspecialchars($row['nombre_responsable'] . ' (' . $row['rol_responsable'] . ')') . '</td>';
         echo '<td>' . htmlspecialchars($row['fecha_prestamo']) . '</td>';
         echo '<td>' . ($row['fecha_vencimiento_item'] ?: 'N/A') . '</td>';
         echo '<td>' . ($row['fecha_devolucion_item'] ?: 'Pendiente') . '</td>';
+        echo '<td>' . htmlspecialchars($row['rol_responsable'] . ' - ' . $row['nombre_responsable']) . '</td>';
         echo '<td>' . htmlspecialchars(str_replace('_', ' ', $row['estado_item_prestamo'])) . '</td>';
         //echo '<td>' . (!empty($row['observaciones_devolucion']) ? htmlspecialchars($row['observaciones_devolucion']) : 'Sin observaciones') . '</td>';
         echo '</tr>';

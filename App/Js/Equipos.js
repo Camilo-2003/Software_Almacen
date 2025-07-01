@@ -3,12 +3,12 @@ const equipoIds = $('#equipo_id').val();
 const instructorId = $('#instructor_id').val(); 
 
 if (!equipoIds || equipoIds.length === 0) {
-    alert("Por favor, seleccione al menos un equipo para el préstamo.");
+    showFloatingMessage("Por favor, seleccione al menos un equipo para el préstamo.",'error');
     return false;
 }
 
 if (!instructorId || instructorId === "" || instructorId === "0") {
-    alert("Por favor, seleccione un instructor.");
+    showFloatingMessage("Por favor, seleccione un instructor.",'error');
     return false;
 }
 
@@ -22,6 +22,7 @@ const campoEstadoDevolucionIndividual = $('#modal_estado_devolucion');
 const campoObservacionesIndividual = $('#modal_observaciones');
 const formularioDevolucionIndividual = $('#formRegistrarDevolucionIndividual');
 const botonCerrarModalIndividual = modalDevolverEquipoIndividual.find('.close-button');
+
 
 const modalDevolverMultiple = $('#devolverModal');
 const formularioDevolucionMultiple = $('#formDevolverEquipoMultiple');
@@ -184,7 +185,6 @@ function cargarContenidoPestana(nombrePestana, idInstructor = 0) {
                 let mensajeError = `Error al cargar los datos del formulario de préstamo: ${textStatus} - ${errorThrown}. Respuesta: ${jqXHR.responseText}`;
                 console.error(mensajeError);
                 areaContenidoPestanas.html(`<p style="text-align: center; color: #dc3545; padding: 20px;">${mensajeError}</p>`);
-                // Ocultar alerta de stock bajo en caso de error AJAX
                 areaAlertaStockBajo.hide();
             }
         });
@@ -248,12 +248,12 @@ function manejarEnvioFormularioPrestamo(e) {
     const instructorId = $('#instructor_id').val();
 
     if (!equipoIds || equipoIds.length === 0) {
-        alert("Por favor, seleccione al menos un equipo para el préstamo.");
+        showFloatingMessage("Por favor, seleccione al menos un equipo para el préstamo.",'error');
         console.warn("Validación fallida: No se seleccionaron equipos.");
         return false;
     }
     if (instructorId === "" || instructorId === "0") {
-        alert("Por favor, seleccione un instructor.");
+        showFloatingMessage("Por favor, seleccione un instructor.",'error');
         console.warn("Validación fallida: No se seleccionó instructor.");
         return false;
     }
@@ -281,11 +281,11 @@ function manejarEnvioFormularioPrestamo(e) {
         success: function(respuesta) {
             console.log("Respuesta AJAX de registro de préstamo:", respuesta);
             if (respuesta.success) {
-                alert(respuesta.message);
+                showFloatingMessage(respuesta.message,'success');
                 // Recargar la pestaña 'registrar-prestamo' para obtener listas actualizadas
                 cargarContenidoPestana('registrar-prestamo');
             } else {
-                alert('❌ ' + respuesta.message);
+                showFloatingMessage('❌ ' + respuesta.message,'error');
             }
         },
         error: function(jqXHR, textStatus, errorThrown) {
@@ -297,7 +297,7 @@ function manejarEnvioFormularioPrestamo(e) {
                 mensajeError = `Error en la comunicación con el servidor: ${textStatus} - ${errorThrown}. Respuesta: ${jqXHR.responseText}`;
             }
             console.error("Error AJAX en registro de préstamo:", mensajeError);
-            alert('❌ ' + mensajeError);
+            showFloatingMessage('❌ ' + mensajeError,'error');
         }
     });
 }
@@ -331,7 +331,7 @@ function adjuntarManejadoresBotonesEditarPrestamo() {
         // Limpiar las opciones del elemento <select>
         selectAnadirEquipoAPrestamo.empty(); 
         // Añadir la opción de placeholder inicial
-        selectAnadirEquipoAPrestamo.append('<option value="">Seleccione equipos para añadir</option>'); 
+        // selectAnadirEquipoAPrestamo.append('<option value="">Seleccione equipos para añadir</option>'); 
 
 
         // Cargar datos completos del préstamo y equipos disponibles vía AJAX
@@ -392,7 +392,7 @@ function adjuntarManejadoresBotonesEditarPrestamo() {
                 });                    
                 selectAnadirEquipoAPrestamo.val(null).trigger('change'); 
                 
-                // Manejar clic en "Quitar del Préstamo" (delegación)
+                // Manejar clic en "Quitar del Préstamo" 
                 contenedorEquiposPrestadosActuales.off('click', '.btn-remove-item').on('click', '.btn-remove-item', function() {
                     const idItemARemover = $(this).data('id-detalle');
                     if (confirm(`¿Estás seguro de que quieres quitar este equipo (ID de detalle: ${idItemARemover}) del préstamo? Esto lo marcará como CANCELADO.`)) {
@@ -413,7 +413,7 @@ function adjuntarManejadoresBotonesEditarPrestamo() {
                     mensajeError = `Error en la comunicación con el servidor: ${textStatus} - ${errorThrown}. Respuesta: ${jqXHR.responseText}`;
                 }
                 console.error("Error al cargar datos del préstamo para edición:", mensajeError);
-                alert('❌ Error al cargar los datos del préstamo: ' + mensajeError);
+                showFloatingMessage('❌ Error al cargar los datos del préstamo: ' + mensajeError,'error');
             }
         });
     });
@@ -462,7 +462,7 @@ function configurarDevolucionMultiple() {
         });
 
         if (idsPrestamoSeleccionados.length === 0) {
-            alert('Por favor, selecciona al menos un equipo para devolver.');
+            showFloatingMessage('Por favor, selecciona al menos un equipo para devolver.','error');
             console.warn("No se seleccionaron equipos para devolución múltiple.");
             return;
         }
@@ -487,12 +487,12 @@ function configurarDevolucionMultiple() {
         });
 
         if (!estadoDevolucion) {
-            alert('Por favor, selecciona el estado de devolución para los equipos seleccionados.');
+            showFloatingMessage('Por favor, selecciona el estado de devolución para los equipos seleccionados.','error');
             console.warn("Estado de devolución múltiple no seleccionado.");
             return;
         }
         if (idsPrestamoSeleccionados.length === 0) { 
-            alert('No se encontraron equipos seleccionados para devolver. Por favor, selecciona al menos uno.');
+            showFloatingMessage('No se encontraron equipos seleccionados para devolver. Por favor, selecciona al menos uno.','error');
             console.warn("No se recopilaron IDs al momento del envío del formulario JSON.");
             return;
         }
@@ -514,13 +514,13 @@ function configurarDevolucionMultiple() {
             dataType: 'json',
             success: function(respuesta) {
                 if (respuesta.success) {
-                    alert(respuesta.message);
+                    showFloatingMessage(respuesta.message,'success');
                     modalDevolverMultiple.css('display', 'none');
                     const idInstructorActual = new URLSearchParams(window.location.search).get('instructor_id') || 0;
                     cargarContenidoPestana('devoluciones-pendientes', idInstructorActual); 
                     $('.tab-button[data-tab-content="devoluciones-pendientes"]').addClass('active').siblings().removeClass('active');
                 } else {
-                    $('#devolver_error_message').text('❌ ' + (respuesta.message || 'Error desconocido.')).show();
+                    $('#devolver_error_message').text('❌ ' + (respuesta.message || 'Error desconocido.','error')).show();
                     console.error("Error en respuesta AJAX (backend - JSON):", respuesta.message);
                 }
             },
@@ -532,7 +532,7 @@ function configurarDevolucionMultiple() {
                     mensajeError = `Error en la comunicación con el servidor: ${textStatus} - ${errorThrown}. Respuesta: ${jqXHR.responseText}`;
                 }
                 console.error("Respuesta AJAX de devolución múltiple (ERROR - JSON):", mensajeError, jqXHR.responseText);
-                $('#devolver_error_message').text('❌ ' + mensajeError).show();
+                $('#devolver_error_message').text('❌ ' + mensajeError,'error').show();
             }
         });
     });
@@ -551,7 +551,7 @@ function cargarAlertasVencidas() {
                     const htmlAlerta = `
                         <div class="alert-item">
                             <span class="alert-icon"><i class="fas fa-bell"></i></span>
-                            <p>El equipo <strong>${item.nombre_equipo}</strong> prestado al instructor <strong>${item.nombre_instructor}</strong> ha vencido su plazo de devolución. Debía ser devuelto antes de: <strong>${item.fecha_vencimiento_item}</strong>.</p>
+                            <p class="pp">El equipo <strong>${item.nombre_equipo}</strong> prestado al instructor <strong>${item.nombre_instructor}</strong> ha vencido su plazo de devolución. Debía ser devuelto antes de: <strong>${item.fecha_vencimiento_item}</strong>.</p>
                         </div>
                     `;
                     contenidoAlertasVencidas.append(htmlAlerta);
@@ -582,8 +582,8 @@ function verificarStockBajo(totalDisponible) {
     if (totalDisponible <= UMBRAL_STOCK_BAJO && totalDisponible > 0) {
         contenidoAlertaStockBajo.append(`
             <div class="alert-item low-stock-item">
-                <span class="alert-icon"><i class="fas fa-exclamation-circle"></i></span>
-                <p>¡ATENCIÓN! El stock de equipos disponibles es bajo. Solo quedan <strong>${totalDisponible}</strong> equipos disponibles para préstamo.</p>
+                <span class="alert-icon"><i class="fas fa-exclamation-circle" id="iii"></i></span>
+                <p><b>¡ATENCIÓN!</b> El stock de equipos disponibles es bajo. Solo quedan <strong>${totalDisponible}</strong> equipos disponibles para préstamo.</p>
             </div>
         `);
         areaAlertaStockBajo.show();
@@ -593,12 +593,12 @@ function verificarStockBajo(totalDisponible) {
             contenidoAlertaStockBajo.append(`
             <div class="alert-item low-stock-item">
                 <span class="alert-icon"><i class="fas fa-exclamation-circle"></i></span>
-                <p>¡ADVERTENCIA CRÍTICA! No quedan equipos disponibles para préstamo.</p>
+                <p><b>¡ADVERTENCIA CRÍTICA!</b> No quedan equipos disponibles para préstamo.</p>
             </div>
         `);
         areaAlertaStockBajo.show();
         areaAlertaStockBajo.removeClass('no-alerts-message').addClass('has-alerts');
-        console.error("ALERTA CRÍTICA DE STOCK: ¡No quedan ítems!");
+        console.error("ALERTA CRÍTICA DE STOCK: <b>¡No quedan ítems!</b>");
     }
     else {
         areaAlertaStockBajo.hide(); // Ocultar la alerta si el stock es suficiente
@@ -676,7 +676,7 @@ formularioDevolucionIndividual.off('submit').on('submit', function(e) {
     const estadoDevolucion = $(this).find('#modal_estado_devolucion').val();
 
     if (!estadoDevolucion) {
-        alert('Por favor, seleccione el estado de devolución.');
+        showFloatingMessage('Por favor, seleccione el estado de devolución.','error');
         console.warn("Estado de devolución individual no seleccionado.");
         return;
     }
@@ -694,7 +694,7 @@ formularioDevolucionIndividual.off('submit').on('submit', function(e) {
             datosAEnviar[item.name] = item.value;
         }
     });
-    // Asegurarse de que id_prestamo_equipo_detalle es un array para el backend PHP
+    // Asegurarse de que id_prestamo_equipo_detalle es un array 
     datosAEnviar['id_prestamo_equipo_detalle'] = [parseInt(datosAEnviar['id_prestamo_equipo_detalle'])];
 
     $.ajax({
@@ -705,13 +705,13 @@ formularioDevolucionIndividual.off('submit').on('submit', function(e) {
         dataType: 'json',
         success: function(respuesta) {
             if (respuesta.success) {
-                alert(respuesta.message);
+                showFloatingMessage(respuesta.message,'success');
                 modalDevolverEquipoIndividual.css('display', 'none');
                 const idInstructorActual = new URLSearchParams(window.location.search).get('instructor_id') || 0;
                 cargarContenidoPestana('devoluciones-pendientes', idInstructorActual); 
                 $('.tab-button[data-tab-content="devoluciones-pendientes"]').addClass('active').siblings().removeClass('active');
             } else {
-                alert('❌ ' + respuesta.message);
+                showFloatingMessage('❌ ' + respuesta.message,'error');
             }
         },
         error: function(jqXHR, textStatus, errorThrown) {
@@ -723,7 +723,7 @@ formularioDevolucionIndividual.off('submit').on('submit', function(e) {
                 mensajeError = `Error en la comunicación con el servidor: ${textStatus} - ${errorThrown}. Respuesta: ${jqXHR.responseText}`;
             }
             console.error("Error AJAX en devolución individual:", mensajeError);
-            alert('❌ ' + mensajeError);
+            showFloatingMessage('❌ ' + mensajeError,'error');
         }
     });
 });
@@ -756,12 +756,12 @@ formularioEditarPrestamoCompleto.off('submit').on('submit', function(e) {
         dataType: 'json',
         success: function(respuesta) {
             if (respuesta.success) {
-                alert(respuesta.message);
+                showFloatingMessage(respuesta.message,'success');
                 modalEditarPrestamoCompleto.css('display', 'none');
                 const idInstructorActual = new URLSearchParams(window.location.search).get('instructor_id') || 0;
                 cargarContenidoPestana('devoluciones-pendientes', idInstructorActual); 
             } else {
-                $('#edit_loan_error_message').text('❌ ' + (respuesta.message || 'Error desconocido.')).show();
+                $('#edit_loan_error_message').text('❌ ' + (respuesta.message || 'Error desconocido.','error')).show();
             }
         },
         error: function(jqXHR, textStatus, errorThrown) {
@@ -773,7 +773,7 @@ formularioEditarPrestamoCompleto.off('submit').on('submit', function(e) {
                 mensajeError = `Error en la comunicación con el servidor: ${textStatus} - ${errorThrown}. Respuesta: ${jqXHR.responseText}`;
             }
             console.error("Error AJAX en edición de préstamo completo:", mensajeError);
-            $('#edit_loan_error_message').text('❌ ' + mensajeError).show();
+            $('#edit_loan_error_message').text('❌ ' + mensajeError,'error').show();
         }
     });
 });

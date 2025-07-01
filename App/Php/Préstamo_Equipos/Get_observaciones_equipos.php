@@ -1,10 +1,9 @@
 <?php
-session_start();
 require_once $_SERVER['DOCUMENT_ROOT'] . '/Software_Almacen/App/Conexion.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/Software_Almacen/App/ProhibirAcceso.php';
 
 if (!isset($_SESSION["rol"]) || ($_SESSION["rol"] !== "almacenista" && $_SESSION["rol"] !== "administrador")) {
-    http_response_code(403);
-    echo "Acceso denegado.";
+    header("Location: /Software_Almacen/App/Error.php");
     exit();
 }
 
@@ -42,7 +41,15 @@ $resultado = $conexion->query($sql);
 
 if ($resultado) {
     if ($resultado->num_rows > 0) {
-        echo '<h2 class="txt">Historial de Observaciones de Equipos</h2>';
+        echo '
+        <h2 class="txt">Historial de Observaciones de Equipos
+         <a href="Reportes/Exportar_Historial_Prestamos_Equipos_CSV.php" class="export-button-excel" title="EXPORTAR A EXCEL">
+        Exportar a Excel <i class="fas fa-file-excel"></i> 
+        </a>
+        <a href="Reportes/Exportar_Historial_Prestamos_Equipos_PDF.php" class="export-button-pdf" title="PDF">
+        Exportar a PDF<i class="fas fa-file-pdf"></i>
+        </a>
+        </h2>';
         echo '<div class="table-responsivee">';
         echo '<table>';
         echo '<thead>

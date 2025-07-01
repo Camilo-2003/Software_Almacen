@@ -76,7 +76,7 @@ function handlePostEquipo($conn) {
     $stmt->bind_param("sss", $marca, $serial, $estado);
 
     if ($stmt->execute()) {
-        echo json_encode(['message' => 'Equipo creado con éxito', 'id' => $conn->insert_id]);
+        echo json_encode(['message' => '✅ Equipo creado con éxito', 'id' => $conn->insert_id]);
     } else {
         http_response_code(500);
         if ($conn->errno == 1062) {
@@ -95,7 +95,7 @@ function handlePutEquipo($conn) {
         echo json_encode(['message' => 'ID de equipo no proporcionado para la actualización.']);
         exit; 
     }
-
+ 
     $data = json_decode(file_get_contents('php://input'), true);
     $marca = $data['marca'];
     $serial = $data['serial'];
@@ -132,7 +132,7 @@ function handlePutEquipo($conn) {
 
     if ($stmt->execute()) {
         if ($stmt->affected_rows > 0) {
-            echo json_encode(['message' => 'Equipo actualizado con éxito']);
+            echo json_encode(['message' => '✅ Equipo actualizado con éxito']);
         } else {
             echo json_encode(['message' => 'Equipo no encontrado o no se realizaron cambios.']);
         }
@@ -163,7 +163,7 @@ function handleDeleteEquipo($conn) {
 
     if ($stmt->execute()) {
         if ($stmt->affected_rows > 0) {
-            echo json_encode(['message' => 'Equipo eliminado con éxito']);
+            echo json_encode(['message' => '✅ Equipo eliminado con éxito']);
         } else {
             echo json_encode(['message' => 'Equipo no encontrado.']);
         }

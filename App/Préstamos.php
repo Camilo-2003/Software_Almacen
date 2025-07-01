@@ -1,4 +1,10 @@
-<?php include("ProhibirAcceso.php"); ?>
+<?php include("ProhibirAcceso.php"); 
+
+if (!isset($_SESSION["rol"]) || ($_SESSION["rol"] !== "almacenista" && $_SESSION["rol"] !== "administrador")) {
+    header("Location: /Software_Almacen/App/Error.php");
+    exit();
+}
+?>
 
 <!DOCTYPE html>
 <html lang="es">

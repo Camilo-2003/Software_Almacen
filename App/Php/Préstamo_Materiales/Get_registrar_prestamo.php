@@ -6,10 +6,9 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/Software_Almacen/App/Conexion.php';
 require_once "../../ProhibirAcceso.php";
 
 if (!isset($_SESSION["rol"]) || ($_SESSION["rol"] !== "almacenista" && $_SESSION["rol"] !== "administrador")) {
-    echo "<p style='color: red;'>Acceso denegado.</p>";
+    header("Location: /Software_Almacen/App/Error.php");
     exit();
 }
-
 $id_responsable_session = 0;
 $rol_responsable_session = '';
 $nombre_responsable_completo = '';
@@ -23,7 +22,6 @@ if (isset($_SESSION['rol'])) {
         $id_responsable_session = intval($_SESSION['id_administrador']);
     }
 }
-
 $sqlMaterialesDisponiblesForm = "SELECT * FROM materiales WHERE stock > 0 AND estado_material = 'disponible'";
 $resultadoMaterialesDropdown = $conexion->query($sqlMaterialesDisponiblesForm);
 $materialesData = [];
@@ -32,7 +30,6 @@ if ($resultadoMaterialesDropdown) {
         $materialesData[] = $material;
     }
 }
-
 $sqlInstructores = "SELECT id_instructor, nombre, apellido FROM instructores WHERE disponibilidad_prestamo = 'disponible' AND estado_activo = 'activo' ORDER BY nombre, apellido ASC";
 $resultadoInstructores = $conexion->query($sqlInstructores);
 $instructoresData = [];

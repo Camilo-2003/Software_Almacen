@@ -1,6 +1,11 @@
 <?php
-session_start();
 require_once $_SERVER['DOCUMENT_ROOT'] . '/Software_Almacen/App/Conexion.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/Software_Almacen/App/ProhibirAcceso.php';
+
+if (!isset($_SESSION["rol"]) || ($_SESSION["rol"] !== "almacenista" && $_SESSION["rol"] !== "administrador")) {
+    header("Location: /Software_Almacen/App/Error.php");
+    exit();
+}
 
 if (!isset($conexion) || $conexion->connect_error) {
     echo "<p style='text-align: center; color: #dc3545; padding: 20px;'>Error: No se pudo conectar a la base de datos. Por favor, revise su archivo Conexion.php.</p>";
@@ -17,10 +22,10 @@ if ($resultadoEquiposDisponibles) {
 }
 ?>
 <h2 class='txt'>Equipos Actualmente Disponibles</h2>
-<p>Consulta el listado de equipos que están listos para ser prestados.</p>
-<p><strong>Total de equipos disponibles: <?= htmlspecialchars($totalEquiposDisponiblesCount) ?></strong></p>
+<p class="texto">Consulta el listado de equipos que están listos para ser prestados.<p class="texto1"><b>Total de equipos disponibles: <?= htmlspecialchars($totalEquiposDisponiblesCount) ?></b></p></p>
 
 <?php if ($resultadoEquiposDisponibles && $resultadoEquiposDisponibles->num_rows > 0): ?>
+    <div class="table-responsivee">
     <table>
         <thead>
             <tr>
