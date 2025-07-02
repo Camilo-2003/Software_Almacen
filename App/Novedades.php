@@ -4,7 +4,7 @@ include "Conexion.php";
 
 $id_responsable_logueado = $_SESSION["id_almacenista"] ?? ($_SESSION["id_administrador"] ?? '');
 $rol_responsable_logueado = $_SESSION["rol"] ?? '';
-$nombre_responsable_logueado = (isset($_SESSION["nombres"]) ? $_SESSION["nombres"] : '') . ' ' . (isset($_SESSION["apellidos"]) ? $_SESSION["apellidos"] : '');
+$nombre_responsable_logueado = trim(($_SESSION["nombres"] ?? '') . ' ' . ($_SESSION["apellidos"] ?? ''));
 
 $action = $_GET['action'] ?? 'novedades_form';
 
@@ -14,455 +14,228 @@ ini_set('display_errors', 1);
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<link rel="icon" href="Img/logo_sena.png" type="image/x-icon">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gestión de Novedades | SENA</title>
-<link rel="stylesheet" href="Css/Novedades.css">
-<link rel="stylesheet" href="vendor/fontawesome/css/all.min.css">
-<link rel="stylesheet" href="Css/Mensajes.css">
-<script src="Js/Mensajes.js" defer></script>
+  <meta charset="UTF-8">
+  <link rel="icon" href="Img/logo_sena.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Novedades | SENA</title>
+  <link rel="stylesheet" href="Css/Novedades.css">
+  <link rel="stylesheet" href="vendor/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="Css/Mensajes.css">
+  <script src="Js/Mensajes.js" defer></script>
 </head>
 <body>
 <header>
-<div class="header-left">
-<div class="regresar">
-    <a href="<?php echo $pagina_regresar; ?>" class="rgs"><i class="fas fa-reply"></i> Regresar</a>
-</div>
-</div>
-<div class="header-center">
-<img src="Img/logo_sena.png" alt="Logo Sena" class="logo">
-<h1>Gestión de Novedades</h1>
-</div>
-<div class="header-right">
-<?php if ($action !== 'novedades_form') : ?>
-    <a href="?action=novedades_form" class="btn-header-register" title="Haz clic para registrar nueva novedad"><i class="fas fa-plus"></i> Registrar Novedad</a>
-<?php endif; ?>
-<?php if ($action !== 'historial') : ?>
-    <a href="?action=historial" class="rgs" title="Haz clic para ver el historial de novedades"><i class="fas fa-history"></i> Historial de Novedades</a>
-<?php endif; ?>
-</div>
+  <div class="header-left">
+    <div class="regresar">
+      <a href="<?php echo $pagina_regresar; ?>" class="rgs"><i class="fas fa-reply"></i> Regresar</a>
+    </div>
+  </div>
+  <div class="header-center">
+    <img src="Img/logo_sena.png" alt="Logo Sena" class="logo">
+    <h1>Gestión de Novedades</h1>
+  </div>
+  <div class="header-right">
+    <?php if ($action !== 'novedades_form') : ?>
+      <a href="?action=novedades_form" class="btn-header-register"><i class="fas fa-plus"></i> Registrar Novedad</a>
+    <?php endif; ?>
+    <?php if ($action !== 'historial') : ?>
+      <a href="?action=historial" class="rgs"><i class="fas fa-history"></i> Historial de Novedades</a>
+    <?php endif; ?>
+  </div>
 </header>
 
 <div class="main-content">
 <?php
 switch ($action) {
-case 'novedades_form':
-$instructor_options_html = "<option value=''>Selecciona un instructor</option>";
-$sql_instructores = "SELECT id_instructor, nombre, apellido FROM instructores ORDER BY nombre ASC";
-$resultado_instructores = $conexion->query($sql_instructores);
 
-if ($resultado_instructores) {
-    if ($resultado_instructores->num_rows > 0) {
-        while ($fila_instructor = $resultado_instructores->fetch_assoc()) {
-            $instructor_options_html .= "<option value='" . htmlspecialchars($fila_instructor["id_instructor"]) . "'>";
-            $instructor_options_html .= htmlspecialchars($fila_instructor["nombre"]) . " " . htmlspecialchars($fila_instructor["apellido"]);
-            $instructor_options_html .= "</option>";
-        }
-    } else {
-        $instructor_options_html = "<option value=''>No hay instructores disponibles</option>";
+  case 'novedades_form':
+    $instructor_options = "<option value=''>Selecciona un instructor</option>";
+    $res = $conexion->query("SELECT id_instructor, nombre, apellido FROM instructores ORDER BY nombre ASC");
+    if ($res) {
+      while ($f = $res->fetch_assoc()) {
+        $instructor_options .= "<option value='{$f['id_instructor']}'>" . htmlspecialchars($f['nombre'].' '.$f['apellido']) . "</option>";
+      }
+      $res->free();
     }
-    $resultado_instructores->free();
-} else {
-    $instructor_options_html = "<option value=''>Error al cargar instructores: " . $conexion->error . "</option>";
-    error_log("Error en la consulta de instructores (form): " . $conexion->error);
-}
-?>
-<div class="container">
-    <form action="?action=procesar_novedad" method="post" onsubmit="return validarFormulario()">
+    ?>
+    <div class="container">
+      <form action="?action=procesar_novedad" method="post" enctype="multipart/form-data" onsubmit="return validarFormulario()">
         <h2>Registrar Novedad</h2>
         <input type="hidden" name="id_responsable" value="<?= htmlspecialchars($id_responsable_logueado) ?>">
         <input type="hidden" name="rol_responsable" value="<?= htmlspecialchars($rol_responsable_logueado) ?>">
-
         <label for="tipoNovedad">Tipo de novedad</label>
         <select name="tipoNovedad" id="tipoNovedad" required>
-            <option value="">Seleccione</option>
-            <option value="devolucion_material">Novedad Material</option>
-            <option value="devolucion_equipo">Novedad Equipo</option>
+          <option value="">Seleccione</option>
+          <option value="devolucion_material">Novedad Material</option>
+          <option value="devolucion_equipo">Novedad Equipo</option>
         </select>
-
         <label for="descripcion">Descripción</label>
-        <input type="text" placeholder="Descripción" name="descripcion" id="descripcion" autocomplete="off" required>
-
+        <input type="text" name="descripcion" placeholder="Descripción" id="descripcion" required autocomplete="off">
         <label for="instructor">Instructor</label>
-        <select name="instructor_id" id="instructor" required>
-            <?= $instructor_options_html; ?>
-        </select>
-
+        <select name="instructor_id" id="instructor" required><?= $instructor_options ?></select>
         <label for="observaciones">Observaciones Adicionales</label>
-        <input type="text" placeholder="Observaciones" name="observaciones" id="observaciones" autocomplete="off" required>
-
-        <label>Responsable De Registrar Novedad</label>
-        <input type="text" name="nombre_responsable" value="<?= htmlspecialchars($nombre_responsable_logueado) ?>" readonly>
-
-        <br>
+        <input type="text" name="observaciones" placeholder="Observación Adicionales" id="observaciones" required autocomplete="off">
+        <label>Responsable</label>
+        <input type="text" value="<?= htmlspecialchars($nombre_responsable_logueado) ?>" readonly>
+        <label for="imagen">Adjuntar imagen (opcional)</label>
+        <input type="file" name="imagen" id="imagen" accept="image/*">
+        <br><br>
         <button type="submit" name="btnIngresar" value="Ok"><i class="fas fa-plus-circle"></i> Registrar Novedad</button>
-    </form>
-</div>
-<?php
-break;
-
-case 'historial':         ?>
-<h2 class="historial-title">Historial de novedades</h2>
-<input type="text" id="busquedaNovedades" placeholder="🔍 Buscar Novedades..." onkeyup="filtrarTabla('busquedaNovedades', 'tablaNovedades')">
-<br>
-<div class="container historial-container">
-    <div class="table-wrapper">
-        <table id="tablaNovedades">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Tipo</th>
-                    <th>Descripción</th>
-                    <th>Fecha</th>
-                    <th>Rol</th>
-                    <th>Responsable</th>
-                    <th>Instructor</th>
-                    <th>Observaciones</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                $novedades = $conexion->query("SELECT * FROM novedades ORDER BY fecha DESC");
-                if ($novedades->num_rows > 0) {
-                    while ($datos = $novedades->fetch_assoc()) {
-                        echo "<tr>
-                                    <td>" . htmlspecialchars($datos['id_novedad']) . "</td>
-                                    <td>" . htmlspecialchars($datos['tipo']) . "</td>
-                                    <td>" . htmlspecialchars($datos['descripcion']) . "</td>
-                                    <td>" . htmlspecialchars($datos['fecha']) . "</td>
-                                    <td>" . htmlspecialchars($datos['rol_responsable']) . "</td>
-                                    <td>" . htmlspecialchars($datos['nombre_responsable']) . "</td>
-                                    <td>" . htmlspecialchars($datos['nombre_instructor']) . "</td>
-                                    <td class='obs'>" . htmlspecialchars($datos['observaciones']) . "</td>
-                                    <td class='acciones'>
-                                        <a class='btn-editar' href='?action=editar_novedad_form&id=" . htmlspecialchars($datos['id_novedad']) ."'><i class='fas fa-edit' id='ii'></i> Editar</a>
-                                        <a class='btn-eliminar' href='?action=eliminar_novedad&id=" . htmlspecialchars($datos['id_novedad']) . "' onclick='return confirmarEliminacion()'><i class='fas fa-trash-alt' id='ii'></i> Eliminar</a>
-                                    </td>
-                                </tr>";
-                    }
-                } else {
-                    echo "<tr><td colspan='11'>No hay novedades registradas en este momento.</td></tr>";
-                }
-                ?>
-            </tbody>
-        </table>
+      </form>
     </div>
-</div>
-<?php
-break;
+    <?php
+    break;
 
-case 'procesar_novedad':
-if (!empty($_POST['btnIngresar'])) {
-    $tipoNovedad        = $_POST["tipoNovedad"] ?? '';
-    $descripcion        = $_POST["descripcion"] ?? '';
-    $id_instructor      = $_POST["instructor_id"] ?? '';
-    $observaciones      = $_POST["observaciones"] ?? '';
-    
-    $id_responsable     = $_POST["id_responsable"] ?? '';
-    $rol_responsable    = $_POST["rol_responsable"] ?? '';
-    $nombre_responsable = $_POST['nombre_responsable'] ?? '';
+  case 'procesar_novedad':
+    if (!empty($_POST['btnIngresar'])) {
+      $tipoNovedad       = $_POST["tipoNovedad"];
+      $descripcion       = $_POST["descripcion"];
+      $id_instructor     = $_POST["instructor_id"];
+      $observaciones     = $_POST["observaciones"];
+      $id_responsable    = $_POST["id_responsable"];
+      $rol_responsable   = $_POST["rol_responsable"];
+      $nombre_responsable= $nombre_responsable_logueado;
+      date_default_timezone_set('America/Bogota');
+      $fecha_novedad = date("Y-m-d H:i:s");
 
-    date_default_timezone_set('America/Bogota');
-    $fecha_novedad = date("Y-m-d H:i:s");
-
-    $nombre_completo_instructor = 'Instructor No Seleccionado';
-    if (!empty($id_instructor)) {
-        $sql_get_name = "SELECT nombre, apellido FROM instructores WHERE id_instructor = ?";
-        $stmt_name = $conexion->prepare($sql_get_name);
-        if ($stmt_name) {
-            $stmt_name->bind_param("i", $id_instructor);
-            $stmt_name->execute();
-            $result_name = $stmt_name->get_result();
-            if ($result_name && $result_name->num_rows == 1) {
-                $row_name = $result_name->fetch_assoc();
-                $nombre_completo_instructor = $row_name["nombre"] . " " . $row_name["apellido"];
-            }
-            $stmt_name->close();
-        } else {
-            error_log("Error al preparar consulta de nombre de instructor (procesar): " . $conexion->error);
+      $nombre_instructor = 'Instructor No Seleccionado';
+      if (!empty($id_instructor)) {
+        $stmt = $conexion->prepare("SELECT nombre, apellido FROM instructores WHERE id_instructor = ?");
+        $stmt->bind_param("i", $id_instructor);
+        $stmt->execute();
+        if ($r = $stmt->get_result()->fetch_assoc()) {
+          $nombre_instructor = $r['nombre'].' '.$r['apellido'];
         }
-    }
-    $sql_insert = "INSERT INTO novedades(tipo, descripcion, fecha, id_instructor, nombre_instructor, id_responsable, rol_responsable, nombre_responsable, observaciones) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    $stmt = $conexion->prepare($sql_insert);
-    if ($stmt) {
-        $stmt->bind_param(
-            "sssisssss",
-            $tipoNovedad, $descripcion, $fecha_novedad, $id_instructor, $nombre_completo_instructor,
-            $id_responsable, $rol_responsable, $nombre_responsable, $observaciones
-        );
-        if ($stmt->execute()) {
-        header("Location: Novedades.php?action=historial&mensaje=creada");
-        exit();
-        } else {
-        error_log("Error al subir la novedad: " . $stmt->error);
-        header("Location: Novedades.php?action=novedades_form&mensaje=error_insercion");
-        exit();        }
         $stmt->close();
-    } else {
-        error_log("Error en la preparación de la consulta de inserción: " . $conexion->error);
-    header("Location: Novedades.php?action=novedades_form&mensaje=error2");
-    exit();      }
-} else {
-    header("Location: Novedades.php?action=novedades_form&mensaje=error3");
-    exit();  }
-exit();
-break;
+      }
 
-case 'editar_novedad_form':
-$id = intval($_GET['id'] ?? 0);
-$novedad = null;
-$instructor_options_html = "<option value=''>Selecciona un instructor</option>";
-
-if ($id > 0) {
-    $select_novedad = "SELECT * FROM novedades WHERE id_novedad = ?";
-    $stmt_novedad = $conexion->prepare($select_novedad);
-    if ($stmt_novedad) {
-        $stmt_novedad->bind_param("i", $id);
-        $stmt_novedad->execute();
-        $result_novedad = $stmt_novedad->get_result();
-        if ($result_novedad->num_rows > 0) {
-            $novedad = $result_novedad->fetch_assoc();
+      $imagen_ruta = null;
+      if (!empty($_FILES['imagen']['name']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
+        $tmp = $_FILES['imagen']['tmp_name'];
+        $nombreArchivo = preg_replace('/[^a-zA-Z0-9\.\-_]/','_', basename($_FILES['imagen']['name']));
+        $destino = 'uploads/' . uniqid() . '_' . $nombreArchivo;
+        if (!is_dir('uploads')) mkdir('uploads', 0755, true);
+        if (move_uploaded_file($tmp, $destino)) {
+          $imagen_ruta = $destino;
         } else {
-            echo "<p class='error-message'>No se encontró la novedad.</p>";
+          error_log("Error al mover imagen");
         }
-        $stmt_novedad->close();
-    } else {
-        echo "<p class='error-message'>Error al preparar consulta de novedad (editar): " . $conexion->error . "</p>";
+      }
+
+      $sql = "INSERT INTO novedades
+        (tipo, descripcion, fecha, id_instructor, nombre_instructor, id_responsable, rol_responsable, nombre_responsable, observaciones, imagen)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+      $stmt = $conexion->prepare($sql);
+      $stmt->bind_param(
+        "sssissssss",
+        $tipoNovedad, $descripcion, $fecha_novedad,
+        $id_instructor, $nombre_instructor,
+        $id_responsable, $rol_responsable,
+        $nombre_responsable, $observaciones,
+        $imagen_ruta
+      );
+      if ($stmt->execute()) {
+        header("Location: ?action=historial&mensaje=creada");
+      } else {
+        error_log("Error insertar novedad: ".$stmt->error);
+        header("Location: ?action=novedades_form&mensaje=error_insercion");
+      }
+      exit;
     }
-} else {
-    echo "<p class='error-message'>ID de novedad no válido.</p>";
-}
-$sql_instructores = "SELECT id_instructor, nombre, apellido FROM instructores ORDER BY nombre ASC";
-$resultado_instructores = $conexion->query($sql_instructores);
-if ($resultado_instructores) {
-    if ($resultado_instructores->num_rows > 0) {
-        while ($fila_instructor = $resultado_instructores->fetch_assoc()) {
-            $selected = ($novedad && $novedad['id_instructor'] == $fila_instructor["id_instructor"]) ? 'selected' : '';
-            $instructor_options_html .= "<option value='" . htmlspecialchars($fila_instructor["id_instructor"]) . "' $selected>";
-            $instructor_options_html .= htmlspecialchars($fila_instructor["nombre"]) . " " . htmlspecialchars($fila_instructor["apellido"]);
-            $instructor_options_html .= "</option>";
-        }
-    } else {
-        $instructor_options_html = "<option value=''>No hay instructores disponibles</option>";
-    }
-    $resultado_instructores->free();
-} else {
-    error_log("Error en la consulta de instructores (editar): " . $conexion->error);
-    $instructor_options_html = "<option value=''>Error al cargar instructores</option>";
-}
-if ($novedad) :
-?>
-<div class="container2">
-    <form action="?action=actualizar_novedad" method="post">
-        <h2>Actualizar Novedad</h2>
-        <input type="hidden" name="id" value="<?php echo htmlspecialchars($id); ?>">
-        
-        <input type="hidden" name="id_responsable_original" value="<?php echo htmlspecialchars($novedad['id_responsable']); ?>">
-        <input type="hidden" name="rol_responsable_original" value="<?php echo htmlspecialchars($novedad['rol_responsable']); ?>">
-        <input type="hidden" name="nombre_responsable_original" value="<?php echo htmlspecialchars($novedad['nombre_responsable']); ?>">
-        
-        <label>Tipo de novedad</label><br>
-        <select name="tipoNovedad" required>
-            <option value="">Seleccione</option>
-            <option value="devolucion_material" <?php if ($novedad['tipo'] == 'devolucion_material') echo 'selected'; ?>>Novedad Material</option>
-            <option value="devolucion_equipo" <?php if ($novedad['tipo'] == 'devolucion_equipo') echo 'selected'; ?>>Novedad Equipos</option>
-        </select><br>
-        <label>Descripción</label><br>
-        <input type="text" placeholder="Descripción" name="descripcion" id="descripcion" value="<?php echo htmlspecialchars($novedad['descripcion']); ?>" required><br>
+    break;
 
-        <label for="instructor_id">Instructor</label><br>
-        <select name="instructor_id" id="instructor_id" required>
-            <?= $instructor_options_html; ?>
-        </select><br>
-        <label>Rol</label><br>
-        <input type="text" placeholder="Rol Responsable" value="<?php echo htmlspecialchars($novedad['rol_responsable']); ?>" required readonly><br>
-        <label>Responsable</label><br>
-        <input type="text" placeholder="Nombre Responsable" value="<?php echo htmlspecialchars($novedad['nombre_responsable']); ?>" required readonly><br>
-        <label>Observaciones adicionales</label><br>
-        <input type="text" placeholder="Observaciones" name="observaciones" id="observaciones" value="<?php echo htmlspecialchars($novedad['observaciones']); ?>" required autocomplete="off"><br>
-        <br>
-        <button type="submit" name="btnIngresar" value="Ok"><i class="fa-regular fa-circle-check"></i> Actualizar Novedad</button>
-    </form>
-</div>
-<?php
-endif;
-break;
-
-case 'actualizar_novedad':
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $id = intval($_POST['id'] ?? 0);
-    if ($id > 0) {
-        $tipo = $_POST['tipoNovedad'] ?? '';
-        $descripcion = $_POST['descripcion'] ?? '';
-        $id_instructor = $_POST['instructor_id'] ?? ''; 
-        $observaciones = $_POST['observaciones'] ?? '';
-        
-        $id_responsable_novedad = $_POST['id_responsable_original'] ?? '';
-        $rol_responsable_novedad = $_POST['rol_responsable_original'] ?? '';
-        $nombre_responsable_novedad = $_POST['nombre_responsable_original'] ?? '';
-
-        $nombre_instructor_db = ''; 
-        if (!empty($id_instructor)) {
-            $sql_get_name = "SELECT nombre, apellido FROM instructores WHERE id_instructor = ?";
-            $stmt_name = $conexion->prepare($sql_get_name);
-            if ($stmt_name) {
-                $stmt_name->bind_param("i", $id_instructor);
-                $stmt_name->execute();
-                $stmt_name->bind_result($nombre_instr, $apellido_instr);
-                if ($stmt_name->fetch()) {
-                    $nombre_instructor_db = $nombre_instr . " " . $apellido_instr;
+  case 'historial':
+    ?>
+    <h2 class="historial-title">Historial de novedades</h2>
+    <input type="text" id="busquedaNovedades" placeholder="🔍 Buscar Novedades..." onkeyup="filtrarTabla('busquedaNovedades','tablaNovedades')">
+    <div class="container historial-container">
+      <div class="table-wrapper">
+        <table id="tablaNovedades">
+          <thead>
+            <tr>
+              <th>Id</th><th>Tipo</th><th>Descripción</th><th>Fecha</th>
+              <th>Rol</th><th>Responsable</th><th>Instructor</th>
+              <th>Observaciones</th><th>Imagen</th><th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+            $novedades = $conexion->query("SELECT * FROM novedades ORDER BY fecha DESC");
+            if ($novedades && $novedades->num_rows > 0) {
+              while ($d = $novedades->fetch_assoc()) {
+                echo "<tr>";
+                echo "<td>".htmlspecialchars($d['id_novedad'])."</td>";
+                echo "<td>".htmlspecialchars($d['tipo'])."</td>";
+                echo "<td>".htmlspecialchars($d['descripcion'])."</td>";
+                echo "<td>".htmlspecialchars($d['fecha'])."</td>";
+                echo "<td>".htmlspecialchars($d['rol_responsable'])."</td>";
+                echo "<td>".htmlspecialchars($d['nombre_responsable'])."</td>";
+                echo "<td>".htmlspecialchars($d['nombre_instructor'])."</td>";
+                echo "<td class='obs'>".htmlspecialchars($d['observaciones'])."</td>";
+                echo "<td>";
+                if (!empty($d['imagen'])) {
+                  echo "<img src='".htmlspecialchars($d['imagen'])."' alt='Imagen' style='max-width:80px; height:auto; border-radius:4px;'>";
+                } else {
+                  echo "—";
                 }
-                $stmt_name->close();
+                echo "</td>";
+                echo "<td class='acciones'>
+                        <a href='?action=editar_novedad_form&id=".htmlspecialchars($d['id_novedad'])."' class='btn-editar'><i class='fas fa-edit'></i> Editar</a>
+                        <a href='?action=eliminar_novedad&id=".htmlspecialchars($d['id_novedad'])."' class='btn-eliminar' onclick='return confirmarEliminacion()'><i class='fas fa-trash-alt'></i> Eliminar</a>
+                      </td>";
+                echo "</tr>";
+              }
             } else {
-                error_log("Error al preparar consulta de nombre de instructor (actualizar): " . $conexion->error);
+              echo "<tr><td colspan='10'>No hay novedades registradas en este momento.</td></tr>";
             }
-        }
-        date_default_timezone_set('America/Bogota'); 
-        $fecha_actualizacion = date("Y-m-d H:i:s");
+            ?>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <?php
+    break;
 
-        $sql_update = "UPDATE novedades SET tipo=?, descripcion=?, fecha=?, id_instructor=?, nombre_instructor=?, id_responsable=?, rol_responsable=?, nombre_responsable=?, observaciones=? WHERE id_novedad=?";
-        $stmt = $conexion->prepare($sql_update);
-        
-        if ($stmt === false) {
-        header("Location: Novedades.php?action=historial&mensaje=error_actualizacion");
-        exit();
-        }
-        $stmt->bind_param(
-            "sssisssssi",
-            $tipo,
-            $descripcion,
-            $fecha_actualizacion,
-            $id_instructor,
-            $nombre_instructor_db,
-            $id_responsable_novedad,
-            $rol_responsable_novedad,
-            $nombre_responsable_novedad,
-            $observaciones,
-            $id 
-        );
-        if ($stmt->execute()) {
-        header("Location: Novedades.php?action=historial&mensaje=actualizada");
-        exit();
-        } else {
-            error_log("Error al actualizar la novedad: " . $stmt->error);
-        header("Location: Novedades.php?action=historial&mensaje=error_actualizacion");
-        exit();
-        }
-        $stmt->close();
-    } else {
-    header("Location: Novedades.php?action=historial&mensaje=error_id");
-    exit();    
-}
-} else {
-    header("Location: Novedades.php?action=historial&mensaje=acceso");
-    exit();  }
-exit();
-break;
+  case 'eliminar_novedad':
+    $id = intval($_GET['id'] ?? 0);
+    if ($id > 0) {
+      // Obtener ruta de imagen
+      $stmt = $conexion->prepare("SELECT imagen FROM novedades WHERE id_novedad = ?");
+      $stmt->bind_param("i", $id);
+      $stmt->execute();
+      $stmt->bind_result($ruta_img);
+      $stmt->fetch();
+      $stmt->close();
 
-case 'eliminar_novedad':
-$id = intval($_GET['id'] ?? 0);
-if ($id > 0) {
-    $delete = "DELETE FROM novedades WHERE id_novedad = ?";
-    $stmt = $conexion->prepare($delete);
-    if ($stmt) {
-        $stmt->bind_param("i", $id);
-        if ($stmt->execute()) {
-        header("Location: Novedades.php?action=historial&mensaje=eliminada");
-        exit();
-        } else {
-        header("Location: Novedades.php?action=historial&mensaje=error_actualizacion");
-        exit();
+      // Eliminar registro
+      $stmt = $conexion->prepare("DELETE FROM novedades WHERE id_novedad = ?");
+      $stmt->bind_param("i", $id);
+      if ($stmt->execute()) {
+        // Eliminar archivo
+        if (!empty($ruta_img) && is_file($ruta_img)) {
+          @unlink($ruta_img);  // elimina si existe :contentReference[oaicite:0]{index=0}
         }
-        $stmt->close();
+        header("Location: ?action=historial&mensaje=eliminada");
+        exit();
+      } else {
+        error_log("Error eliminar novedad: ".$stmt->error);
+        header("Location: ?action=historial&mensaje=error_actualizacion");
+        exit();
+      }
     } else {
-    header("Location: Novedades.php?action=historial&mensaje=error_preparar_consulta");
-    exit(); 
+      header("Location: ?action=historial&mensaje=error_actualizacion");
+      exit();
     }
-} else {
-    header("Location: Novedades.php?action=historial&mensaje=error_actualizacion");
-    exit();
-}
-exit();
-break;
+    break;
 
-default:
-echo "<script> window.location.href='?action=novedades_form';</script>";
-exit();
-break;
+  // Incluye aquí editar_novedad_form y actualizar_novedad tal cual los tienes
+
+  default:
+    header("Location: ?action=novedades_form");
+    exit;
 }
 ?>
 </div>
 <script src="Js/Novedades.js"></script>
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const params = new URLSearchParams(window.location.search);
-  const mensaje = params.get("mensaje");
-
-  if (mensaje === "creada") {
-    showFloatingMessage("✅ Novedad registrada con éxito");
-  } else if (mensaje === "actualizada") {
-    showFloatingMessage("✅ Novedad actualizada correctamente");
-  } else if (mensaje === "eliminada") {
-    showFloatingMessage("✅ Novedad eliminada correctamente");
-  } else if (mensaje === "error_insercion") {
-    showFloatingMessage("❌ Error al registrar la novedad", true);
-  } else if(mensaje === "error_preparar_consulta"){ 
-    showFloatingMessage("❌ Error al preparar la consulta de eliminación", true); 
-  }  else if (mensaje === "error2"){
-    showFloatingMessage("❌ Error interno del sistema. Inténtalo de nuevo", true);   
-  } else if (mensaje === "error3"){
-    showFloatingMessage("❌ Error al enviar el formulario. Por favor, completa todos los campos", true);
-  } else if (mensaje === "acceso"){
-    showFloatingMessage("❌ Acceso no permitido para actualizar", true);   
-  }else if (mensaje === "error_actualizacion") {
-    showFloatingMessage("❌ Error al actualizar la novedad", true);
-  } else if (mensaje === "error_id") {
-    showFloatingMessage("❌ ID de novedad no válido", true);
-  }
-  // ✅ Limpia el parámetro para que no se repita al recargar
-  if (mensaje) {
-    const nuevaUrl = window.location.origin + window.location.pathname + window.location.search.replace(/&?mensaje=[^&]*/, "");
-    window.history.replaceState({}, document.title, nuevaUrl);
-  }
-});
-</script>
-
-<script>
-function filtrarTabla(inputId, tableId) {
-var input = document.getElementById(inputId);
-var filter = input.value.toUpperCase().trim(); 
-
-var table = document.getElementById(tableId);
-var tr = table.getElementsByTagName("tr");
-
-if (filter === "") {
-    for (var i = 1; i < tr.length; i++) {
-        tr[i].style.display = "";
-    }
-    return;
-}
-
-for (var i = 1; i < tr.length; i++) {
-    tr[i].style.display = "none";
-    var cells = tr[i].getElementsByTagName("td");
-    for (var j = 0; j < cells.length; j++) {
-        var td = cells[j];
-        if (td) {
-            var txtValue = td.textContent || td.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-                break;
-            }
-        }
-    }
-}
-}
-function confirmarEliminacion() {
-return confirm("¿Estás seguro de que quieres eliminar esta novedad? Esta acción no se puede deshacer.");
-}
-</script>
 </body>
 </html>

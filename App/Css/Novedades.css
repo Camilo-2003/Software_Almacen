@@ -296,3 +296,69 @@ header .logo {
 height: 40px;
 }
 }
+/* Contenedor del campo file alineado como el resto */
+.form-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* espacio entre elementos */
+  margin-bottom: 1rem;
+}
+
+/* Label opcional alineado al inicio */
+.form-group label {
+  min-width: 150px; /* ancho similar al resto de labels */
+  text-align: right;
+  margin-right: 0.5rem;
+}
+
+/* Estilo del área del input file */
+input[type="file"] {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.7rem;
+  border: 1px solid #ced4da;
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+}
+
+.form-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+input[type="file"] {
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  height: 2.5rem;
+  padding: 0.25rem; /* relleno general */
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  background-color: #fff;
+  color: #495057;
+  overflow: hidden;
+}
+
+/* Estilo interno del botón */
+input[type="file"]::file-selector-button {
+  padding: 0.5rem 1rem;
+  margin-right: 0.75rem; /* espacio entre botón y texto */
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  background-color: #fff;
+  cursor: pointer;
+  font: inherit;
+}
+
+/* Hover y focus para consistencia visual */
+input[type="file"]::file-selector-button:hover {
+  background-color: #e9ecef;
+}
+input[type="file"]:focus {
+  outline: none;
+  border-color: #86b7fe;
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
