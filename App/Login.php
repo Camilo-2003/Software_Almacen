@@ -30,6 +30,7 @@
   <!-- <p>¿Olvidaste tu Contraseña? <a href="Php/Contraseña/Recuperar_Password.php" class="regist">Ingresa aquí</a></p> -->
   <!-- <p>¿No tienes cuenta? <a href="Registrarse.html" class="regist">Regístrate aquí</a></p> -->
   </div>
+  <p><a href="olvidaste.html" class="regist">¿Olvidaste tu contraseña?</a></p>
   <script src="Js/Login.js"></script>
  
 </body>

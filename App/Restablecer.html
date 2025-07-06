@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="Img/logo_sena.png" type="image/x-icon">
+  <title>Restablecer Contraseña</title>
+  <link rel="stylesheet" href="Css/Login.css">
+</head>
+<body>
+
+<header>
+  <img src="Img/logo_sena.png" alt="Logo Sena" class="logo">
+  <h1>📦 Restablecer Contraseña</h1>
+</header>
+
+<div class="container">
+  <h3>Cambiar Contraseña</h3>
+  <form method="POST" action="Php/restablecer.php">
+    <label>Ingresa nueva contraseña:</label>
+    <input type="password" name="nueva" required>
+    <label>Confirma nueva contraseña:</label>
+    <input type="password" name="confirmar" required>
+    <button type="submit">Restablecer</button>
+  </form>
+</div>
+    <p><a href="Login.php" class="regist">⬅️ Volver al inicio de sesión</a></p>
+</body>
+</html>
