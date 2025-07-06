@@ -8,7 +8,7 @@ Este sistema está diseñado para adaptarse a los distintos roles dentro del amb
 
 ## 🚀 Funcionalidades
 
-- 🔐 Acceso seguro con autenticación de roles: Administrador, Almacenista e Instructor  
+- 🔐 Acceso seguro con autenticación de roles: Administrador y Almacenista   
 - 📦 Registro y control de inventario (materiales consumibles/no consumibles y equipos)  
 - 🔄 Gestión completa de préstamos y devoluciones con historial  
 - 📋 Registro y consulta de instructores  
@@ -23,8 +23,6 @@ Este sistema está diseñado para adaptarse a los distintos roles dentro del amb
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3" width="40" />
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" width="40" />
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="PHP" width="40" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL" width="40" />
-  <span style="font-size:32px;">🧰</span>
 </p>
 
 - **Frontend**: HTML5 · CSS3 · JavaScript  
