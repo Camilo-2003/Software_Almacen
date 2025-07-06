@@ -46,7 +46,7 @@ CREATE TABLE `administradores` (
 --
 
 INSERT INTO `administradores` (`id_administrador`, `nombres`, `apellidos`, `correo`, `telefono`, `hora_ingreso`, `hora_salida`, `password`) VALUES
-(2, 'Maria', 'Montes C', 'Maria123@gmail.com', '3122369834', '2025-07-01 02:17:11', '2025-07-01 04:11:39', '98765');
+(2, 'Juan Camilo', 'Muñoz M', 'camilo123@gmail.com', '3004939989', '2025-07-01 02:17:11', '2025-07-01 04:11:39', '$2y$10$ALwrYHRejsnsAp4aW/BXnOGqgHFseYTmMX7q3Kzm3tycob.kBFQlO');
 
 -- --------------------------------------------------------
 
@@ -70,7 +70,9 @@ CREATE TABLE `almacenistas` (
 --
 
 INSERT INTO `almacenistas` (`id_almacenista`, `nombres`, `apellidos`, `correo`, `telefono`, `password`, `hora_ingreso`, `hora_salida`) VALUES
-(10, 'Maria ', 'Montes Carmona', 'Maria@gmail.com', '3122369834', '$2y$10$U9x5F1oNXiL6X9ri3PYBTupLOUUpEWOv0M6l.QDivXNTKGh7wCiny', '2025-06-30 08:52:11', '2025-06-30 09:25:15');
+(10, 'Camilo ', 'Muñoz Manco', 'camilo@gmail.com', '3004939697', '$2y$10$U9x5F1oNXiL6X9ri3PYBTupLOUUpEWOv0M6l.QDivXNTKGh7wCiny', '2025-06-30 08:52:11', '2025-06-30 09:25:15'),
+(41, 'Maria', 'perez', 'Maria@gmail.com', '3004939697', '$2y$10$YPTayxzbflOrRmotOr/TGuF9ao1UiUTje6eTWkNL4YUTwkBxJUp/e', '0000-00-00 00:00:00', NULL);
+
 -- --------------------------------------------------------
 
 --
