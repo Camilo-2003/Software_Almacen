@@ -24,7 +24,7 @@ Este sistema está diseñado para adaptarse a los distintos roles dentro del amb
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" width="40" />
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="PHP" width="40" />
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL" width="40" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/xampp/xampp-original.svg" alt="XAMPP" width="40" />
+  <span style="font-size:32px;">🧰</span>
 </p>
 
 - **Frontend**: HTML5 · CSS3 · JavaScript  
