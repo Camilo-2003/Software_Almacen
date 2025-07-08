@@ -2,6 +2,12 @@
 require_once $_SERVER['DOCUMENT_ROOT'] . '/Software_Almacen/App/Conexion.php';
 include("ProhibirAcceso.php");
 
+function sendJsonResponse($message, $type) {
+    header('Content-Type: application/json');
+    echo json_encode(['message' => $message, 'type' => $type]);
+    exit();
+}
+
 $instructor_para_editar = null;
 $es_modo_edicion = false;
 // Procesar Eliminación
@@ -13,19 +19,19 @@ if (isset($_POST['action']) && $_POST['action'] === 'delete' && isset($_POST['id
         $stmt->bind_param("i", $id);
 
         if ($stmt->execute()) {
-            echo "<script>alert('✅Instructor eliminado correctamente.'); window.location.href='Gestion_Instructores.php';</script>";
+        sendJsonResponse('✅ Instructor eliminado correctamente.', 'success');
         } else {
-            echo "<script>alert('⚠️Error al eliminar instructor. Tiene préstamos asociados, solo puedes desactivarlo.'); window.location.href='Gestion_Instructores.php';</script>";
+        sendJsonResponse('⚠️ Error al eliminar. El instructor puede tener préstamos asociados.', 'error');
         }
         $stmt->close();
     } else {
-        echo "<script>alert('⚠️ID de instructor no válido para eliminar.'); window.location.href='Gestion_Instructores.php';</script>";
+        sendJsonResponse('⚠️ID de instructor no válido para eliminar.', 'error');
     }
     exit(); 
 }
 
 // Procesar Adición/Edición de Instructor
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_instructor'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nombre'])) {
     $nombre = trim($_POST["nombre"]);
     $apellido = trim($_POST["apellido"]);
     $correo = trim($_POST["correo"]);
@@ -36,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_instructor'])) 
     $id_instructor = isset($_POST['id_instructor']) ? intval($_POST['id_instructor']) : 0;
 
     if (empty($nombre) || empty($apellido) || empty($correo) || empty($telefono) || empty($ambiente) || empty($estado) || empty($disponibilidad_prestamo)) {
-        echo "<script>alert('⚠️Todos los campos son obligatorios.'); window.location.href='Gestion_Instructores.php';</script>";
+        sendJsonResponse('⚠️ Todos los campos son obligatorios.', 'error');
         exit();
     }
     if ($id_instructor > 0) { 
@@ -45,9 +51,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_instructor'])) 
         $stmt->bind_param('sssssssi', $nombre, $apellido, $correo, $telefono, $ambiente, $estado, $disponibilidad_prestamo, $id_instructor);
 
         if ($stmt->execute()) {
-            echo "<script>alert('✅Instructor actualizado correctamente.'); window.location.href='Gestion_Instructores.php';</script>";
+            sendJsonResponse('✅ Instructor actualizado correctamente.', 'success');
         } else {
-            echo "<script>alert('⚠️Error al actualizar. Posiblemente los datos ya existen para otro instructor.'); window.location.href='Gestion_Instructores.php';</script>";
+            sendJsonResponse('⚠️ Error al actualizar. Revisa los datos.', 'error');
         }
     } else { 
         $sql = "INSERT INTO instructores (nombre, apellido, correo, telefono, ambiente, estado_activo, disponibilidad_prestamo) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -55,9 +61,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_instructor'])) 
         $stmt->bind_param("sssssss", $nombre, $apellido, $correo, $telefono, $ambiente, $estado, $disponibilidad_prestamo);
 
         if ($stmt->execute()) {
-            echo "<script>alert('✅Registro de instructor exitoso.'); window.location.href='Gestion_Instructores.php';</script>";
+            sendJsonResponse('✅ Registro de instructor exitoso.', 'success');
         } else {
-            echo "<script>alert('⚠️Error al registrar instructor. ¡Instructor ya registrado o error de datos!.'); window.location.href='Gestion_Instructores.php';</script>";
+            sendJsonResponse('⚠️ Error al registrar. El instructor ya podría existir.', 'error');
         }
     }
     $stmt->close();
@@ -76,12 +82,12 @@ if (isset($_GET['action']) && $_GET['action'] === 'edit' && isset($_GET['id'])) 
             $instructor_para_editar = $result->fetch_assoc();
             $es_modo_edicion = true;
         } else {
-            echo "<script>alert('Instructor no encontrado para edición.'); window.location.href='Gestion_Instructores.php';</script>";
+            sendJsonResponse('⚠️ Instructor no encontrado para edición.', 'error');
             exit();
         }
         $stmt->close();
     } else {
-        echo "<script>alert('ID de instructor no válido para edición.'); window.location.href='Gestion_Instructores.php';</script>";
+        sendJsonResponse('⚠️ ID de instructor no válido para edición.', 'error');
         exit();
     }
 }
@@ -97,6 +103,7 @@ $result_instructores = $conexion->query($select);
     <title>Gestión de Instructores | SENA</title>
     <link rel="stylesheet" href="Css/Gestion_Instructores.css">
     <link rel="stylesheet" href="vendor/fontawesome/css/all.min.css">
+    <script src="Js/Mensajes.js" defer></script>
 </head>
 <body>
     <header>
@@ -226,10 +233,10 @@ $result_instructores = $conexion->query($select);
                             echo "<td class='text-left'>" . htmlspecialchars($instructor['disponibilidad_prestamo']) . "</td>";
                             echo "<td class='action-buttons'>
                                     <a href='Gestion_Instructores.php?action=edit&id=" . urlencode($instructor['id_instructor']) . "' class='btn btn-edit' title='Editar'><i class='fas fa-edit'></i> Editar</a>
-                                    <form action='Gestion_Instructores.php' method='POST' style='display:inline-block; margin-left: 5px;'>
+                                    <form action='Gestion_Instructores.php' method='POST' class='delete-form' style='display:inline-block; margin-left: 5px;'>
                                         <input type='hidden' name='action' value='delete'>
                                         <input type='hidden' name='id' value='" . htmlspecialchars($instructor['id_instructor']) . "'>
-                                        <button type='submit' class='btn btn-delete' onclick='return confirm(\"¿Estás seguro que quieres eliminar este instructor?\")' title='Eliminar'><i class='fas fa-trash-alt'></i> Eliminar</button>
+                                        <button type='submit' class='btn btn-delete' title='Eliminar'><i class='fas fa-trash-alt'></i> Eliminar</button>
                                     </form>
                                   </td>";
                             echo "</tr>";

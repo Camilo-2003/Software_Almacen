@@ -7,7 +7,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/Software_Almacen/App/Conexion.php';
 require_once "../../ProhibirAcceso.php";
 
 if (!isset($_SESSION["rol"]) || ($_SESSION["rol"] !== "almacenista" && $_SESSION["rol"] !== "administrador")) {
-    header("Location: ../../Error.php");
+    header("Location: /Software_Almacen/App/Error.php");
     exit();
 }
 
@@ -49,15 +49,17 @@ if ($instructor_id_filtro > 0) {
     $prestamos = $resultado->fetch_all(MYSQLI_ASSOC);
     $stmt->close();
 
-    echo "<div class='instructor-detail-view'>";
+    // echo "<div class='instructor-detail-view'>";
+    echo "<div class='instructor-detail-view' data-instructor-id='" . htmlspecialchars($instructor_id_filtro) . "'>";
     if (count($prestamos) > 0) {
         $primer_prestamo = $prestamos[0];
         echo "<button id='backToInstructorList' class='btn-back-list'><i class='fas fa-arrow-left'></i> Volver a la lista de instructores</button>";
-        echo "<h2 class='txt'>Préstamos Pendientes para " . htmlspecialchars($primer_prestamo['instructor_nombre']) . "</h2>";
+        echo "<h2 class='txttt'>Préstamos Pendientes para " . htmlspecialchars($primer_prestamo['instructor_nombre']) . "</h2>";
         echo "<p>Aquí puedes ver y gestionar los materiales que el instructor tiene pendientes por devolver.</p>";
      
         echo "<div class='loan-group'>";
         // Botón para editar el préstamo completo (usa el ID del primer ítem como referencia del grupo)
+        echo "<h3 class='txtt'>Préstamo # " . htmlspecialchars($primer_prestamo['id_prestamo_material']) . " (Fecha: " . htmlspecialchars($primer_prestamo['fecha_prestamo']) . ")</h3>";
         echo "<button class='btn-editar open-editar-prestamo-modal' 
                 data-id-prestamo='" . htmlspecialchars($primer_prestamo['id_prestamo_material']) . "'
                 data-instructor-id='" . htmlspecialchars($primer_prestamo['id_instructor']) . "'
@@ -66,14 +68,16 @@ if ($instructor_id_filtro > 0) {
                 title='Editar este grupo de préstamos'>
                 <i class='fa-solid fa-edit'></i> Editar Préstamo Completo
               </button>";
-
+        echo "<div class='table-responsive'>";
         echo "<table>";
         echo "<thead><tr>
                 <th><input type='checkbox' id='selectAllPrestamos'></th>
                 <th>Material</th>
-                <th>Cantidad</th>
                 <th>Estado</th>
+                <th>Responsable</th>
+                <th>Cantidad</th>
                 <th>Fecha Préstamo</th>
+                <th>Fecha Vencimiento</th>
                 <th>Acciones</th>
               </tr></thead>";
         echo "<tbody>";
@@ -82,14 +86,25 @@ if ($instructor_id_filtro > 0) {
             echo "<tr>";
             echo "<td><input type='checkbox' class='prestamo-checkbox' data-id-prestamo='" . htmlspecialchars($row['id_prestamo_material']) . "'></td>";
             echo "<td>" . htmlspecialchars($row['nombre_material']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['cantidad']) . "</td>";
             echo "<td class='pendiente'>" . htmlspecialchars($row['estado']) . "</td>";
-            echo "<td>" . htmlspecialchars(date("Y-m-d H:i", strtotime($row['fecha_prestamo']))) . "</td>";
-            echo "<td><button class='btn-devolver-small open-devolver-modal' data-id-prestamo='" . htmlspecialchars($row['id_prestamo_material']) . "'><i class='fa-solid fa-rotate'></i> Devolver</button></td>";
+            echo "<td>" . htmlspecialchars($row['responsable']) . " (" . htmlspecialchars($row['rol_responsable']) . ")</td>";
+            echo "<td>" . htmlspecialchars($row['cantidad']) . "</td>";
+            echo "<td>" . htmlspecialchars(date("Y-m-d H:i:s", strtotime($row['fecha_prestamo']))) . "</td>";
+            echo "<td>" . htmlspecialchars(date("Y-m-d H:i:s", strtotime($row['fecha_limite_devolucion']))) . "</td>";
+            echo "<td class='actions-cell'>
+            <button class='btn-devolver-small open-devolver-modal' data-id-prestamo='" . htmlspecialchars($row['id_prestamo_material']) . "' data-cantidad-prestada='" . htmlspecialchars($row['cantidad']) . "'><i class='fa-solid fa-rotate'></i> Devolver</button>
+            <button class='btn btn-warning btn-abrir-novedad-material-modal'
+                    data-id-prestamo-material='" . htmlspecialchars($row['id_prestamo_material']) . "'
+                    data-nombre-material='" . htmlspecialchars($row['nombre_material']) . "'
+                    data-nombre-instructor='" . htmlspecialchars($row['instructor_nombre']) . "'>
+                <i class='fa-solid fa-exclamation-triangle'></i> Novedad
+            </button> 
+           </td>";
             echo "</tr>";
         }
-        echo "</tbody></table>";
+        echo "</tbody></table></div>";
         echo "<button class='btn-devolver-seleccionados' id='btnDevolverSeleccionados2'><i class='fas fa-check-double'></i> Devolver Seleccionados</button>";
+        // echo "<button class='btn-novedad-general' id='btnNovedadMaterialGeneral'><i class='fas fa-exclamation-triangle'></i> Registrar Novedad General</button>";
         echo "</div>";
 
     } else {

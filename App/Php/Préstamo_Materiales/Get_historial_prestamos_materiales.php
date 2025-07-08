@@ -7,8 +7,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/Software_Almacen/App/Conexion.php';
 require_once "../../ProhibirAcceso.php";
 
 if (!isset($_SESSION["rol"]) || ($_SESSION["rol"] !== "almacenista" && $_SESSION["rol"] !== "administrador")) {
-    http_response_code(403); 
-    echo "Acceso denegado.";
+    header("Location: /Software_Almacen/App/Error.php");
     exit();
 }
 $sql = "
@@ -23,6 +22,8 @@ $sql = "
         pm.estado,
         pm.id_responsable,
         pm.rol_responsable,
+        pm.responsable,
+        dm.fecha_devolucion,
         dm.estado_devolucion, -- <--- RE-INCLUDED THIS LINE
         dm.observaciones AS observaciones_devolucion
     FROM prestamo_materiales pm
@@ -34,8 +35,14 @@ $sql = "
 $resultado = $conexion->query($sql);
 if ($resultado) {
     if ($resultado->num_rows > 0) {
-        echo '<h2 class="txt">Historial Completo de Préstamos de Materiales</h2>';
-        echo '<div class="table-responsive">';
+        echo '<h2 class="txt">Historial Completo de Préstamos de Materiales  
+        <a href="Reportes/Exportar_Historial_Prestamos_Materiales_CSV.php" class="export-button-excel" title="EXPORTAR A EXCEL">
+        Exportar a Excel <i class="fas fa-file-excel"></i> 
+        </a>
+        <a href="Reportes/Exportar_Historial_Prestamos_Materiales_PDF.php" class="export-button-pdf" title="EXPORTAR A PDF">
+        Exportar a PDF <i class="fas fa-file-pdf"></i> 
+        </a></h2>';
+        echo '<div class="table-responsivee">';
         echo '<table>';
         echo '<thead>';
         echo '<tr>';
@@ -45,6 +52,7 @@ if ($resultado) {
         echo '<th>Cantidad</th>';
         echo '<th>Instructor</th>';
         echo '<th>Fecha Préstamo</th>';
+        echo '<th>Fecha Devolucion</th>';
         echo '<th>Estado Préstamo</th>';
         echo '<th>Responsable</th>';
         echo '<th>Estado Devolución</th>'; 
@@ -59,8 +67,9 @@ if ($resultado) {
             echo '<td>' . htmlspecialchars($row['cantidad']) . '</td>';
             echo '<td>' . htmlspecialchars($row['nombre_instructor'] . ' ' . $row['apellido_instructor']) . '</td>';
             echo '<td>' . htmlspecialchars($row['fecha_prestamo']) . '</td>';
+            echo '<td>' . htmlspecialchars($row['fecha_devolucion']) . '</td>';
             echo '<td>' . htmlspecialchars($row['estado']) . '</td>';
-            echo '<td>' . htmlspecialchars($row['rol_responsable'] . ' (ID: ' . $row['id_responsable'] . ')') . '</td>';
+            echo '<td>' . htmlspecialchars($row['rol_responsable'] .' - '. $row['responsable']) . '</td>';
             echo '<td>' . (empty($row['estado_devolucion']) ? 'N/A' : htmlspecialchars($row['estado_devolucion'])) . '</td>'; 
             echo '</tr>';
         }

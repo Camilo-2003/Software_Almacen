@@ -66,8 +66,9 @@ async function saveEquipo() {
     const marca = document.getElementById('equipoMarca').value;
     const serial = document.getElementById('equipoSerial').value.trim();
     const estado = document.getElementById('equipoEstado').value;
-    if (!marca || marca === 'default' || !serial) {
-        showFloatingMessage('Por favor selecciona una marca válida y completa el serial.', true);
+    
+    if (!marca || marca === 'default' || !serial || !estado) {
+        showFloatingMessage('Todos los campos son obligatorios para equipos.', true);
         return;
     }
     const data = { marca, serial, estado };
@@ -138,7 +139,7 @@ async function loadMateriales() {
             const row = materialesTableBody.insertRow();
             row.insertCell().textContent = material.id_material;
             row.insertCell().textContent = material.nombre;
-            row.insertCell().textContent = material.tipo;
+            row.insertCell().textContent = material.tipo; 
             row.insertCell().textContent = material.stock;
             row.insertCell().textContent = material.estado_material; 
             const actionsCell = row.insertCell();
@@ -230,10 +231,30 @@ function clearMaterialForm() {
     document.getElementById('materialNombre').value = '';
     document.getElementById('materialTipo').value = '';
     document.getElementById('materialStock').value = '1';
-    document.getElementById('estadoMaterial').value = 'disponible'; 
+    document.getElementById('estadoMaterial').value = ''; 
 }
 document.addEventListener('DOMContentLoaded', () => {
     loadEquipos();
     loadMateriales();
     document.querySelector('.tab-button').click();
+
+    // evitar espacios iniciales en tiempo real
+    const equipoSerialInput = document.getElementById("equipoSerial");
+    if (equipoSerialInput) { // Añadimos una verificación para asegurar que el elemento existe
+        equipoSerialInput.addEventListener("input", function(e) {
+            this.value = this.value.replace(/^\s+/, '');
+        });
+    } else {
+        console.error("Error: Elemento con ID 'equipoSerial' no encontrado en el DOM.");
+    }
+
+    const materialNombreInput = document.getElementById("materialNombre");
+    if (materialNombreInput) { // Añadimos una verificación para asegurar que el elemento existe
+        materialNombreInput.addEventListener("input", function(e) {
+            this.value = this.value.replace(/^\s+/, '');
+        });
+    } else {
+        console.error("Error: Elemento con ID 'materialNombre' no encontrado en el DOM.");
+    }
 });
+

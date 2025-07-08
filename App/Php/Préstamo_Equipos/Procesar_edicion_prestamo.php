@@ -1,6 +1,5 @@
 <?php
 header('Content-Type: application/json');
-session_start();
 ini_set('display_errors', 1); 
 ini_set('display_startup_errors', 1); 
 error_reporting(E_ALL); 
@@ -8,6 +7,7 @@ error_reporting(E_ALL);
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT); // Habilitar reportes de errores de MySQLi
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/Software_Almacen/App/Conexion.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/Software_Almacen/App/ProhibirAcceso.php';
 
 $response = ['success' => false, 'message' => ''];
 
@@ -18,8 +18,7 @@ if ($conexion->connect_error) {
 }
 
 if (!isset($_SESSION["rol"]) || ($_SESSION["rol"] !== "almacenista" && $_SESSION["rol"] !== "administrador")) {
-    $response['message'] = "Acceso denegado. No tiene permisos para realizar esta acción.";
-    echo json_encode($response);
+    header("Location: /Software_Almacen/App/Error.php");
     exit();
 }
 
@@ -190,7 +189,7 @@ try {
         }
         $stmt_update_cabecera->close();
     } else {
-        // Si aún quedan ítems prestados, asegurarse de que el estado sea 'prestado'
+        // Si aún quedan equipos prestados, asegurarse de que el estado sea 'prestado'
         $stmt_update_cabecera = $conexion->prepare("UPDATE prestamo_equipos SET estado_general_prestamo = 'prestado' WHERE id_prestamo_equipo = ? AND estado_general_prestamo != 'prestado'");
         if (!$stmt_update_cabecera) {
             throw new Exception("Error preparando actualización de cabecera (a prestado): " . $conexion->error);

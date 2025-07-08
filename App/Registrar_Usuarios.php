@@ -15,24 +15,17 @@ if ($_SESSION["rol"] !== "administrador") {
     <title>Formulario De Registro | SENA</title>
     <link rel="stylesheet" href="vendor/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="Css/Registrar_Usuarios.css">
+    <script src="Js/Mensajes.js" defer></script>
 </head>
 <body>
     <header>
     <div class="regresar">
       <a href="Usuarios.php" class="rgs"><i class="fas fa-reply"></i> Regresar</a>
   </div>
-  <!-- <div class="users">
-  <a href="Usuarios.php" class="user"><i class="fa-solid fa-user-pen"></i> Usuarios</a>
-</div>   -->
 </header>
-
-  <!-- <div id="loader">
-    <div class="spinner"></div>
-    <div class="loader-text">Cargando...</div> 
-  </div> -->
   <br>
 <div class="contain">
-    <form action="Php/Guardar_Registrarse2.php" method="POST" onsubmit="return validarFormulario()">
+    <form action="Php/Guardar_Registrarse.php" method="POST" onsubmit="return validarFormulario()">
         <h2>Crear Cuenta</h2>
         <label for="rol">Rol del nuevo usuario: </label>
         <select name="rol" required>

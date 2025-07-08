@@ -1,6 +1,5 @@
 <?php 
 $conn = new mysqli("localhost", "root", "", "almacen");
-
 // Contadores de Equipos
 $sql_equipos = "SELECT estado, COUNT(*) AS count_by_status FROM equipos GROUP BY estado";
 $result_equipos = $conn->query($sql_equipos);
@@ -12,7 +11,15 @@ if ($result_equipos) {
         }
     }
 }
+// Contador de total de equipos 
+$sqlTotalEquipos = "SELECT id_equipo, marca, serial, estado FROM equipos ORDER BY marca, serial"; 
+$resultadoTotalEquipos = $conn->query($sqlTotalEquipos);
 
+$totalEquiposCount = 0;
+
+if ($resultadoTotalEquipos) { 
+    $totalEquiposCount = $resultadoTotalEquipos->num_rows;
+}
 // Contadores de Materiales por Tipo
 $sql_mat_tipo = "SELECT tipo, COUNT(*) AS count FROM materiales GROUP BY tipo";
 $result_mat_tipo = $conn->query($sql_mat_tipo);
@@ -24,6 +31,10 @@ if ($result_mat_tipo) {
         }
     }
 }
+//Total de materiales
+$total = "SELECT COUNT(*) as total FROM materiales";
+$resultado2 = $conn->query($total);
+$total = $resultado2 ? $resultado2->fetch_assoc()['total'] : 0;
 
 // Contadores de Materiales por Estado
 $sql_mat_estado = "SELECT estado_material, COUNT(*) AS count FROM materiales GROUP BY estado_material";
@@ -36,7 +47,6 @@ if ($result_mat_estado) {
         }
     }
 }
-
 $conn->close();
 include("../../ProhibirAcceso.php");
 ?>
@@ -84,7 +94,7 @@ include("../../ProhibirAcceso.php");
                 <label for="equipoSerial">Serial:</label>
                 <input type="text" id="equipoSerial" placeholder="Ej: SN12345" required>
                 <label for="equipoEstado">Estado:</label>
-                <select id="equipoEstado">
+                <select id="equipoEstado" required>
                     <option value="">Selecciona el estado</option>
                     <option value="disponible">Disponible</option>
                     <option value="prestado">Prestado</option>
@@ -92,21 +102,31 @@ include("../../ProhibirAcceso.php");
                 </select>
                 <button class="guardar" onclick="saveEquipo()"><i class="fa-solid fa-floppy-disk"></i> Guardar Equipo</button>
                 <button class="limpiar" onclick="clearEquipoForm()"><i class="fas fa-eraser"></i> Limpiar</button>
-                <div class="counts-grid"  style="display: grid; grid-template-columns: repeat(4, auto); gap: 50px;">
+                <div class="counts-grid"  style="display: grid; grid-template-columns: repeat(5, auto); gap: 50px;">
                     <p><b><?php echo $equipo_counts['disponible']; ?></b> Disponibles</p>
                     <p><b><?php echo $equipo_counts['prestado']; ?></b> Prestados</p>
                     <p><b><?php echo $equipo_counts['deteriorado']; ?></b> Deteriorados</p>
                     <p><b><?php echo $equipo_counts['malo']; ?></b> Malos</p>
+                    <p class="total">Total de equipos: <b><?= htmlspecialchars($totalEquiposCount) ?></b></p>
                 </div>
             </div>
             <div class="list-section">
-                <h3>Lista de Equipos</h3>
+                <h3>Lista de Equipos
+                        <a href="../../Reportes/Exportar_Inventario_Equipos _CSV.php" class="export-button-excel" title="EXPORTAR A EXCEL">
+                        Exportar a Excel <i class="fas fa-file-excel"></i>
+                        </a>
+                        <a href="../../Reportes/Exportar_Inventario_Equipos_PDF.php" class="export-button-pdf" title="EXPORTAR A PDF">
+                        Exportar a PDF <i class="fas fa-file-pdf"></i>
+                        </a>
+                    </h3>
+                    <div class="table-container-scroll">
                 <table id="equiposTable">
                     <thead><tr><th>ID</th><th>Marca</th><th>Serial</th><th>Estado</th><th>Acciones</th></tr></thead>
                     <tbody id="equiposTableBody"></tbody>
                 </table>
             </div>
         </div>
+</div>
         
         <div id="materiales" class="tab-content">
             <div class="form-section">
@@ -138,11 +158,20 @@ include("../../ProhibirAcceso.php");
                  <div class="counts-grid" style="display: grid; grid-template-columns: repeat(5, auto); gap: 45px;">
                     <p> <b><?php echo $material_estado_counts['disponible']; ?></b> Con Estado Disponible</p>
                     <p><b><?php echo $material_estado_counts['en_revision']; ?></b> Con Estado En Revisión</p>
+                    <p class="total">Total de materiales: <b><?php echo $total; ?></b></p>
                     <!-- <p><b><?php echo $material_estado_counts['descartado']; ?></b> Con Estado Descartado</p> -->
                 </div>
             </div>
             <div class="list-section">
-                <h3>Lista de Materiales</h3>
+                <h3>Lista de Materiales
+                        <a href="../../Reportes/Exportar_Inventario_Materiales_CSV.php" class="export-button-excel" title="EXPORTAR A EXCEL">
+                        Exportar a Excel <i class="fas fa-file-excel"></i>
+                        </a>
+                        <a href="../../Reportes/Exportar_Inventario_Materiales_PDF.php" class="export-button-pdf" title="EXPORTAR A PDF">
+                        Exportar a PDF <i class="fas fa-file-pdf"></i> 
+                        </a>
+                        </h3>
+                        <div class="table-container-scroll">
                 <table id="materialesTable">
                     <thead><tr><th>ID</th><th>Nombre</th><th>Tipo</th><th>Cantidad</th><th>Estado</th><th>Acciones</th></tr></thead>
                     <tbody id="materialesTableBody"></tbody>
@@ -150,6 +179,7 @@ include("../../ProhibirAcceso.php");
             </div>
         </div>
     </div>
+</div>
 
 <script src="../../Js/Inventario.js"></script>
 </body>

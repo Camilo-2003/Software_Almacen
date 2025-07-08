@@ -6,8 +6,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/Software_Almacen/App/Conexion.php';
 require_once "../../ProhibirAcceso.php";
 
 if (!isset($_SESSION["rol"]) || ($_SESSION["rol"] !== "almacenista" && $_SESSION["rol"] !== "administrador")) {
-    http_response_code(403); 
-    echo "Acceso denegado.";
+    header("Location: /Software_Almacen/App/Error.php");
     exit();
 }
 $sql = "
@@ -22,7 +21,8 @@ $sql = "
         pm.estado,
         pm.id_responsable,
         pm.rol_responsable,
-        dm.estado_devolucion, -- <--- RE-INCLUDED THIS LINE
+        dm.estado_devolucion,
+        dm.fecha_devolucion,
         dm.observaciones AS observaciones_devolucion
     FROM prestamo_materiales pm
     JOIN materiales m ON pm.id_material = m.id_material
@@ -34,7 +34,14 @@ $resultado = $conexion->query($sql);
 
 if ($resultado) {
     if ($resultado->num_rows > 0) {
-        echo '<h2 class="txt">Observaciones de Devolución</h2>';
+        echo '<h2 class="txt">Observaciones de Devolución 
+        <a href="Reportes/Exportar_Observaciones_Materiales_CSV.php" class="export-button-excel" title="EXPORTAR A EXCEL">
+        Exportar a Excel <i class="fas fa-file-excel"></i> 
+        </a>
+        <a href="Reportes/Exportar_Observaciones_Materiales_PDF.php" class="export-button-pdf" title="EXPORTAR A PDF">  
+        Exportar a PDF <i class="fas fa-file-pdf"></i>
+        </a>
+        </h2>';
         echo '<div class="table-responsivee">';
         echo '<table>';
         echo '<thead>';
@@ -43,6 +50,7 @@ if ($resultado) {
         echo '<th>Tipo</th>';
         echo '<th>Instructor</th>';
         echo '<th>Fecha Préstamo</th>';
+        echo '<th>Fecha Devolución</th>';
         echo '<th>Estado Devolución</th>'; 
         echo '<th>Observaciones Devolución</th>';
         echo '</tr>';
@@ -54,6 +62,7 @@ if ($resultado) {
             echo '<td>' . htmlspecialchars($row['tipo_material']) . '</td>';
             echo '<td>' . htmlspecialchars($row['nombre_instructor'] . ' ' . $row['apellido_instructor']) . '</td>';
             echo '<td>' . htmlspecialchars($row['fecha_prestamo']) . '</td>';
+            echo '<td>' . htmlspecialchars($row['fecha_devolucion']) . '</td>';
             echo '<td>' . (empty($row['estado_devolucion']) ? 'N/A' : htmlspecialchars($row['estado_devolucion'])) . '</td>'; 
             echo '<td>' . (empty($row['observaciones_devolucion']) ? 'N/A' : htmlspecialchars($row['observaciones_devolucion'])) . '</td>';
             echo '</tr>';

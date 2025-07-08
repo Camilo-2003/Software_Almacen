@@ -4,6 +4,12 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/Software_Almacen/App/Conexion.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/Software_Almacen/App/ProhibirAcceso.php';
+
+if (!isset($_SESSION["rol"]) || ($_SESSION["rol"] !== "almacenista" && $_SESSION["rol"] !== "administrador")) {
+    header("Location: /Software_Almacen/App/Error.php");
+    exit();
+}
 
 if (!isset($conexion) || $conexion->connect_error) {
     echo "<p style='text-align: center; color: #dc3545; padding: 20px;'>Error: No se pudo conectar a la base de datos. Por favor, revise su archivo Conexion.php.</p>";
@@ -18,7 +24,8 @@ if ($instructor_id_filtro > 0) {
                 ped.id_prestamo_equipo,
                 ped.estado_item_prestamo AS estado_detalle,
                 ped.fecha_vencimiento_item,
-                ped.fecha_devolucion_item, 
+                ped.fecha_devolucion_item,
+                e.id_equipo,
                 e.marca AS equipo_marca,
                 e.serial AS equipo_serial,
                 CONCAT(e.marca, ' - ', e.serial) AS equipo_marca_serial,
@@ -44,7 +51,8 @@ if ($instructor_id_filtro > 0) {
     $stmt->execute();
     $resultado = $stmt->get_result();
 
-    echo "<div class='instructor-detail-view'>";
+    echo "<div class='instructor-detail-view' data-instructor-id='" . htmlspecialchars($instructor_id_filtro) . "'>";
+    // echo "<div class='instructor-detail-view'>";
     if ($resultado->num_rows > 0) {
         $primera_fila = $resultado->fetch_assoc();
         echo "<button id='backToInstructorList' class='btn-back-list'><i class='fas fa-arrow-left'></i> Volver a la lista de instructores</button>";
@@ -75,10 +83,11 @@ if ($instructor_id_filtro > 0) {
                     data-instructor-nombre='" . htmlspecialchars($prestamo['cabecera']['instructor_nombre']) . "'
                     data-fecha-prestamo='" . htmlspecialchars($prestamo['cabecera']['fecha_prestamo']) . "'
                     title='Editar préstamo completo'>
-                    <i class='fa-solid fa-edit'></i> Editar Préstamo
+                    <i class='fa-solid fa-edit'></i> Editar Préstamo Completo
                 </button>";
             echo "</div>";
 
+            echo "<div class='table-responsiveee'>";
             echo "<table>";
             echo "<thead>";
             echo "<tr>";
@@ -96,7 +105,11 @@ if ($instructor_id_filtro > 0) {
 
             foreach ($prestamo['detalles'] as $detalle) {
                 $estado_clase = str_replace('_', '-', $detalle['estado_detalle']);
-                echo "<tr class='item-estado-" . htmlspecialchars($estado_clase) . "'>";
+                echo "<tr class='item-estado-" . htmlspecialchars($estado_clase) . "' 
+                          data-id-detalle='" . htmlspecialchars($detalle['id_prestamo_equipo_detalle']) . "'
+                          data-id-prestamo='" . htmlspecialchars($detalle['id_prestamo_equipo']) . "'
+                          data-id-equipo='" . htmlspecialchars($detalle['id_equipo']) . "'
+                          data-id-instructor='" . htmlspecialchars($instructor_id_filtro) . "'>";
                 echo "<td>";
                 // Deshabilitar checkbox si el estado no es 'prestado'
                 $checkbox_disabled = ($detalle['estado_detalle'] !== 'prestado') ? 'disabled' : '';
@@ -105,12 +118,23 @@ if ($instructor_id_filtro > 0) {
                 // echo "<td>" . htmlspecialchars($detalle['id_prestamo_equipo_detalle']) . "</td>";
                 echo "<td>" . htmlspecialchars($detalle['equipo_marca_serial']) . "</td>";
                 echo "<td class='activo'>"  .  htmlspecialchars($detalle['estado_cabecera']) . "</>";
-                echo "<td>" . htmlspecialchars($detalle['rol_responsable']) . "</td>";
+                echo "<td>" . htmlspecialchars($detalle['responsable']) . " (" . htmlspecialchars($detalle['rol_responsable']) . ")</td>";
                 echo "<td>" . htmlspecialchars($detalle['fecha_prestamo']) . "</td>";
                 echo "<td>" . htmlspecialchars($detalle['fecha_vencimiento_item']) . "</td>";
                 echo "<td>";
                 if ($detalle['estado_detalle'] === 'prestado') {
                     echo "<button class='btn-devolver-small open-devolver-modal' data-id-prestamo-detalle='" . htmlspecialchars($detalle['id_prestamo_equipo_detalle']) . "' title='Registrar devolución de este equipo'><i class='fa-solid fa-rotate'></i> Devolver</button>";
+                    //Novedades
+                    echo "<button class='btn btn-warning btn-abrir-novedad2-modal' ";
+                    echo "data-id_prestamo_equipo_detalle='" . htmlspecialchars($detalle['id_prestamo_equipo_detalle']) . "' ";
+                    echo "data-id_prestamo_equipo='" . htmlspecialchars($detalle['id_prestamo_equipo']) . "' ";
+                    echo "data-id_equipo='" . htmlspecialchars($detalle['id_equipo']) . "' ";
+                    echo "data-nombre_equipo='" . htmlspecialchars($detalle['equipo_marca_serial']) . "' "; 
+                    echo "data-nombre_instructor='" . htmlspecialchars($detalle['instructor_nombre']) . "' ";
+                    echo "data-id_instructor='" . htmlspecialchars($instructor_id_filtro) . "' "; 
+                    echo "data-fecha_vencimiento_item='" . htmlspecialchars($detalle['fecha_vencimiento_item']) . "'>"; 
+                    echo "<i class='fa-solid fa-exclamation-triangle'></i> Novedad"; 
+                    echo "</button>";
                 } else {
                     echo "<span class='status-info'>" . htmlspecialchars(ucwords(str_replace('_', ' ', $detalle['estado_detalle']))) . "</span>";
                 }
@@ -119,7 +143,9 @@ if ($instructor_id_filtro > 0) {
             }
             echo "</tbody>";
             echo "</table>";
+            echo "</div>";
             echo "<button class='btn-devolver-seleccionados' id='btnDevolverSeleccionados'><i class='fas fa-check-double'></i> Devolver Seleccionados</button>";
+            // echo "<button class='btn-novedad-seleccionados' id='btnNovedadSeleccionados' disabled ><i class='fas fa-exclamation-triangle'></i> Registrar Novedad General</button>";
             echo "</div>"; 
         }
 

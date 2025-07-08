@@ -1,5 +1,4 @@
 <?php
-session_start();
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -11,6 +10,12 @@ header('Content-Type: application/json');
 $response = ['success' => false, 'message' => '', 'equipos' => [], 'instructores' => [], 'total_equipos_disponibles' => 0];
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/Software_Almacen/App/Conexion.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/Software_Almacen/App/ProhibirAcceso.php';
+
+if (!isset($_SESSION["rol"]) || ($_SESSION["rol"] !== "almacenista" && $_SESSION["rol"] !== "administrador")) {
+    header("Location: /Software_Almacen/App/Error.php");
+    exit();
+}
 
 if ($conexion->connect_error) {
     $response['message'] = "Error de conexión a la base de datos: " . $conexion->connect_error;

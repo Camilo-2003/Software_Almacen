@@ -6,10 +6,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/Software_Almacen/App/Conexion.php';
 require_once "../../ProhibirAcceso.php";
 
 if (!isset($_SESSION["rol"]) || ($_SESSION["rol"] !== "almacenista" && $_SESSION["rol"] !== "administrador")) {
-    echo "<p style='color: red;'>Acceso denegado. No tiene permisos para ver este contenido.</p>";
+    header("Location: /Software_Almacen/App/Error.php");
     exit();
 }
-$sql = "SELECT id_material, nombre, tipo, stock FROM materiales WHERE stock > 0 ORDER BY nombre";
+$sql = "SELECT id_material, nombre, tipo, stock, estado_material FROM materiales WHERE stock > 0 ORDER BY nombre";
 $resultado = $conexion->query($sql);
 
 $sqlConsumible = "SELECT COUNT(*) as total_consumibles FROM materiales WHERE tipo = 'consumible' AND stock > 0";
@@ -22,10 +22,10 @@ $materialesConsumibles = $resultado2 ? $resultado2->fetch_assoc()['total_consumi
 $materialesNoConsumibles = $resultado3 ? $resultado3->fetch_assoc()['total_no_consumibles'] : 0;
 ?>
 <h2 class="txt">Materiales Disponibles</h2>
-<p>Listado de materiales con existencias en el inventario.</p>
-<p>Consumible: <b><?php echo $materialesConsumibles; ?></b> | No Consumible: <b><?php echo $materialesNoConsumibles; ?></b></p>
+<p class="texto">Listado de materiales con existencias en el inventario.<p class="texto">Consumible: <b><?php echo $materialesConsumibles; ?></b> | No Consumible: <b><?php echo $materialesNoConsumibles; ?></b></p></p>
 
 <?php if ($resultado && $resultado->num_rows > 0): ?>
+<div class="table-responsivee">
     <table>
         <thead>
             <tr>
@@ -33,6 +33,7 @@ $materialesNoConsumibles = $resultado3 ? $resultado3->fetch_assoc()['total_no_co
                 <th>Nombre</th>
                 <th>Tipo</th>
                 <th>Stock Disponible</th>
+                <th>Estado Material</th>
             </tr>
         </thead>
         <tbody>
@@ -42,10 +43,12 @@ $materialesNoConsumibles = $resultado3 ? $resultado3->fetch_assoc()['total_no_co
                     <td><?= htmlspecialchars($fila['nombre']) ?></td>
                     <td><?= htmlspecialchars($fila['tipo']) ?></td>
                     <td><?= htmlspecialchars($fila['stock']) ?></td>
+                    <td><?= htmlspecialchars($fila['estado_material']) ?></td>
                 </tr>
             <?php endwhile; ?>
         </tbody>
     </table>
+</div>
 <?php else: ?>
     <p>No hay materiales disponibles en este momento.</p>
 <?php endif; ?>

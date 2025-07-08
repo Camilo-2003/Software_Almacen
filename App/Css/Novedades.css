@@ -14,10 +14,66 @@ width: 100%;
 height: 85px;
 display: flex;
 align-items: center;
-background-color: rgb(35, 122, 57);
-box-shadow: 0 2px 3px rgb(8, 126, 43);
-color: rgb(0, 0, 0);
-padding: 0 20px;
+gap: 15px; 
+}
+.header-center {
+flex-grow: 1; 
+display: flex; 
+align-items: center; 
+justify-content: center; 
+gap: 15px; 
+padding: 0 10px; 
+}
+header .logo {
+justify-content: center;
+align-items: center;
+justify-items: center;
+height: 50px;
+filter: brightness(0) invert(1);
+transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+header .logo:hover {
+transform: scale(1.05);
+}
+header h1 {
+margin: 0; 
+font-size: 1.8em; 
+white-space: nowrap;
+}
+header .regresar a,
+.header-right a {
+background-color: rgba(255, 255, 255, 0.2);
+color: white;
+padding: 5px 19px;
+border-radius: 25px;
+text-decoration: none;
+font-weight: 600;
+transition: background-color 0.3s, transform 0.2s ease;
+border: 1px solid rgba(255, 255, 255, 0.4);
+box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+display: inline-flex;
+align-items: center;
+gap: 8px;
+}
+header .regresar a:hover,
+.header-right a:hover {
+background-color: rgba(255, 255, 255, 0.3);
+transform: translateY(-2px);
+box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+.main-content {
+padding: 20px;
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+.container {
+background-color: #fff;
+padding: 30px;
+border-radius: 8px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+width: 100%;
+max-width: 900px; 
 box-sizing: border-box;
 }
 .logo {
@@ -149,8 +205,11 @@ box-shadow: 4px 4px 1px #157c34;
 }
 .historial:hover {
 color: white;
-background: rgb(47, 146, 47);
-outline: 2px solid white;
+padding: 8px 23px;
+}
+.acciones .btn-editar:hover {
+background-color: #0056b3;
+transform: translateY(-2px);
 }
 .contain {
 margin-top: 28px;
@@ -165,79 +224,53 @@ border-radius: 12px;
 .rgs {
 background-color: rgba(255, 255, 255, 0.2);
 color: white;
-padding: 10px 20px;
-border-radius: 25px;
-text-decoration: none;
-font-weight: 600;
-transition: background-color var(--transition-speed), transform 0.2s ease;
-border: 1px solid rgba(255, 255, 255, 0.4);
-box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+padding: 8px 17px;
 }
-.rgs:hover {
-background-color: rgba(255, 255, 255, 0.3);
+.acciones .btn-eliminar:hover {
+background-color:  #c82333;
 transform: translateY(-2px);
-box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
-/* Contenedor del campo file alineado como el resto */
-.form-group {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem; /* espacio entre elementos */
-  margin-bottom: 1rem;
+.error-message {
+color: #fa0019;
+background-color: #f8d7da;
+border: 1px solid #f5c6cb;
+padding: 10px;
+border-radius: 5px;
+margin-bottom: 15px;
+text-align: center;
 }
-
-/* Label opcional alineado al inicio */
-.form-group label {
-  min-width: 150px; /* ancho similar al resto de labels */
-  text-align: right;
-  margin-right: 0.5rem;
+@media (max-width: 768px) {
+header {
+flex-direction: column; 
+align-items: flex-start;
+padding-bottom: 10px; 
 }
-
-/* Estilo del área del input file */
-input[type="file"] {
-  flex: 1;
-  display: inline-flex;
-  align-items: center;
-  padding: 0.7rem;
-  border: 1px solid #ced4da;
-  border-radius: 0.5rem;
-  box-sizing: border-box;
+.header-left,
+.header-center,
+.header-right {
+width: 100%; 
+justify-content: center;
+text-align: center;
+margin-bottom: 10px; 
 }
-
-.form-container {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 1rem;
+.header-left {
+justify-content: center; 
 }
-
-input[type="file"] {
-  display: inline-flex;
-  align-items: center;
-  width: 100%;
-  box-sizing: border-box;
-  height: 2.5rem;
-  padding: 0.25rem; /* relleno general */
-  border: 1px solid #ced4da;
-  border-radius: 0.25rem;
-  background-color: #fff;
-  color: #495057;
-  overflow: hidden;
+.header-right {
+flex-direction: column; 
+gap: 8px; 
 }
-
-/* Estilo interno del botón */
-input[type="file"]::file-selector-button {
-  padding: 0.5rem 1rem;
-  margin-right: 0.75rem; /* espacio entre botón y texto */
-  border: 1px solid #ced4da;
-  border-radius: 0.25rem;
-  background-color: #fff;
-  cursor: pointer;
-  font: inherit;
+header h1 {
+font-size: 1.5em;
+margin-top: 10px;
 }
-
-/* Hover y focus para consistencia visual */
-input[type="file"]::file-selector-button:hover {
-  background-color: #e9ecef;
+header .regresar a,
+.header-right a {
+width: calc(100% - 20px); 
+text-align: center;
+}
+.container {
+padding: 20px;
 }
 input[type="file"]:focus {
   outline: none;

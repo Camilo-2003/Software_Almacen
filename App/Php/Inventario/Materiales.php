@@ -79,7 +79,7 @@ function handlePostMaterial($conn) {
     $stmt->bind_param("ssis", $nombre, $tipo, $stock, $estado_material);
 
     if ($stmt->execute()) {
-        echo json_encode(['message' => 'Material creado con éxito', 'id' => $conn->insert_id]);
+        echo json_encode(['message' => '✅ Material creado con éxito', 'id' => $conn->insert_id]);
     } else {
         http_response_code(500);
         echo json_encode(['message' => 'Error al crear material: ' . $stmt->error]);
@@ -131,7 +131,7 @@ function handlePutMaterial($conn) {
 
     if ($stmt->execute()) {
         if ($stmt->affected_rows > 0) {
-            echo json_encode(['message' => 'Material actualizado con éxito']);
+            echo json_encode(['message' => '✅ Material actualizado con éxito']);
         } else {
             echo json_encode(['message' => 'Material no encontrado o no se realizaron cambios.']);
         }
@@ -161,7 +161,7 @@ function handleDeleteMaterial($conn) {
 
     if ($stmt->execute()) {
         if ($stmt->affected_rows > 0) {
-            echo json_encode(['message' => 'Material eliminado con éxito']);
+            echo json_encode(['message' => '✅ Material eliminado con éxito']);
         } else {
             echo json_encode(['message' => 'Material no encontrado.']);
         }

@@ -28,3 +28,61 @@ function validarFormulario() {
   document.getElementById("ambiente").addEventListener("input", function(e) {
     this.value = this.value.replace(/^\s+/, '');
   });
+
+document.addEventListener('DOMContentLoaded', function() {
+
+    // 1. Manejar el envío del formulario de AGREGAR y EDITAR
+    // Esta parte ya estaba bien, apunta a '.form-container' y no causa conflicto.
+    const form = document.querySelector('.form-container');
+    form.addEventListener('submit', function(e) {
+        e.preventDefault(); // Evitar el envío tradicional
+
+        const formData = new FormData(form);
+
+        fetch('Gestion_Instructores.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            showFloatingMessage(data.message, data.type);
+            if (data.type === 'success') {
+                // Esperar 2 segundos para que el usuario vea el mensaje y luego recargar la página
+                setTimeout(() => {
+                    window.location.href = 'Gestion_Instructores.php';
+                }, 2000);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showFloatingMessage('🚨 Error al Registrar Instructor.', 'error');
+        });
+    });
+
+    const deleteForms = document.querySelectorAll('.delete-form');
+    deleteForms.forEach(deleteForm => {
+        deleteForm.addEventListener('submit', function(e) {
+            e.preventDefault(); // Evitar el envío tradicional
+
+            if (confirm("¿Estás seguro que quieres eliminar este instructor?")) {
+                const formData = new FormData(deleteForm);
+                
+                fetch('Gestion_Instructores.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    showFloatingMessage(data.message, data.type);
+                    if (data.type === 'success') {
+                        deleteForm.closest('tr').remove();
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showFloatingMessage('🚨 Error al Registrar Instructor', 'error');
+                });
+            }
+        });
+    });
+});

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="Img/logo_sena.png" type="image/x-icon">
+  <title>Olvidaste tu Contraseña</title>
+  <link rel="stylesheet" href="Css/Login.css">
+</head>
+<body>
+
+<header>
+  <img src="Img/logo_sena.png" alt="Logo Sena" class="logo">
+  <h1>📦 Recuperar Contraseña</h1>
+</header>
+
+<div class="container">
+  <h3>Recuperar Contraseña</h3>
+  <form method="POST" action="Php/enviar_enlace.php">
+    <label>Ingresa tu correo registrado:</label>
+    <input type="email" name="correo" placeholder="Correo Electrónico" required>
+    <button type="submit">Enviar enlace</button>
+  </form>
+</div>
+    <p><a href="Login.php" class="regist">⬅️ Volver al inicio de sesión</a></p>
+</body>
+</html>
